@@ -1,25 +1,17 @@
 CPP      = g++ -Wall -Wextra
-# CPP      = g++-4 -Wall -Wextra
 
-
-# WINDRES = windres.exe
 RES      = 
-#OBJ      = tree_admin.o sequence_gen.o pvartree.o model_admin.o mymodel.o BasicNode.o BasicTree.o CRandom.o global-types-and-parameters.o $(RES) PolyMoSim.o pvarmain.o
-#LINKOBJ  = tree_admin.o sequence_gen.o pvartree.o model_admin.o mymodel.o BasicNode.o BasicTree.o CRandom.o global-types-and-parameters.o $(RES)
-
 OBJ      = tree_admin.o model_admin.o mymodel.o BasicNode.o BasicTree.o CRandom.o global-types-and-parameters.o split_admin.o BSplit.o $(RES) discrete_gamma.o PolyMoSim.o 
 LINKOBJ  = tree_admin.o model_admin.o mymodel.o BasicNode.o BasicTree.o CRandom.o global-types-and-parameters.o split_admin.o BSplit.o $(RES) discrete_gamma.o
 
 LIBS     =   
-## INCS     = -I ../../../Klassen/
-## CXXINCS  = -I ../../../Klassen/ 
 BIN      =   PolyMoSim-v1.1.4
 
-CXXFLAGS = $(CXXINCS)  -g3 -ggdb # -static ## Static linking is recommended e.g. for mingw, 
-CFLAGS   = $(INCS)  -g3 -ggdb    # -static ## Static linking is recommended e.g. for mingw, 
+# CXXFLAGS = $(CXXINCS)  -g3 -ggdb # -static ## Static linking is recommended e.g. for mingw, 
+# CFLAGS   = $(INCS)  -g3 -ggdb    # -static ## Static linking is recommended e.g. for mingw, 
 
-#CXXFLAGS = $(CXXINCS)  -O2 # -static ## Static linking is recommended e.g. for mingw, 
-#CFLAGS   = $(INCS)     -O2 # -static ## Static linking is recommended e.g. for mingw, 
+CXXFLAGS = $(CXXINCS)  -O2 # -static ## Static linking is recommended e.g. for mingw, 
+CFLAGS   = $(INCS)     -O2 # -static ## Static linking is recommended e.g. for mingw, 
 
 RM       = rm -f
 
