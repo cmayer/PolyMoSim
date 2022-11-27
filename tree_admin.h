@@ -50,82 +50,162 @@
 ***************************************************************************************************/
 
 #ifndef Tree_adminH   // error checking still inconsisten xxxxxxxxxxxxxxxxxxxxxxxx
+
 #define Tree_adminH
+
+
 
 #include "PolyMoSim.h"
 
+
+
 #include <vector>
+
 #include "BasicTree.h"
 
+
+
 struct tree_struct {
+
         double     scalingfactor;
+
         unsigned   partitionSize;
+
         faststring     default_modelName;
+
         faststring     treeString;
+
         BasicTree  *treeData;
 
+
+
   tree_struct(double pscalingfactor = 1, unsigned ppartitionSize = 0,
+
               faststring pdefault_modelName = "default",
+
               faststring ptreeString = ""):
+
     scalingfactor(pscalingfactor), partitionSize(ppartitionSize),
+
       default_modelName(pdefault_modelName), treeString(ptreeString), treeData(NULL) //, BasicTree* treeptr = NULL)
+
   {}
+
 };
+
+
 
 class tree_admin {
 
+
+
  public:
+
   class indexerror {
+
   };
+
+
 
   class readerror {
+
   private:
+
     int    line;
+
     faststring unknown;
+
   public:
+
   readerror(int l, faststring u):line(l),unknown(u) {}
+
     int    getLine() {return line; }
+
     faststring getUnknwonKeyword() {return unknown; }
+
   };
 
+
+
  private:
+
   vector<tree_struct*> treevector;
 
+
+
  public: 
+
   void               destroy(int);
+
   void               add(int, double, unsigned, const faststring&, const faststring &);
+
   void               swap(unsigned, unsigned);
 
+
+
   void               create(const char*);
+
   void               print(ostream& = cout, unsigned = 0, const char * = "");
+
+
 
   void               default_treevector(int);
 
+
+
   
+
   void               set(int, double, unsigned, const faststring &, const faststring &);
+
   void               set_BasicTree(unsigned);
+
   void               set_itsBasicTree(unsigned, BasicTree *);
+
   BasicTree*         get_itsBasicTree(unsigned);
+
+
 
   void               ini(int);
 
+
+
   int                getNumTrees() const;
+
   unsigned           getAlignmentLength() const;
+
   unsigned           getPartitionStartCoordinate(unsigned) const;
+
   faststring             get_dataTypeString() const;
 
+
+
   double             getScalingFactor(unsigned) const;
+
   unsigned           getPartitionSize(unsigned) const;
+
   const faststring&      getDefaultModelName(unsigned)  const;
+
   const faststring&      getTreeString(unsigned) const;
+
   
+
   bool               equal_takon_sets() const;
+
 };
 
+
+
 inline int tree_admin::getNumTrees() const {
+
   return treevector.size();
+
 }
 
 
 
+
+
+
+
 #endif
+

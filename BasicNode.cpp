@@ -51,93 +51,185 @@
 
 #include "BasicNode.h"
 
+
+
 using namespace std;
 
+
+
 BasicNode::BasicNode(){
+
   children = 0;
+
   name = "";
+
   branchlength = 0.0;
+
   model_name = "";
+
   new_model = false;
+
   sequence = "";
+
   model = NULL;
+
   my_parent = NULL;
+
 }
+
+
 
 void BasicNode::push_back_child(BasicNode *child){
+
   childlist.push_back(child);
+
   children++;
+
 }
+
+
 
 BasicNode* BasicNode::get_parent() {
+
   return my_parent;
+
 }
+
+
 
 void BasicNode::set_parent(BasicNode *parent){
+
   my_parent = parent;
+
 }
+
+
 
 unsigned BasicNode::get_num_children() const {
+
   return children;
+
 }
+
+
 
 const std::vector<BasicNode*>& BasicNode::get_childlist(){
+
   return childlist;
+
 }
+
+
 
 const faststring& BasicNode::get_name() const {
+
   return name;
+
 }
+
+
 
 void BasicNode::set_name(const faststring& str){
+
   name = str;
+
 }
+
+
 
 void BasicNode::push_back_to_name(char c){
+
   name.push_back(c);
+
 }
+
+
 
 double BasicNode::get_branchlength(){
+
   return branchlength;
+
 }
+
+
 
 void BasicNode::set_branchlength(double b){
+
   branchlength = b;
+
 }
+
+
 
 const basic_model* BasicNode::get_model() {
+
   return model;
+
 }
+
+
 
 void BasicNode::set_model(const basic_model* newmodel) {
+
   model = newmodel;
+
   set_model_name(model->get_modelname());
+
 }
+
+
 
 bool BasicNode::get_new_model_status() {
+
   return new_model;
+
 }
+
+
 
 void BasicNode::set_new_model_status(bool b) {
+
   new_model = b;
+
 }
+
+
 
 faststring& BasicNode::get_model_name() {
+
   return model_name;
+
 }
+
+
 
 void BasicNode::set_model_name(const faststring& str) {
+
   model_name = str;
+
 }
+
+
 
 void BasicNode::set_sequence(const faststring& str) {
+
   sequence = str;
+
 }
+
+
 
 // void BasicNode::append_sequence(const char *b, const char *e) {
+
 //   sequence.append(b, e);
+
 // }
 
+
+
 faststring& BasicNode::get_sequence() {
+
   return sequence;
+
 }
+

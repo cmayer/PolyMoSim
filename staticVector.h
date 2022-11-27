@@ -50,82 +50,162 @@
 ***************************************************************************************************/
 
 #ifndef STATICVECTORH
+
 #define STATICVECTORH
+
+
 
 #include <iostream>
 
+
+
 template<int N>
+
 class staticVector {
+
+
 
   template<int> friend class staticSquareMatrix;
 
+
+
  public:
+
   class indexerror {
+
   };
 
+
+
  private:
+
   double bvector[N];
 
+
+
  public:
+
   staticVector() {};
+
   staticVector(double);
+
   staticVector(double *);
 
+
+
   void     assign(double);
+
   void     assign(double *);
 
+
+
   void     print(std::ostream& = std::cout, double = 4);
+
   double&  operator [](int);
+
   const double&  operator [](int) const;
+
 };
 
 
+
+
+
 template<int N>
+
 staticVector<N>::staticVector(double x) {
+
   int j;
+
   for (j = 0; j < N; ++j) {
+
     bvector[j] = x;
+
   }
+
 }
 
+
+
 template<int N>
+
 staticVector<N>::staticVector(double *x) {
+
   std::memcpy(bvector, x, sizeof(bvector));
+
 }
 
+
+
 template<int N>
+
 inline void staticVector<N>::assign(double x) {
+
   int j;
+
   for (j = 0; j < N; ++j) {
+
     bvector[j] = x;
+
   }
+
 }
 
+
+
 template<int N>
+
 inline void staticVector<N>::assign(double *x) {
+
   std::memcpy(bvector, x, sizeof(bvector));
+
 }
 
+
+
 template<int N>
+
 inline void staticVector<N>::print(std::ostream& os, double pres) {
+
   int j;
+
+
 
   std::cout.setf(std::ios::fixed);
+
   std::cout.precision(pres);
+
   for (j = 0; j < N-1; ++j) {
+
     os << bvector[j] << " ";
+
   }
+
   os << bvector[j];
+
 }
 
+
+
 template<int N>
+
 inline double& staticVector<N>::operator[](int i) {
+
   return bvector[i];
+
 }
 
+
+
 template<int N>
+
 inline const double& staticVector<N>::operator[](int i) const {
+
   return bvector[i];
+
 }
+
+
 
 #endif
+

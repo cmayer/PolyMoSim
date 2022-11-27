@@ -50,59 +50,116 @@
 ***************************************************************************************************/
 
 #ifndef CTAXA_H
+
 #define CTAXA_H
 
+
+
 #include <map>
+
 #include <vector>
+
 #include "faststring2.h"
+
+
 
 using namespace std;
 
+
+
 class CTaxa
+
 {
+
 private:
+
   map<faststring, unsigned>   taxaNames_map;
+
   vector<faststring>          taxaNames_vec;
 
+
+
 public:
+
   unsigned       GetTaxaNum();
+
   const faststring&  GetTaxonLabel(unsigned) const;
+
   unsigned       GetTaxonPosition(const faststring&);
+
   void           add_taxon(const faststring&);
 
+
+
   unsigned       GetMaxTaxonLabelLength() const;
+
   //  void           GetNamesOfTaxaInSplit(const mybitset<BITSETSIZE>&,
+
   //					     faststring, faststring&, faststring& ) const;
+
+
 
 };
 
+
+
 inline unsigned CTaxa::GetTaxaNum() {
+
   return taxaNames_vec.size();
+
 }
+
+
 
 inline const faststring&  CTaxa::GetTaxonLabel(unsigned i) const {
+
   return taxaNames_vec[i]; //index abfragen
+
 }
+
+
 
 inline unsigned CTaxa::GetTaxonPosition(const faststring& s) {
+
   return taxaNames_map[s];  // ist faststring (bzw. taxonname) vorhanden?
+
 }
 
+
+
 inline void CTaxa::add_taxon(const faststring& s) {
+
   taxaNames_map[s] = taxaNames_vec.size();
+
   taxaNames_vec.push_back(s);
+
 }
+
+
+
 
 
 inline unsigned CTaxa::GetMaxTaxonLabelLength() const
+
 {
+
   unsigned maxlen = 0, ti, len;
 
+
+
   for (ti = 0; ti < ( taxaNames_vec.size() - 1 ) ; ++ti)
+
     if ( (len = taxaNames_vec[ti].length())>maxlen )
+
       maxlen = len;
 
+
+
   return maxlen;
+
 }
 
+
+
 #endif
+

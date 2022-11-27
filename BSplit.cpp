@@ -51,49 +51,97 @@
 
 #include "BSplit.h"
 
+
+
 BSplit::BSplit(const fast_dynamic_bitset& b) {
+
   split = b;
+
 }
+
+
 
 BSplit::BSplit(const BSplit& s) {
+
   split = s.split;
+
 }
 
+
+
 // Neue Reihenfolge der Argumente
+
 BSplit::BSplit(unsigned long len, const vector<unsigned long>& vec):split(len) {
+
   vector<unsigned long>::const_iterator it;
+
   it = vec.begin();
+
   while( it != vec.end() ) {
+
     split.set(*it);       //indexerror
+
     ++it;
+
   }
+
 }
 
+
+
 // Neue Reihenfolge der Argumente
+
 BSplit::BSplit(unsigned long len, unsigned long *u, unsigned long array_len):split(len) {
+
   split.clear();
+
   unsigned i = 0;
+
   while(i < array_len) {
+
     split.set(u[i]);      //indexerror
+
     ++i;
+
   }
+
 }
+
+
 
 bool BSplit::compatible_with(const BSplit& s_b) const {
+
   BSplit s_a_flipped(split);
+
   BSplit s_b_flipped(s_b.split);
+
   s_a_flipped.split.flip();
+
   s_b_flipped.split.flip();
 
+
+
   if( ((split & s_b.split).none())             || ((split & s_b_flipped.split).none())            || 
+
       ((s_a_flipped.split & s_b.split).none()) || ((s_a_flipped.split & s_b_flipped.split).none()) ) {
+
     return true;
+
   } else {
+
     return false;
+
   }  
+
 }
 
+
+
 void BSplit::print(ostream& os) const {
+
   os << split;
+
   os << endl;
+
 }
+

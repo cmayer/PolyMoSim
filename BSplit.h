@@ -50,65 +50,128 @@
 ***************************************************************************************************/
 
 #ifndef BSplitH
+
 #define BSplitH
 
+
+
 #include "fast-dynamic-bitset.h"
+
 #include "faststring2.h"
+
 #include <iostream>
+
 #include <vector>
+
+
 
 using namespace std;
 
+
+
 class BSplit {
 
+
+
  private:
+
   fast_dynamic_bitset split;
 
+
+
  public:
+
   BSplit(unsigned long u = 0):split(u) {
+
     split.clear();
+
   }
 
+
+
   BSplit(const fast_dynamic_bitset&);
+
   BSplit(const BSplit&);
+
   BSplit(unsigned long, const vector<unsigned long>&);
+
   BSplit(unsigned long, unsigned long*, unsigned long);
 
+
+
   friend bool operator ==(const BSplit&, const BSplit&);
+
   friend bool operator <(const BSplit&, const BSplit&);
 
+
+
   bool compatible_with(const BSplit&) const;
+
   fast_dynamic_bitset& get_split();
+
+
 
   void print(ostream& = cout) const;
 
+
+
 };
 
+
+
 inline bool operator ==(const BSplit& split_a, const BSplit& split_b) {
+
   if( split_a.split == split_b.split ) {
+
     return true;
+
   } else {
+
     BSplit split_b_flipped(split_b);
+
     split_b_flipped.split.flip();
+
     if( split_a.split == split_b_flipped.split ) {
+
       return true;
+
     } else {
+
       return false;
+
     }
+
   }
+
 }
+
+
 
 inline bool operator <(const BSplit& split_a, const BSplit& split_b) {
+
   if( split_a.split < split_b.split ) {
+
     return true;
+
   }
+
   else {
+
     return false;
+
   }
+
 }
+
+
 
 inline fast_dynamic_bitset& BSplit::get_split() {
+
   return split;
+
 }
 
+
+
 #endif
+
