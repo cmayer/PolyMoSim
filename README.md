@@ -7,15 +7,15 @@ Table of contents:
   * [System requirements:](#system-requirements)
 - [Quickstart](#quickstart)
 - [Documentation](#documentation)
-- [Frequently aksed questions](#Frequently-aksed-questions)
+- [Frequently asked questions](#Frequently-aksed-questions)
 
 ## About the PolyMoSim program <a id="about-the-PolyMoSim-package"></a>
-PolyMoSim can simulate the evolution of nucleotide and amino acid sequence alignments for a given phylogenetic tree and given evolutionary model and model parameters.
-PolyMoSim is a fast and flexible simulation program with a wide range of models that allows to have different models of sequence evolution on different branches of the tree. Even the rate heterogeneity can be changed or kept in different parts of the tree.
 
-PolymoSim can be used to test pylogenetic tree reconstuction programs and to train Machine learning models for phylogenetic reconstruction.
+PolyMoSim is a program that simulates sequence evolution of nucleotide or amino acid sequences. For specified evolutionary models, model parameters and phylogenetic trees, it can simulate data sets that evolved unter this tree and model. PolyMoSim is a fast and flexible program that supports a large number of evolutionary models, allows different models on different branches, mixture models and even a site heterogeneity that differs on different branches of the tree.
 
-## Compiling and installing OliInSeq <a id="compiling-and-installing"></a>
+It has been designed to test phylogenetic tree reconstruction programs and to train Machine learning models for phylogenetic reconstruction.
+
+## Compiling and installing PolyMoSim <a id="compiling-and-installing"></a>
 - Download the project or clone the project locally.
 - On the command line go to the project folder and type "make".
 - Make sure that you copy the PolyMoSim-vx.y.z program to a folder that listed in your $PATH variable, or copy it to the folder you want to use it from.
@@ -39,50 +39,46 @@ PolyMoSim-vx.y.z  [--verbosity <integer>] -m <string> -t <string> [-o <string>] 
 
 Where:   
 --verbosity <integer>  
-(value required)  Adjust the level of additional information given to
-the user. Values from 0-5 are valid. Default 1. Set to 0 for less
+(value required)  Adjust the level of additional information given to the user. Values from 0-5 are valid. Default 1. Set to 0 for less
 output.  
 
 -m <string>,  --modelfile <string>  
-(required)  (value required)  Model file for simulation.  
+(Required)  (value required)  Model file for simulation.  
 
 -t <string>,  --treefile <string>  
-(required)  (value required)  Tree file for simulation.  
+(Required)  (value required)  Tree file for simulation.  
 
 -o <string>,  --outfile <string>  
-(value required)  Name of output file. If not specified, results are
-printed to standard output.  
+(Value required)  Name of output file. If not specified, results are printed to standard output.  
 
 -l <string>,  --log <string>  
-(value required)  File to write log information to.  
+(Value required)  File to write log information to.  
 
 -n <unsigned>,  --nreps <unsigned>  
-(value required)  Number of independent data generated in simulation.
+(Value required)  Number of independent data generated in simulation.
 Default: 1  
 
 --print_siterate_data <string>  
-(value required)  Print full site rates of all models to given file.
+(Value required)  Print full site rates of all models to given file.
 Default: No siterate information is printed.  
 
 --print_siterate_histogram <string>  
-(value required)  Print site rates histogram for each model to given
-file. Default: No site rate information is printed.  
+(Value required)  Print site rates histogram for each model to given file. Default: No site rate information is printed.  
 
 --print_ancestral_seq <string>  
-(value required)  With this option and by providing a file name, the
-ancestral sequence is printed to this file. Default: ancestral
+(Value required)  With this option and by providing a file name, the ancestral sequence is printed to this file. Default: ancestral
 sequence is not printed  
 
 --post <string>  
-(value required)  File included in output after each generated data
+(Value required)  File included in output after each generated data
 set.  
 
 --pre <string>  
-(value required)  File included in output before each generated data
+(Value required)  File included in output before each generated data
 set.  
 
 -s <unsigned int>,  --seed <unsigned int>  
-(value required)  The seed value for the random number generator.
+(Value required)  The seed value for the random number generator.
 Default: time.  
 
 -f <nexus|phylip|phylip_no_spaces|fasta|site_pattern_freq_absolute
@@ -91,9 +87,8 @@ Default: time.
 |phylip_no_spaces|fasta|site_pattern_freq_absolute
 |site_pattern_freq_relative|site_pattern_freq_absolute_fill
 |site_pattern_freq_relative_fill>  
-(value required)  Output format of sequence data. Default: fasta. The
-site_pattern* format list the site pattern frequencies instead of the
-alignment. The site_pattern*_fill formats list all patterns the non
+(Value required)  Output format of sequence data. Default: fasta. The
+site_pattern* format list the site pattern frequencies instead of the alignment. The site_pattern*_fill formats list all patterns the non
 fill formats only the site patterns that occurred in the simulated data
 set.  
 
@@ -107,15 +102,13 @@ Displays version information and exits.
 Displays usage information and exits.  
 
 
-This program simulates the evolution of molecular (nucleotide and amino
-acid) sequences.  
+This program simulates the evolution of molecular (nucleotide and amino acid) sequences.  
 
 
 ## Quickstart <a id="quickstart"></a>
-./OliInSeq-vx.y.z. -i input-fasta-file.fas -o output-fasta.fas
+./PolyMoSim-vx.y.z. -i input-fasta-file.fas -o output-fasta.fas
 
 
 
 ## Frequently asked questions <a id="Frequently-aksed-questions"></a>
 No questions have been asked so far.
-
