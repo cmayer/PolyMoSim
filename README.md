@@ -10,9 +10,10 @@ Table of contents:
 - [Frequently aksed questions](#Frequently-aksed-questions)
 
 ## About the PolyMoSim program <a id="about-the-PolyMoSim-package"></a>
-In order to test pylogenetic tree reconstuction programs and in order to train Machine learning models for phylogenetic reconstruction,
-we need a fast and flexible simulation program for nucleotide and amino acid sequences, for a give tree (set of trees) and model (set of models).
+PolyMoSim can simulate the evolution of nucleotide and amino acid sequence alignments for a given phylogenetic tree and given evolutionary model and model parameters.
+PolyMoSim is a fast and flexible simulation program with a wide range of models that allows to have different models of sequence evolution on different branches of the tree. Even the rate heterogeneity can be changed or kept in different parts of the tree.
 
+PolymoSim can be used to test pylogenetic tree reconstuction programs and to train Machine learning models for phylogenetic reconstruction.
 
 ## Compiling and installing OliInSeq <a id="compiling-and-installing"></a>
 - Download the project or clone the project locally.
