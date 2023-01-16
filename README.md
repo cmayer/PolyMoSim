@@ -26,6 +26,25 @@ In particular this includes Windows, MacOS and Linux operating systems.
 Here I will only explain how to compile it on Mac and Linux computers.
 
 ## Documentation <a id="documentation"></a>
+
+### Required input files:
+PolyMoSim requires two input files: 
+
+i) The model file, which contains a list specified evolutionary models with model parameters that will be used for the simulation. See the README-model-files.md for more details.
+
+ii) The tree file. This file contains one or multiple lines specifying one or multiple partitions of the data set. See the README-tree-files.md for more details.
+
+**Quickstart:**
+The simplest way to start PolyMoSim is as follows:
+
+PolyMoSim-vx.y.z -m model-file.txt -t tree-file.txt --outfile simulation-result.fas
+or
+PolyMoSim-vx.y.z -m model-file.txt -t tree-file.txt 1> simulation-result.fas
+
+### Example analyses:
+See the Example analyses folder for example analyses.
+
+### Command line parameters:
 PolyMoSim-vx.y.z  [--verbosity <integer>] -m <string> -t <string> [-o <string>] [-l <string>] [-n <unsigned>]
 [--print_siterate_data <string>]
 [--print_siterate_histogram <string>]
@@ -100,14 +119,6 @@ Displays version information and exits.
 
 -h,  --help  
 Displays usage information and exits.  
-
-
-This program simulates the evolution of molecular (nucleotide and amino acid) sequences.  
-
-
-## Quickstart <a id="quickstart"></a>
-./PolyMoSim-vx.y.z. -i input-fasta-file.fas -o output-fasta.fas
-
 
 
 ## Frequently asked questions <a id="Frequently-aksed-questions"></a>
