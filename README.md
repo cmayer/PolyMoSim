@@ -51,8 +51,8 @@ output-file-name (-o), setting the seed for the random number generator (-s) whi
 A full list of command line parameters is given below.
 
 
-### Example analyses:
-See the Example analyses folder for example analyses. The [README-Examples.md](README-Examples.md) 
+### Examples:
+Example simulations are provided in the Examples folder. See the [Examples/README-Examples.md](Examples/README-Examples.md) for a list of examples and a brief explanation.
 
 ### Full list of command line parameters:
 PolyMoSim-vx.y.z  [--verbosity <integer>] -m <string> -t <string> [-o <string>] [-l <string>] [-n <unsigned>]
