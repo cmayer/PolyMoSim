@@ -1,0 +1,12 @@
+begin model
+name: Modell_F81
+modeltype: F81
+basefreq: 0.4 0.1 0.1 0.4
+end model
+
+begin model
+name: Modell_JC
+modeltype: JC
+end model
+
+

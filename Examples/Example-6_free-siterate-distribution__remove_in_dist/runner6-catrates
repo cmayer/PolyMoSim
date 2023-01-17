@@ -1,0 +1,12 @@
+rm best-paup-MP-tree.tre
+rm best-paup-ML-tree.tre
+../../PolyMoSim-v1.1.1 -m Modelfile6.txt -t tree6.txt -l log.log  -n 100 --post paup-block-ML_MP-analysis.txt   1>sim-sequences.nex-catrates --print_siterate_data site-Rates.txt --print_siterate_histogram site-Rates-hist.txt
+paup -n sim-sequences.nex-catrates
+grep "(C,D)" best-paup-MP-tree.tre | wc
+grep "(C,D)" best-paup-ML-tree.tre | wc
+
+mv best-paup-MP-tree.tre best-paup-MP-tree.tre-catrates
+mv best-paup-ML-tree.tre best-paup-ML-tree.tre-catrates
+mv log.log log.log-catrates
+
+

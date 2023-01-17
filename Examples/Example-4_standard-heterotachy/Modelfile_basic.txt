@@ -1,0 +1,47 @@
+## Example model file for Multimoseqsim:
+##
+## Put comments into your model file with the aid of the '#' character.
+## If a '#' character occurs in a line of your model file, the remainder of
+## the line will be ignored my Multimoseqsim.
+## Here we will use comments do describe the model file format.
+##
+## List of allowed nucleotide modeltypes: JC, F81, K2P, F84, HKY, GTR
+## All other nucleotide substitution models need to be specified as special cases of these models.
+
+## Model file format:
+begin model       # (required) Indicates the start of a new nucleotide model
+name: Modell_JC   # (required) Give each model a unique name. A name can be composed of characters,
+                  #            numbers and underscores.
+modeltype: JC     # (required) The model type. A list of implemneted models is given above.    
+end model         # (required) Indicates the end of the model
+
+begin model
+name: Modell_JC_shape_01
+modeltype: JC
+shape: 0.1        # (not required) If a shape parameter is specified, gamma distributed site rates 
+                  # are assumed. Of no heterogeneity is specified, site rates are homogeneious.
+pinv:  0.3        # proportion of invariant sites
+end model
+
+begin model
+name: Modell_K2P_2
+modeltype: K2P
+tstv: 2          # Transition transversion ratio
+end model
+
+begin model
+name: Modell_HKY
+modeltype: HKY
+tstv: 3         
+basefreq: 0.2  0.3  0.2  0.3  # base frequencies
+end model
+
+begin model
+name: Modell_GTR
+modeltype: GTR
+rrates: 2 10 3 1 11 1       # relative substitution rates in the order: 
+                            # A->C,A->G,A->T,C->G,C->T,G->T
+                            # These rates will be normalized automatically.
+shape: 0.5
+basefreq: 0.2  0.3  0.2  0.3
+end model

@@ -1,0 +1,8 @@
+# Simulation on tree with four long terminal branches.
+# Two non directly related lineages share substiution hot spots,
+# which makes a tree reconstruction difficult.
+
+1.0  500000 Modell_JC_free_catrates ((A:0.9,B:0.1):0.01,(C:0.9,D:0.1):0.01)
+
+
+

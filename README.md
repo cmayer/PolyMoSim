@@ -52,7 +52,7 @@ A full list of command line parameters is given below.
 
 
 ### Example analyses:
-See the Example analyses folder for example analyses.
+See the Example analyses folder for example analyses. The [README-Examples.md](README-Examples.md) 
 
 ### Full list of command line parameters:
 PolyMoSim-vx.y.z  [--verbosity <integer>] -m <string> -t <string> [-o <string>] [-l <string>] [-n <unsigned>]

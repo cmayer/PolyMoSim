@@ -1,0 +1,20 @@
+begin model
+name: Modell_JC_shape0.1_a
+modeltype: JC
+shape 0.1
+end model
+
+begin model
+name: Modell_JC_shape0.1_b
+modeltype: JC
+shape 0.1
+end model
+
+# The two models have the same characteristics, but the gamma distributed site rates
+# will be different for the two models.
+# A random number generator will determine the site rates for the two models independently. 
+# The strong heterogeneity will lead to different substitution hot spot on lineages
+# on which one or the other model has been specified.
+
+
+

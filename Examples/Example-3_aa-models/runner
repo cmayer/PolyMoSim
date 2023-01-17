@@ -1,0 +1,9 @@
+../../PolyMoSim-v1.1.4 -s 123 -f phylip -m Modells-aa.txt  -t tree-3-aa-example.txt -l log.log --print_ancestral_seq anc.fas -n 1 --print_siterate_histogram hist.txt --print_siterate_data sitedata.txt  1>sim-sequences.phy
+
+../../PolyMoSim-v1.1.4 -s 123           -m Modells-aa.txt  -t tree-3-aa-example.txt -l log.log --print_ancestral_seq anc.fas -n 1 --print_siterate_histogram hist.txt -f site_pattern_freq_relative_fill --print_siterate_data sitedata.txt  1> sim-sitepatterns_rel_fill.txt
+
+
+## If you have a tree reconstruction program installed, e.g. phyml, you can determine the reconstruction success:
+## phyml -i sim-sequences.phy -b 0 -m JRR --run_ID JJT-tree -o tlr
+
+

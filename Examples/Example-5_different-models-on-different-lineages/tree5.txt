@@ -1,0 +1,8 @@
+# Simulation on tree with long terminal branches and different base frquencies:
+# Evolution is governed by JC model. On two terminal branches, we have a base frequency bias
+# cased by a different model on these branches:
+1.0  20000 Modell_JC ((A:0.8[&Modell_F81],B:0.8):0.01,(C:0.8[&Modell_F81],D:0.8):0.01)
+
+# Branchlengths and model deviation are quite strong, which is necessary to get methods on the 
+# wrong track.
+

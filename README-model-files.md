@@ -157,7 +157,41 @@ basefreq 0.076862 0.051057 0.042546 0.051269 0.020279 0.041061 0.061820 0.074714
 end model
 ```
 
+## Special site rate heterogeneities
 
+### Free rate models
+
+The user can specify free rate models with a specific number of discrete site rate categories.
+The relative rates are specified. They are normalised before being used. The final site rates will
+be proportional to the specified numbers.
+```
+begin model
+name: Modell_JC_free_catrates
+modeltype: JC
+cat-rates 0 1 1 1 1 9 9 9 9 6 # Ten equally large categories for which proportional rates can be specified. 
+                              # to the values given.
+                              # 40 % of sites have a rate of 1 while another 40% have a rate of 9.
+			      # This distribution has two peaks at the unnormalised rates 1 and 9.
+			      # PolyMoSim normalises the rates, so that their mean value is 1. 
+end model
+```
+
+### Discrete gamma distribution
+
+Heterogeneous site rates that are gamma distributed are drawn from a continuous gamma distribution.
+Since tree reconstruction programs use discrete site rate categories it is also interesting to be able to conduct simulations using discrete site rates approximating a continuous gamma distribution as close a possible for the given number of categories. 
+
+Example using discrete gamma distribution with 4 discrete rate categories
+```
+begin model
+name: Modell_JC_shape_1_pinv03_ncat4
+modeltype: JC
+shape: 1          # (not required) If a shape parameter is specified, gamma distributed site rates 
+                  # are assumed. Of no heterogeneity is specified, site rates are homogeneous.
+pinv:  0.3        # proportion of invariant sites
+ncat: 4
+end model
+```
 
 
 

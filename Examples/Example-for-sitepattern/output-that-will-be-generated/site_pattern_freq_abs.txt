@@ -1,0 +1,17 @@
+### Site pattern frequencies: Repetition 0
+AAAA	1
+AAAT	2
+AATA	1
+AGAC	1
+CCCC	1
+CCCG	2
+CTCG	1
+GACT	1
+GAGA	1
+GAGC	1
+GCGG	2
+GCGT	1
+GGGA	2
+GGGT	1
+TTTG	1
+TTTT	1

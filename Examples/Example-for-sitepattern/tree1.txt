@@ -1,0 +1,16 @@
+## Tree file foramt:
+# Each line in this file specifies a partition of the data set that is to be simulated.
+# The partition of the data set is simulated along the tree.
+# Each line contains three items separated by spaces:
+# 1. A scale factor of the tree. Usually this has a value of 1, which means that the branch lengths are used
+# as they appear in the tree
+# 2. The partion size (in bp).
+# 3. The root model
+# 4. Tree in newick format, which is allowed to contain special comments in the form [&xxx], where xxx is a model name
+#    that is specified in the model file. The special comments can be placed behind the branch length and are interpreted to
+#    change the model to the one specified when getting in this branch.
+#
+# Example of one partition of size 10000
+1.0  20 Model_JC ((A:0.1,B:0.9):0.005,(C:0.1,D:0.9):0.005)
+
+# For this tree Maximimum parsimony will almost certainly reconstruct the wrong tree while Maximum Likelihood should have a high probablility of reconstructing the correct tree.

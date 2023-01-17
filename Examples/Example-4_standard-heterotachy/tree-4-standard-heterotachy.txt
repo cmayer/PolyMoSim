@@ -1,0 +1,9 @@
+# Simulation of two partitions, each with 20000 bp to simulate standard heterotachy as described in
+# Kolaczkowski, B. & Thornton, J.W., 2004,
+# Performance of maximum parsimony and likelihood phylogenetics when evolution is heterogeneous,
+# Nature, 431(7011), pp. 980-4.
+#
+### Partition 1:
+1.0  20000 Modell_JC ((A:0.8,B:0.1):0.025,(C:0.8,D:0.1):0.025)
+### Partition 2:
+1.0  20000 Modell_JC ((A:0.1,B:0.8):0.025,(C:0.1,D:0.8):0.025)

@@ -1,0 +1,3 @@
+### Partition 1:
+1.0  50000 Modell_jtt-rate-user-specified ((A:0.8,B:0.1):0.025,(C:0.8,D:0.1):0.025)
+

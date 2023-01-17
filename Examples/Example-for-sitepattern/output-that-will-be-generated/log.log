@@ -1,0 +1,102 @@
+
+
+      Welcome to PolyMoSim, version 1.1.3,
+      a program to simulate the evolution of nucleotide and amino acid sequences.
+      Copyright (C) 2007-2021 Christoph Mayer.
+
+
+Parameters used in this simulation:
+Name of model file:                            Modelfile_basic.txt
+Name of tree file:                             tree1.txt
+Name of pre-analysis file:                     
+Name of post-analysis file:                    
+Name of log file:                              log.log
+Print ancestral sequence to file:              -
+Print siterates histogram information to file: -
+Print siterates data to file:                  -
+Logging in effect:                             yes
+Number of repetition:                          1
+Random number seed: (default if not specified: 127
+Mersenne Twister MT19937 by Takuji Nishimura and Makoto Matsumoto
+Output format: site patterns relative and fill in missing patterns
+Level of verbosity: 1
+Models that have been read from the model file: Modelfile_basic.txt
+begin nuc-model
+name: model_jc
+modeltype= JC
+# normalized rrates: 1.33333 1.33333 1.33333 1.33333 1.33333 1.33333
+# recomputed tstv: 0.5
+basefreq: 0.25 0.25 0.25 0.25
+end model
+
+begin nuc-model
+name: model_jc_shape_01
+modeltype= JC
+# normalized rrates: 1.33333 1.33333 1.33333 1.33333 1.33333 1.33333
+# recomputed tstv: 0.5
+shape: 0.1
+inv: 0.3
+basefreq: 0.25 0.25 0.25 0.25
+end model
+
+begin nuc-model
+name: model_k2p_2
+modeltype= K2P
+tstv: 2
+# normalized rrates: 0.666667 2.66667 0.666667 0.666667 2.66667 0.666667
+# recomputed tstv: 2
+basefreq: 0.25 0.25 0.25 0.25
+end model
+
+begin nuc-model
+name: model_hky
+modeltype= HKY
+tstv: 3
+# normalized rrates: 0.520833 2.88462 0.520833 0.520833 2.88462 0.520833
+# recomputed tstv: 3
+basefreq: 0.2 0.3 0.2 0.3
+end model
+
+begin nuc-model
+name: model_gtr
+modeltype= GTR
+rrates: 2 10 3 1 11 1
+# normalized rrates: 0.552486 2.76243 0.828729 0.276243 3.03867 0.276243
+# recomputed tstv: 3.30952
+shape: 0.5
+basefreq: 0.2 0.3 0.2 0.3
+end model
+
+Trees that have been read from the file:tree1.txt
+Partitions of data sets:
+------------------------
+Partition 1:
+  scaling factor:      1
+  partition size:      20
+  default start model: model_jc
+  Tree data is NULL at this point. This can be the expected status.
+
+Simulating rep: 1
+Simulating partition: 1
+Tree read from tree file and stored string that will be parsed: ((A:0.1,B:0.9):0.005,(C:0.1,D:0.9):0.005)
+Start sequence: GAAGAGTTGAACCCGCGGCG
+
+Paramters used for simulation:
+
+Model file:              Modelfile_basic.txt
+Tree file:               tree1.txt
+Replicates:              1
+Taxa:                    4
+Random number seed:      127
+Random number generator: Mersenne Twister MT19937 by Takuji Nishimura and Makoto Matsumoto
+
+Partitions of data sets:
+------------------------
+Partition 1:
+  scaling factor:      1
+  partition size:      20
+  default start model: model_jc
+  tree with models:    ((A:0.1[&model_jc],B:0.9[&model_jc]):0.005[&model_jc],(C:0.1[&model_jc],D:0.9[&model_jc]):0.005[&model_jc]):0[&model_jc]
+
+
+Simulation finished successfully after 0 seconds.

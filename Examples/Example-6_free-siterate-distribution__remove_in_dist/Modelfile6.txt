@@ -1,0 +1,19 @@
+begin model
+name: Modell_JC_free_catrates
+modeltype: JC
+cat-rates 0 1 1 1 1 9 9 9 9 6 # Ten equally large categories with unnormalized rates proportional
+                              # to the values given.
+                              # 40 % of sites have a rate of 1 while another 40% have a rate of 9.
+			      # This distribution has two peaks at the unnormalized rates 1 and 9.
+			      # MultimoSeqSim normalizes the rates, so that their mean value is 1. 
+end model
+
+begin model
+name: Modell_JC
+modeltype: JC
+end model
+
+
+
+
+
