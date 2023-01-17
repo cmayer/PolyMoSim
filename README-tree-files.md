@@ -1,9 +1,9 @@
 # Partition size and tree specification in PolyMoSim:
 
 Our goal is to simulate the evolution of nucleotide or amino acid sequences.
-In this file we specify the size of the partition sizes, root models and trees used for the simulation.
+In this file we specify the sizes of the alignment partitions, the root models and the trees used for the simulation.
 
-Each line in the tree file specifies specifies the following information:
+Each line in the tree file specifies the following information:
 - Scalar with which all branch lengths are multiplied. Typically, this has a value of 1.0. 
 - Length of the partition.
 - Root model. This is the evolutionary model assumed at the root of the tree.
