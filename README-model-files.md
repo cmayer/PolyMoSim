@@ -1,17 +1,27 @@
 # Specifying models for PolyMoSim
 
 PolyMoSim requires model definitions when simulating molecular evolution.
-The model file has to contain one or multiple models in the following format:
+The model file can contain 1 or more model definitions in the following format:
 
+Nucleotide models:
 ```
 begin model      # (required) Indicates the start of a new nucleotide model
 name: Model_JC   # (required) Give each model a unique name. A name can be composed of characters,
                  #            numbers and underscores.
-modeltype: JC    # (required) The model type. A list of implemented models is given above.    
+modeltype: JC    # (required) The model type. A list of implemented models is given below.    
 end model        # (required) Indicates the end of the model
 ```
 
-All character after the first # symbol are treated as comments and are removed before the definition is interpreted.
+Amino acid models:
+```
+begin aa-model   # (required) Indicates the start of a new amino acid model
+name: Model_LG   # (required) Give each model a unique name. A name can be composed of characters,
+                 #            numbers and underscores.
+modeltype: LG    # (required) The model type. A list of implemented models is given below.    
+end model        # (required) Indicates the end of the model
+```
+
+All character on a line after the first # symbol are treated as comments and are removed before the definition is interpreted.
 
 Each model definition has to start with "begin model" and end with "end model".
 The model "name" and "modeltype" are required lines in a model definition.
@@ -102,7 +112,7 @@ end model
 
 ## Amino acid models:
 
-Implemented amino acid models are: WAG, LG, JTT, DAY, WAG_OLD, WAG_STAR
+Implemented amino acid models are: WAG, LG, JTT, DAY, WAG_OLD, WAG_STAR.
 These are fixed rates models. The model parameters can be viewed in the file: mymodel.cpp
 
 AA model definitions have to start with "begin aa-model" and end with "end model".
@@ -122,7 +132,7 @@ If alternative amino acid frequencies shall be specified, a fully user specified
 
 ```
 begin aa-model
-name: Modell_jtt-rate-user-specified
+name: Model_jtt-rate-user-specified
 modeltype: User
 rrates:  0.531678 0.557967 0.827445 0.574478 0.556725 1.066681 1.740159 0.219970 0.361684 0.310007 0.369437 0.469395 0.138293 1.959599 3.887095 4.582565  0.084329 0.139492 2.924161
          0.451095 0.154899 1.019843 3.021995 0.318483 1.359652 3.210671 0.239195 0.372261 6.529255 0.431045 0.065314 0.710489 1.001551 0.650282 1.257961 0.235601 0.171995

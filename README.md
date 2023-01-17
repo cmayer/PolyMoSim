@@ -11,14 +11,14 @@ Table of contents:
 
 ## About the PolyMoSim program <a id="about-the-PolyMoSim-package"></a>
 
-PolyMoSim is a program that simulates sequence evolution of nucleotide or amino acid sequences. For specified evolutionary models, model parameters and phylogenetic trees, it can simulate data sets that evolved unter this tree and model. PolyMoSim is a fast and flexible program that supports a large number of evolutionary models, allows different models on different branches, mixture models and even a site heterogeneity that differs on different branches of the tree.
+PolyMoSim can simulate the evolution of nucleotide or amino acid sequences for a specified evolutionary models, model parameters and phylogenetic trees. PolyMoSim is a fast and flexible program that supports a large number of evolutionary models, allows different models on different branches, mixture models and even a site heterogeneity that differs on different branches of the tree.
 
-It has been designed to test phylogenetic tree reconstruction programs and to train Machine learning models for phylogenetic reconstruction.
+It has been designed to test phylogenetic tree reconstruction programs and to train machine learning models for phylogenetic reconstruction.
 
 ## Compiling and installing PolyMoSim <a id="compiling-and-installing"></a>
 - Download the project or clone the project locally.
 - On the command line go to the project folder and type "make".
-- Make sure that you copy the PolyMoSim-vx.y.z program to a folder that listed in your $PATH variable, or copy it to the folder you want to use it from.
+- Make sure that you copy the PolyMoSim-vx.y.z program to a folder that is listed in your $PATH variable so that your system can always find it, copy it to the folder you want to use it from or specify the full path to the program.
 
 ### System requirements:  <a id="system-requirements"></a>
 PolyMoSim can be compiled on all platforms, which provide a C++ compiler.
@@ -30,21 +30,31 @@ Here I will only explain how to compile it on Mac and Linux computers.
 ### Required input files:
 PolyMoSim requires two input files: 
 
-i) The model file, which contains a list specified evolutionary models with model parameters that will be used for the simulation. See the README-model-files.md for more details.
+i) The model file, which contains a list specified evolutionary models with model parameters that can be used for the simulation. See the [README-model-files.md.](README-model-files.md) for more details. 
 
-ii) The tree file. This file contains one or multiple lines specifying one or multiple partitions of the data set. See the README-tree-files.md for more details.
+ii) The tree file, which contains one or multiple lines specifying the partition size and evolutionary tree. Each line specifies the the information for one partition.
+See the [README-tree-files.md](README-tree-files.md) for more details.
 
 **Quickstart:**
 The simplest way to start PolyMoSim is as follows:
-
+```
 PolyMoSim-vx.y.z -m model-file.txt -t tree-file.txt --outfile simulation-result.fas
+```
 or
+```
 PolyMoSim-vx.y.z -m model-file.txt -t tree-file.txt 1> simulation-result.fas
+```
+
+So PolyMoSim requires the model file and the tree file as two required parameters. 
+All other parameters are optional. Most of them have default values. Parameters you might want to have a look at are:
+output-file-name (-o), setting the seed for the random number generator (-s) which is important if you do multiple simulations, output format (-f).
+A full list of command line parameters is given below.
+
 
 ### Example analyses:
 See the Example analyses folder for example analyses.
 
-### Command line parameters:
+### Full list of command line parameters:
 PolyMoSim-vx.y.z  [--verbosity <integer>] -m <string> -t <string> [-o <string>] [-l <string>] [-n <unsigned>]
 [--print_siterate_data <string>]
 [--print_siterate_histogram <string>]
