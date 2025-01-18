@@ -1,7 +1,8 @@
 /***************************************************************************************************
 *  The PolyMoSim project is distributed under the following license:
 *  
-*  Copyright (c) 2006-2022, Christoph Mayer, Forschungsmuseum Alexander Koenig, Bonn, Germany
+*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
+*  Bonn, Germany
 *  All rights reserved.
 *  
 *  Redistribution and use in source and binary forms, with or without
@@ -50,102 +51,52 @@
 ***************************************************************************************************/
 
 #ifndef Split_adminH
-
 #define Split_adminH
 
-
-
 #include <map>
-
 #include <vector>
-
 #include <iostream>
-
 #include "fast-dynamic-bitset.h"
-
 #include "BSplit.h"
-
-#include "faststring2.h"
-
-
+#include "faststring3.h"
 
 using namespace std;
 
-
-
 class split_admin {
 
-
-
  public:
-
   class IndexError{
-
   private:
-
     faststring errormsg;
-
   public:
-
     IndexError(const faststring& s):errormsg(s) {}
-
     const faststring& getReason() { return errormsg; }
-
   };
-
-
 
  private:
 
-
-
   vector<BSplit>          split_vec;
-
   map<BSplit, double>     split_map;
-
   unsigned long num_splits;
-
  
-
  public:
 
-
-
   split_admin() {
-
   }
-
-
 
   void            add_split(const BSplit&, double = 1.0);
 
-
-
   const BSplit&   get_split_vec(unsigned) const;
-
   double          get_branchlength(BSplit&);
 
-
-
   unsigned long   get_num_splits();
-
   
-
   void            print_splits();
-
  
-
 };
 
-
-
 inline unsigned long split_admin::get_num_splits() {
-
   return num_splits;
-
 }
 
-
-
 #endif
-

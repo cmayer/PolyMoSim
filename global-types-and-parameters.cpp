@@ -1,7 +1,8 @@
 /***************************************************************************************************
 *  The PolyMoSim project is distributed under the following license:
 *  
-*  Copyright (c) 2006-2022, Christoph Mayer, Forschungsmuseum Alexander Koenig, Bonn, Germany
+*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
+*  Bonn, Germany
 *  All rights reserved.
 *  
 *  Redistribution and use in source and binary forms, with or without
@@ -49,11 +50,11 @@
 *                                See copyright in this file for details.
 ***************************************************************************************************/
 
-#include <tclap/CmdLine.h>
+#include "tclap/CmdLine.h"
 
 
 // #define GLOBAL_VARS
-#include "global-types-and-parameters.h"
+#include "global-types-and-parameters.hpp"
 #include "PolyMoSim.h"
 #include <string>
 #include <ctime>
@@ -228,7 +229,7 @@ void init_param()
 {
   global_num_repetitions       = 1;
   global_use_GUI               = false;
-  global_seed_random_generator = time(NULL);
+  global_seed_random_generator = (unsigned)time(NULL);
   global_rg                    = rg_MT19937;
   global_outputformat          = outputformat_fasta;
   global_log_file              = ""; // string("PolyMoSim_") + number2str((unsigned)time(NULL)) + ".log";

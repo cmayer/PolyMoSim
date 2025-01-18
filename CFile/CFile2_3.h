@@ -1,8 +1,8 @@
 /***************************************************************************************************
-*  This file is part of the PolyMoSim project. It is
-*  distributed under the following license:
+*  The PolyMoSim project is distributed under the following license:
 *  
-*  Copyright (c) 2004-2008, Christoph Mayer, Forschungsmuseum Alexander Koenig, Bonn, Germany
+*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
+*  Bonn, Germany
 *  All rights reserved.
 *  
 *  Redistribution and use in source and binary forms, with or without
@@ -55,27 +55,38 @@
 
 #include <fstream>
 #include <string>
-#include "../faststring2.h"
+#include "../faststring3.h"
 
+// Should not exceed 1 000 000 without making sure that the stack is large enough.
+#ifndef BUFFERSIZE
 #define BUFFERSIZE 1000000
+#endif
 #define UNDOs      1
 
 
 // Changes:
-// 22.08.2009: Added getline function for faststring. Disadvantage: addidtional dependence on faststring.h
+// 22.08.2009: Added getline function for faststring. Disadvantage: additional dependence on faststring.h
 // 07.01.2011: Changed Version to CFile2_1.h
 // 07.01.2011: Now uses the faststring2.h
+// 26.12.2020: Corrected fail_flag usage:
+//             (1) Added rdstate() function to make it compatible with ifstream objects.
+//             (2) Reading file to string. Do not fail if >0 chars read.
+//             (3) getline functions: Do fail if thing read, except delim == first char. 
 
-// Idee: ios::   set Buffer size
+// Idea: ios::   set Buffer size
+//               Maybe use fstream fail flags instead of own flags. Not sure this is a good idea. Consequences are not thought out.
 
 // TODO: Old mac format not supported.
 //       This requires to allow two successive calls to the internal ungetchar command.
 
 
-
 class CFile : private std::ifstream
 {
  private:
+  // There is a problem here: The stack size is limited. One should consider to move this to the heap.
+  // allocate it with malloc, new or declare it as static - the latter is not good in a class since a
+  // static class member is the same for all instances of the class, which we do not want here.
+
   char      buffer[BUFFERSIZE];
   char*     buffer_end;
   char*     buffer_pos;
@@ -88,7 +99,7 @@ class CFile : private std::ifstream
 
   unsigned fill_buffer(unsigned overlap)
   {
-    unsigned          good_overlap = buffer_end - buffer;
+    unsigned          good_overlap = (unsigned)(buffer_end - buffer);
     std::streamsize   n;
 
     if (good_overlap < overlap)
@@ -139,7 +150,8 @@ class CFile : private std::ifstream
 
  public:
 
-  enum {__eof_flag = 1, __good_flag = 2,  __fail_flag = 4, __bad_flag = 8};
+  enum {__eof_flag = 1, __good_flag = 2,  __fail_flag = 4, __bad_flag = 8, __fail_reason1 = 16, __fail_reason2 = 32, __fail_reason3 = 64,
+	__fail_reason4 = 128};
 
   void open(const char *name)
   {
@@ -183,7 +195,7 @@ class CFile : private std::ifstream
     ffclose();
   }
 
-  bool exists()  // -- depricated -- do not use this any more - check fail() instead !!!!!!!!
+  bool exists()  // -- deprecated -- do not use this any more - check fail() instead !!!!!!!!
   {
     return !fail(); 
   }
@@ -208,14 +220,53 @@ class CFile : private std::ifstream
     return (__status & __eof_flag);
   }
 
+  // Deprecated
   char status()
   {
     return __status;
   }
 
+  char rdstate()
+  {
+    return __status;
+  }
+  
+  bool fail_reason1()
+  {
+    return (__status & __fail_reason1);
+  }
+
+  bool fail_reason2()
+  {
+    return (__status & __fail_reason2);
+  }
+
+  bool fail_reason3()
+  {
+    return (__status & __fail_reason3);
+  }
+
+  bool fail_reason4()
+  {
+    return (__status & __fail_reason4);
+  }
+
+  void rewind()
+  {
+    clear();
+
+    __line        = 1;
+    buffer_end    = buffer;
+    buffer_pos    = buffer;
+
+    std::ifstream::seekg (0, std::ios::beg);
+    //    clear();
+  }
+
   void clear(char s = __good_flag)
   {
     __status = s;
+    std::ifstream::clear();
   }
 
   void ungetchar()
@@ -242,9 +293,13 @@ class CFile : private std::ifstream
     return peekchar();
   }
 
+  // Will set the fail flag if no char can be returned.
+  // Functions such as those in CSequence_Mol2_1.h should unset the fail flag if reading the sequence was successful in the end.
   char getchar()
   {
-    register char c;
+    if (__status & __eof_flag)
+      return EOF;
+    char c;
 
     c = getchar_intern();
 
@@ -257,7 +312,7 @@ class CFile : private std::ifstream
 	c = getchar_intern();
 	if ( c != '\n' && !(__status & __fail_flag) )
 	{
-	  // 	std::cerr << "Old mac file format currently not supported." << std::endl;
+	  // 	std::cerr << "Old mac file format currently not supported." << '\n'
 	  ungetchar();    /* old mac format, else dos format     */
 	}
 	c = '\n';
@@ -277,6 +332,8 @@ class CFile : private std::ifstream
 
   void getline(faststring& str, char delim='\n')
   {
+    if ((__status & __fail_flag))
+      return;
     char c = getchar();
     str.clear();
     while ( c != delim && !(__status & __fail_flag) )
@@ -284,7 +341,7 @@ class CFile : private std::ifstream
       str.push_back(c);
       c = getchar();
     }
-    if ((__status & __fail_flag) && str.size() > 0)
+    if ((__status & __fail_flag) && (str.size() > 0 || c == delim) )
       __status &= ~__fail_flag; // Unset fail flag by using & on the complement of the fail flag;
   }
 
@@ -297,7 +354,7 @@ class CFile : private std::ifstream
       str.push_back(c);
       c = getchar();
     }
-    if ((__status & __fail_flag) && str.size() > 0)
+    if ((__status & __fail_flag) && (str.size() > 0 || c == delim) )
       __status &= ~__fail_flag; // Unset fail flag by using & on the complement of the fail flag;
   }
 
@@ -312,7 +369,8 @@ class CFile : private std::ifstream
       ++i;
       c = getchar(); 
     }
-    if ((__status & __fail_flag) && i > 0)
+
+    if ((__status & __fail_flag) && (i > 0 || c == delim) )
       __status &= ~__fail_flag; // Unset fail flag by using & on the complement of the fail flag;
     cstr[i] = '\0';
   }
@@ -329,9 +387,11 @@ class CFile : private std::ifstream
       str.push_back(c);
       c = getchar();
     }
+    if (str.length() > 0)
+      __status &= ~__fail_flag;  // Unset fail flag by using & on the complement of the fail flag;
   }
   
-
+  // Double check that the fail_flag is set correctly.
   char lastchar()
   {
     char c;

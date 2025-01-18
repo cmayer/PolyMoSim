@@ -1,7 +1,8 @@
 /***************************************************************************************************
 *  The PolyMoSim project is distributed under the following license:
 *  
-*  Copyright (c) 2006-2022, Christoph Mayer, Forschungsmuseum Alexander Koenig, Bonn, Germany
+*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
+*  Bonn, Germany
 *  All rights reserved.
 *  
 *  Redistribution and use in source and binary forms, with or without
@@ -54,7 +55,7 @@
 
 
 #include <iostream>
-#include "faststring2.h"
+#include "faststring3.h"
 #include "special_functions.h"
 #include <vector>
 #include <cstdlib>
@@ -297,11 +298,11 @@ class Cexpression_evaluator
   //  double *final_result;
   std::vector<double *> x_positions;
 
-  size_t num_ops_reserved;
-  size_t num_double_memory_reserved;
+  unsigned num_ops_reserved;
+  unsigned num_double_memory_reserved;
 
-  size_t num_ops;   
-  size_t num_double_memory;
+  unsigned num_ops;
+  unsigned num_double_memory;
 
  public:
  Cexpression_evaluator(): op_list(NULL), double_memory(NULL), // final_result(NULL),
@@ -344,7 +345,7 @@ class Cexpression_evaluator
 
   double compute_for_indeterminate_x(double param_x)
   {
-    unsigned i, n=x_positions.size();
+    unsigned i, n= (unsigned)x_positions.size();
 
     if (op_list == NULL || double_memory == NULL)
     {
@@ -378,7 +379,7 @@ class Cexpression_evaluator
   }
 
 
-  void reserve(size_t p_num_double_memory, size_t p_num_ops)
+  void reserve(unsigned p_num_double_memory, unsigned p_num_ops)
   {
     if (op_list)
     {
@@ -406,7 +407,7 @@ class Cexpression_evaluator
 
   void print_x_positons()
   {
-    unsigned i=0, n = x_positions.size();
+    unsigned i=0, n = (unsigned)x_positions.size();
 
     std::cerr << "Size: " << n << std::endl;
 
@@ -830,7 +831,7 @@ class math_expression_parser
       printf("Error: Can't determine operations without having the postfix stack.\n");
     }
  
-    size_t i, n=postfix.size();
+    int i, n= (int)postfix.size();
     char   c;
     std::vector<faststring> stack_tokens;
     std::vector<double*>    stack_double_memory;
@@ -922,7 +923,7 @@ class math_expression_parser
 
 	if (num_arguments == 1)
 	{
-	  unsigned index1 = i-1;
+	  int index1 = (int)i-1;
 	  while (already_used_dm[index1] == 'u')
 	  {
 	    --index1;

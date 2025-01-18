@@ -1,7 +1,8 @@
 /***************************************************************************************************
 *  The PolyMoSim project is distributed under the following license:
 *  
-*  Copyright (c) 2006-2022, Christoph Mayer, Forschungsmuseum Alexander Koenig, Bonn, Germany
+*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
+*  Bonn, Germany
 *  All rights reserved.
 *  
 *  Redistribution and use in source and binary forms, with or without
@@ -54,7 +55,7 @@
 
 // TODO: Check what needs to be private, protected, public!!!!!!!!
 
-#include "faststring2.h"
+#include "faststring3.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -67,16 +68,16 @@
 #include "staticVector.h"
 
 class basic_model { /**/ // These could be moved to this basic class
-  public:
+public:
   enum enumDataType {DNA, Protein};
-  protected:
+protected:
   const static char datatypenames[][8];
 
   enumDataType dataType;
 
- basic_model(enumDataType d):dataType(d){};
+  basic_model(enumDataType d):dataType(d){};
 
- public:
+public:
   enum enumratetype {
     ratetype_equal,
     ratetype_gamma,
@@ -93,7 +94,7 @@ class basic_model { /**/ // These could be moved to this basic class
     int    line;
     faststring unknown;
   public:
-  readerror(int l, faststring u):line(l),unknown(u) {}
+    readerror(int l, faststring u):line(l),unknown(u) {}
     int    getLine() {return line; }
     faststring getUnknwonKeyword() {return unknown; }
   };
@@ -101,43 +102,43 @@ class basic_model { /**/ // These could be moved to this basic class
   class setmodelerror {
   private:
     faststring reason;
-  public:  
+  public:
     setmodelerror(faststring r=""):reason(r) {}
     faststring getReason() {return reason; }
   };
 
   class error          {};
 
-  faststring get_datatypename() const { return datatypenames[dataType]; } 
+  faststring get_datatypename() const { return datatypenames[dataType]; }
   int    get_datatype()     const { return dataType; }
 
 
 
   virtual ~basic_model(){};
-  virtual faststring get_modelname() const=0;        /**/ // Should be moved into this class in the future 
-  //  virtual void   set_modelname(const faststring &s); /**/ // Should be moved into this class in the future 
+  virtual faststring get_modelname() const=0;        /**/ // Should be moved into this class in the future
+                                                          //  virtual void   set_modelname(const faststring &s); /**/ // Should be moved into this class in the future
   virtual void   read_next_model(CFile&)=0;
-  virtual void   set_model(faststring modelname_param, 
-			   faststring modeltype_param,
-			   std::vector<double> *rrates_param, // Parameters are supplied as in an upper triangular matrix.
-			   std::vector<double> *base_param,
-			   double         shape_param,
-			   double         pinv_param,
-			   unsigned       ncat_param,
-			   double         *tstv_param)=0;
+  virtual void   set_model(faststring modelname_param,
+                           faststring modeltype_param,
+                           std::vector<double> *rrates_param, // Parameters are supplied as in an upper triangular matrix.
+                           std::vector<double> *base_param,
+                           double         shape_param,
+                           double         pinv_param,
+                           unsigned       ncat_param,
+                           double         *tstv_param)=0;
 
   virtual void   print(std::ostream&, unsigned)=0;
   virtual void   print(FILE *, unsigned)=0;
 
-  virtual void   init_model(double(double, double), double())=0; /**/ // Should be moved into this class in the future 
+  virtual void   init_model(double(double, double), double())=0; /**/ // Should be moved into this class in the future
   virtual void   set_matrices()=0;
-  virtual void   init_siterates(unsigned, bool)=0; /**/ // Should be moved into this class in the future 
-  virtual void   reset_siterates()=0; /**/ // Should be moved into this class in the future 
+  virtual void   init_siterates(unsigned, bool)=0; /**/ // Should be moved into this class in the future
+  virtual void   reset_siterates()=0; /**/ // Should be moved into this class in the future
 
-  virtual bool   siterates_initialized() const =0; /**/ // Should be moved into this class in the future 
+  virtual bool   siterates_initialized() const =0; /**/ // Should be moved into this class in the future
 
   virtual void   evolve(const faststring &, faststring &, double) const=0;
-  virtual void   get_random_sequence(faststring&, unsigned) const =0; 
+  virtual void   get_random_sequence(faststring&, unsigned) const =0;
   virtual double get_mean_siterate_value() const =0;
   virtual const faststring& get_modelname_siterates_are_inherited_from() const = 0;
 
@@ -157,11 +158,11 @@ class basic_model { /**/ // These could be moved to this basic class
 
 template <int N>   // nucleotide: N=4, aa: N=20
 class molecular_model : public basic_model {
- public:
+public:
 
   // Several of these variables should be moved to the basic_model:
 
- protected:
+protected:
   unsigned               seq_length;
   faststring             modelname;
 
@@ -176,7 +177,7 @@ class molecular_model : public basic_model {
 
   unsigned               ncat;            // Number of rate categories. ncat == 0 is continues.
   double                 inv;             // invariant positions
-  int                    modeltype;  
+  int                    modeltype;
 
   double                 *siterates;
   faststring             modelname_inherit_siterates_from;
@@ -199,7 +200,7 @@ class molecular_model : public basic_model {
 
 
 
- protected:
+protected:
 
   // Constructors:
   molecular_model(const faststring &, enumDataType);
@@ -212,36 +213,36 @@ class molecular_model : public basic_model {
 
   virtual void                 evolve(const faststring &, faststring &, double) const;
   virtual void                 read_next_model(CFile& );  //--------
-  virtual void                 set_model(faststring modelname_param, 
-					 faststring modeltype_param,
-					 std::vector<double> *rrates_param, // Parameters are supplied as in an upper triangular matrix.
-					 std::vector<double> *base_param,
-					 double         shape_param,
-					 double         pinv_param,
-					 unsigned       ncat_param,
-					 double         *tstv_param);  //--------
+  virtual void                 set_model(faststring modelname_param,
+                                         faststring modeltype_param,
+                                         std::vector<double> *rrates_param, // Parameters are supplied as in an upper triangular matrix.
+                                         std::vector<double> *base_param,
+                                         double         shape_param,
+                                         double         pinv_param,
+                                         unsigned       ncat_param,
+                                         double         *tstv_param);  //--------
 
-          void                 complete_relRateMatrix();
-	  void                 normalize_rrates();
-	  bool                 normalize_basefreq(bool warn);
+  void                 complete_relRateMatrix();
+  void                 normalize_rrates();
+  bool                 normalize_basefreq(bool warn);
   //  void                     calculate_transition_matrix(double, int, mymatrix &) const;
 
   virtual const unsigned char* get_index_to_symbol() const=0;
   virtual const unsigned char* get_symbol_to_index() const=0;
   virtual void                 set_model_specific_parameters(CFile *,
-							     faststring& input_modeltypename,
-							     double  input_tstv,
-							     bool    specified_tstv,
-							     bool    specified_rrates, bool specified_base_frequencies)=0;
+                                                             faststring& input_modeltypename,
+                                                             double  input_tstv,
+                                                             bool    specified_tstv,
+                                                             bool    specified_rrates, bool specified_base_frequencies)=0;
 
- public:
-          faststring         get_modelname() const;
-	  ////          void           set_modelname(const faststring &s); // Dangeros with model_map
+public:
+  faststring         get_modelname() const;
+  ////          void           set_modelname(const faststring &s); // Dangeros with model_map
 
   virtual int            get_modeltype() const=0;
   virtual faststring         get_modeltypename() const=0;
   virtual void           get_random_sequence(faststring&, unsigned) const;
-//  const    get_modeltypenames() const=0;
+  //  const    get_modeltypenames() const=0;
 
   void                   init_model(double(double, double), double());
   void                   init_siterates(unsigned, bool);
@@ -279,7 +280,7 @@ class molecular_model : public basic_model {
       std::cerr << "Error: Call to function set_inherited_site_rates(unsigned len) was not succcessful." << std::endl;
     }
     return siterates != NULL;
-                                                    } 
+  }
   double*                get_siterates() { return siterates; }
 
   double                 compute_true_propinv() const;
@@ -289,7 +290,7 @@ class molecular_model : public basic_model {
   double                 get_shape() const;
   unsigned               get_ncat() const;
   double                 get_inv() const;
-//  enumratetype           get_ratetype() const;
+  //  enumratetype           get_ratetype() const;
   enumratetype           get_ratetype() const {return ratetype;}
 
   std::vector<double>    get_cat_rates() const;
@@ -306,9 +307,9 @@ class molecular_model : public basic_model {
 // nuc_model
 //*************************************************
 class nuc_model : public molecular_model<4> {
- public:
+public:
   enum         enummodeltype  {  JC,   F81,   K2P,   F84,   HKY,   GTR };
- private:
+private:
   enum         sym_enum       {  nA, nC, nG, nT};
 
   const static int              number_of_known_models = 6;
@@ -325,75 +326,75 @@ class nuc_model : public molecular_model<4> {
   virtual const unsigned char*  get_symbol_to_index() const { return symbol_to_index; }
 
   virtual void         set_model_specific_parameters(CFile *,
-						     faststring& input_modeltypename,
-						     double  input_tstv,
-						     bool    specified_tstv,
-						     bool    specified_rrates, bool specified_base_frequencies);
+                                                     faststring& input_modeltypename,
+                                                     double  input_tstv,
+                                                     bool    specified_tstv,
+                                                     bool    specified_rrates, bool specified_base_frequencies);
 
- public:
- nuc_model(const faststring &s):molecular_model<4>(s, DNA){tstv = -1;}
- nuc_model(const faststring &s, const nuc_model &m):molecular_model<4>(s, m){tstv = m.tstv;}
- nuc_model(const faststring &s, enummodeltype model_type, enumratetype rate_type, double v_tstv, double v_rAC, double v_rAG, double v_rAT, double v_rCG, double v_rCT, double v_rGT, double v_shape, double v_inv, unsigned v_ncat, double v_PI_A, double v_PI_C, double v_PI_G, double v_PI_T):molecular_model<4>(s, DNA)
+public:
+  nuc_model(const faststring &s):molecular_model<4>(s, DNA){tstv = -1;}
+  nuc_model(const faststring &s, const nuc_model &m):molecular_model<4>(s, m){tstv = m.tstv;}
+  nuc_model(const faststring &s, enummodeltype model_type, enumratetype rate_type, double v_tstv, double v_rAC, double v_rAG, double v_rAT, double v_rCG, double v_rCT, double v_rGT, double v_shape, double v_inv, unsigned v_ncat, double v_PI_A, double v_PI_C, double v_PI_G, double v_PI_T):molecular_model<4>(s, DNA)
   {
     
-   if(rate_type == ratetype_equal        || rate_type == ratetype_gamma ||
-      rate_type == ratetype_invgamma     || rate_type == ratetype_propinv ||
-      rate_type == ratetype_distfunction || rate_type == ratetype_distfunction_inv)
-   {
-     ratetype = rate_type;
-   }
-   else
-   {
-     throw setmodelerror();
-   }
+    if(rate_type == ratetype_equal        || rate_type == ratetype_gamma ||
+       rate_type == ratetype_invgamma     || rate_type == ratetype_propinv ||
+       rate_type == ratetype_distfunction || rate_type == ratetype_distfunction_inv)
+    {
+      ratetype = rate_type;
+    }
+    else
+    {
+      throw setmodelerror();
+    }
 
-   if (model_type == JC   || model_type == F81 ||
-       model_type == K2P  || model_type == F84 ||
-       model_type == HKY  || model_type == GTR) {
-     modeltype = model_type;
-   }
-   else 
-   {
-    throw setmodelerror();
-   }
+    if (model_type == JC   || model_type == F81 ||
+        model_type == K2P  || model_type == F84 ||
+        model_type == HKY  || model_type == GTR) {
+      modeltype = model_type;
+    }
+    else
+    {
+      throw setmodelerror();
+    }
 
-   shape = v_shape;
-   inv = v_inv;
-   ncat = v_ncat;   //wird nicht verändert...
+    shape = v_shape;
+    inv = v_inv;
+    ncat = v_ncat;   //wird nicht verändert...
 
-  pi[0] = v_PI_A; 
-  pi[1] = v_PI_C; 
-  pi[2] = v_PI_G; 
-  pi[3] = v_PI_T; 
+    pi[0] = v_PI_A;
+    pi[1] = v_PI_C;
+    pi[2] = v_PI_G;
+    pi[3] = v_PI_T;
 
-  tstv = v_tstv;
+    tstv = v_tstv;
 
-  relRates(0,1) = v_rAC;
-  relRates(0,2) = v_rAG;
-  relRates(0,3) = v_rAT;
-  relRates(1,2) = v_rCG;
-  relRates(1,3) = v_rCT;
-  relRates(2,3) = v_rGT;
+    relRates(0,1) = v_rAC;
+    relRates(0,2) = v_rAG;
+    relRates(0,3) = v_rAT;
+    relRates(1,2) = v_rCG;
+    relRates(1,3) = v_rCT;
+    relRates(2,3) = v_rGT;
 
-  complete_relRateMatrix();
-  normalize_rrates();       // wirklich hier oder nur bei GTR?????????????????
-  normalize_basefreq(false);
+    complete_relRateMatrix();
+    normalize_rrates();       // wirklich hier oder nur bei GTR?????????????????
+    normalize_basefreq(false);
 
 
-  if ( modeltype == JC  || modeltype == F81 ||
-       modeltype == K2P || modeltype == F84 ||
-       modeltype == HKY) {
-    set_rates_nst12();
-  }
-  else if ( modeltype == GTR ) {
-    tstv = compute_tstv();
-  }
+    if ( modeltype == JC  || modeltype == F81 ||
+        modeltype == K2P || modeltype == F84 ||
+        modeltype == HKY) {
+      set_rates_nst12();
+    }
+    else if ( modeltype == GTR ) {
+      tstv = compute_tstv();
+    }
 
-  //notwendig an dieser Stelle????????????????
-  double PI_all = pi[0] + pi[1] + pi[2] + pi[3];
+    //notwendig an dieser Stelle????????????????
+    double PI_all = pi[0] + pi[1] + pi[2] + pi[3];
 
-  if(PI_all < 1-EPS || PI_all > 1+EPS)
-    throw setmodelerror();
+    if(PI_all < 1-EPS || PI_all > 1+EPS)
+      throw setmodelerror();
 
   }
 
@@ -423,10 +424,10 @@ class nuc_model : public molecular_model<4> {
 // aa_model
 //*************************************************
 class aa_model : public molecular_model<20> {
- private:
+private:
   enum         enummodeltype  { USER, JTT, LG, WAG_OLD, WAG, WAG_STAR, DAY};
   enum         sym_enum   { aaA, aaR, aaN, aaD, aaC, aaQ, aaE, aaG, aaH, aaI,
-			    aaL, aaK, aaM, aaF, aaP, aaS, aaT, aaW, aaY, aaV };
+    aaL, aaK, aaM, aaF, aaP, aaS, aaT, aaW, aaY, aaV };
 
   const static int              number_of_known_models = 3;
   const static char             modeltypenames[][9];
@@ -437,17 +438,17 @@ class aa_model : public molecular_model<20> {
   virtual const unsigned char*  get_symbol_to_index() const { return symbol_to_index; }
 
   virtual void                  set_model_specific_parameters(CFile *,
-							      faststring& input_modeltypename,
-							      double  input_tstv,
-							      bool    specified_tstv,
-							      bool    specified_rrates, bool specified_base_frequencies);
+                                                              faststring& input_modeltypename,
+                                                              double  input_tstv,
+                                                              bool    specified_tstv,
+                                                              bool    specified_rrates, bool specified_base_frequencies);
 
- public:
+public:
   aa_model(const faststring &s):molecular_model<20>(s, Protein){};
   aa_model(const faststring &s, const aa_model &m):molecular_model<20>(s, m){};
 
   virtual int           get_modeltype() const;
-  virtual faststring        get_modeltypename() const;
+  virtual faststring    get_modeltypename() const;
   virtual void          print(std::ostream&, unsigned);
   virtual void          print(FILE *, unsigned);
 

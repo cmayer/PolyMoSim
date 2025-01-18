@@ -1,7 +1,8 @@
 /***************************************************************************************************
 *  The PolyMoSim project is distributed under the following license:
 *  
-*  Copyright (c) 2006-2022, Christoph Mayer, Forschungsmuseum Alexander Koenig, Bonn, Germany
+*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
+*  Bonn, Germany
 *  All rights reserved.
 *  
 *  Redistribution and use in source and binary forms, with or without
@@ -54,18 +55,18 @@
 
 //**************************************
 #define PROGNAME    "PolyMoSim"
-#define VERSION     "1.1.4"
+#define VERSION     "1.1.5"
 #define EPS         0.00000001
 //**************************************
 // #define DEBUG
 //**************************************
 
-#include "CFile/CFile2_1.h"
+#include "CFile/CFile2_3.h"
 #include <cstdlib>
 #include <cstdio>
-#include "faststring2.h"
+#include "faststring3.h"
 
-#include "global-types-and-parameters.h"
+#include "global-types-and-parameters.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -79,6 +80,7 @@
 
 // Switch on a single DEBUGCODE section by adding a D in front
 #define DDEBUGCODE(x) x
+#define NODEBUGCODE(x)
 
 #define SPECIAL_COMMENT -2;
 

@@ -1,7 +1,8 @@
 /***************************************************************************************************
 *  The PolyMoSim project is distributed under the following license:
 *  
-*  Copyright (c) 2006-2022, Christoph Mayer, Forschungsmuseum Alexander Koenig, Bonn, Germany
+*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
+*  Bonn, Germany
 *  All rights reserved.
 *  
 *  Redistribution and use in source and binary forms, with or without
@@ -100,9 +101,9 @@ class CSplit
 
   void set(std::vector<int> vec)
   {
-    int i=0, n=vec.size();
+    int n=(int)vec.size();
 
-    for (; i<n; ++i)
+    for (int i=0; i<n; ++i)
     {
       split.set(vec[i]);
     }
@@ -115,12 +116,12 @@ class CSplit
 
   unsigned count_taxa_in_ingroup()
   {
-    return split.count();
+    return (unsigned) split.count();
   }
 
   unsigned size()
   {
-    return split.size();
+    return (unsigned) split.size();
   }
 
   bool compatible_with(const CSplit& s_b) const
