@@ -91,21 +91,8 @@ const char welcome_str[] =
             "\n\n"
             "      Welcome to " PROGNAME ", version " VERSION ",\n"
             "      a program to simulate the evolution of nucleotide and amino acid sequences.\n"
-            "      Copyright (C) 2007-2021 Christoph Mayer.\n"
-/*             "      This program is distributed directly by the author in\n" */
-/*             "      form of binary executables.\n" */
-/*             "      It can be used freely for academic purposes.\n" */
-/*             "      Results obtained with it can be published without\n" */
-/*             "      restrictions, provided the program and its author are\n" */
-/*             "      acknowledged by name.\n" */
-/*             "      It is not allowed to use Phobos for commercial\n" */
-/*             "      purposes without permission from the author.\n" */
-/*             "      This version of Phobos is still a test version.\n" */
-/*             "      Phobos comes without warranty!\n\n" */
-/*             "      Important note: The search mode: Search for repeats with\n" */
-/*             "                      a minimum percentage perfection is not\n" */
-/*             "                      fully implemented in this version.\n\n\n"; */
-  "\n\n";
+            "      Copyright (C) 2007-2025 Christoph Mayer.\n"
+            "\n\n";
 
 
 
