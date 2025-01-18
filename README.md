@@ -108,18 +108,17 @@ set.
 
 -s <unsigned int>,  --seed <unsigned int>  
 (Value required)  The seed value for the random number generator.
-Default: time.  
+Default: time. Do not reply on the default if you start many analyses at the same time.
 
 -f <nexus|phylip|phylip_no_spaces|fasta|site_pattern_freq_absolute
 |site_pattern_freq_relative|site_pattern_freq_absolute_fill
-|site_pattern_freq_relative_fill>,  --outputFormat <nexus|phylip
+|site_pattern_freq_relative_fill> ,  --outputFormat <nexus|phylip
 |phylip_no_spaces|fasta|site_pattern_freq_absolute
 |site_pattern_freq_relative|site_pattern_freq_absolute_fill
 |site_pattern_freq_relative_fill>  
 (Value required)  Output format of sequence data. Default: fasta. The
-site_pattern* format list the site pattern frequencies instead of the alignment. The site_pattern*_fill formats list all patterns the non
-fill formats only the site patterns that occurred in the simulated data
-set.  
+site_pattern* format list the site pattern frequencies instead of the alignment. The site_pattern*_fill formats list all patterns including those that do not exist in the file, the non
+fill formats only list the site patterns that occurred in the simulated data set.  
 
 --,  --ignore_rest  
 Ignores the rest of the labeled arguments following this flag.  
