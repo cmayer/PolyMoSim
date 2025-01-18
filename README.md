@@ -110,8 +110,8 @@ set.
 (Value required)  The seed value for the random number generator.
 Default: time. Do not reply on the default seed if you start many analyses at the same time!
 
--f outputFormat, --outputFormat outputFormat
-where outputFormat can be
+-f OutputFormat, --OutputFormat outputFormat,
+where OutputFormat can be
 - nexus
 - phylip
 - phylip_no_spaces
