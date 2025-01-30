@@ -2146,16 +2146,19 @@ void aa_model::set_model_specific_parameters(CFile *is,
   {
     relR   = wagstarRelativeRates;
     aaFreq = wagstarFrequencies;
+    resR_and_aaFreq_initialised = true;
   }
   else if (modeltype == LG)
   {
     relR   = lgRelativeRates;
     aaFreq = lgFrequencies;
+    resR_and_aaFreq_initialised = true;
   }
   else if (modeltype == DAY)
   {
     relR   = dayRelativeRates;
     aaFreq = dayFrequencies;
+    resR_and_aaFreq_initialised = true;
   }
   else if (modeltype != USER)
   {
@@ -2179,7 +2182,7 @@ void aa_model::set_model_specific_parameters(CFile *is,
 
   if (modeltype != USER) // relR and aaFreq still need to be copied from the models specified.
   {
-    if (resR_and_aaFreq_initialised)
+    if (!resR_and_aaFreq_initialised)
     {
       cerr << "ERROR: relR and aaFreq are used uninitialized. This has to be fixed.\n";
       exit(0);
