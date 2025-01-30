@@ -3,14 +3,14 @@ CPP      = g++
 OBJ      = tree_admin.o model_admin.o mymodel.o BasicNode.o BasicTree.o CRandom.o global-types-and-parameters.o split_admin.o BSplit.o $(RES) discrete_gamma.o PolyMoSim.o 
 LINKOBJ  = tree_admin.o model_admin.o mymodel.o BasicNode.o BasicTree.o CRandom.o global-types-and-parameters.o split_admin.o BSplit.o $(RES) discrete_gamma.o
 
-BIN      =   PolyMoSim-v1.1.5
+BIN      =   PolyMoSim-v1.1.5-rc
 
 CXXFLAGS = $(CXXINCS)  -O3 -Wall -Wextra # -static ## Static linking is recommended e.g. for mingw, 
 CFLAGS   = $(INCS)     -O3 -Wall -Wextra # -static ## Static linking is recommended e.g. for mingw, 
 
 RM       = rm -f
 
-all: PolyMoSim-v1.1.5
+all: PolyMoSim-v1.1.5-rc
 
 
 clean:
@@ -19,8 +19,8 @@ clean:
 # $(BIN): $(OBJ)
 # 	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-PolyMoSim-v1.1.5: $(OBJ) PolyMoSim.o
-	$(CPP) $(CXXFLAGS) $(LINKOBJ) PolyMoSim.o -o PolyMoSim-v1.1.5 $(LIBS)
+PolyMoSim-v1.1.5-rc: $(OBJ) PolyMoSim.o
+	$(CPP) $(CXXFLAGS) $(LINKOBJ) PolyMoSim.o -o PolyMoSim-v1.1.5-rc $(LIBS)
 
 tree_admin.o: tree_admin.cpp tree_admin.h BasicTree.h PolyMoSim.h
 	$(CPP) -c tree_admin.cpp -o tree_admin.o $(CXXFLAGS)
