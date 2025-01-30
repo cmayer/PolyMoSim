@@ -55,7 +55,7 @@
 
 //**************************************
 #define PROGNAME    "PolyMoSim"
-#define VERSION     "1.1.5"
+#define VERSION     "1.1.5-rc"
 #define EPS         0.00000001
 //**************************************
 // #define DEBUG
