@@ -91,7 +91,7 @@ const char welcome_str[] =
             "\n\n"
             "      Welcome to " PROGNAME ", version " VERSION ",\n"
             "      a program to simulate the evolution of nucleotide and amino acid sequences.\n"
-            "      Copyright (C) 2007-2021 Christoph Mayer.\n"
+            "      Copyright (C) 2007-2025 Christoph Mayer.\n"
 /*             "      This program is distributed directly by the author in\n" */
 /*             "      form of binary executables.\n" */
 /*             "      It can be used freely for academic purposes.\n" */
