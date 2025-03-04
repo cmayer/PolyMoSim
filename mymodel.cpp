@@ -462,7 +462,7 @@ void molecular_model<N>::normalize_rrates()
   absolute.setToProductOf(A, pi_diag);
   x = -absolute.trace();
 
-  if (global_verbosity > 9)
+  if (global_verbosity >= 100)
   {
     cerr << "Value of relative rate correction for model " << modelname << ": " << x << endl;
   }
@@ -522,63 +522,85 @@ void molecular_model<N>::set_matrices()
     pi_sqrt_inv[i] = 1/std::sqrt(pi[i]);
   }
 
-  DEBUGCODE( cerr << endl << "relRates" << endl );
-  DEBUGCODE( relRates.print() );
+  if (global_verbosity >= 200)
+  {
+    cerr << endl << "relRates" << endl;
+    relRates.print();
+  }
 
   D.assign_diagonal(pi);
   D_sqrt.assign_diagonal(pi_sqrt);
   D_sqrt_inv.assign_diagonal(pi_sqrt_inv);
 
-  DEBUGCODE( cerr << endl  << "D" << endl );
-  DEBUGCODE( D.print() );
-  DEBUGCODE( cerr << endl  << "D_sqrt" << endl );
-  DEBUGCODE( D_sqrt.print() );
-  DEBUGCODE( cerr << endl  << "D_sqrt_inv" << endl );
-  DEBUGCODE( D_sqrt_inv.print() );
+  if (global_verbosity >= 200)
+  {
+    cerr << endl  << "D" << endl;
+    D.print();
+    cerr << endl  << "D_sqrt" << endl;
+    D_sqrt.print();
+    cerr << endl  << "D_sqrt_inv" << endl;
+    D_sqrt_inv.print();
+  }
 
   DsqrtB.setToProductOf(D_sqrt, relRates);
 
-  DEBUGCODE( cerr << endl << "DsqrtB" << endl );
-  DEBUGCODE( DsqrtB.print() );
+  if (global_verbosity >= 200)
+  {
+    cerr << endl << "DsqrtB" << endl;
+    DsqrtB.print();
+  }
 
   DsqrtBDsqrt.setToProductOf(DsqrtB, D_sqrt);
 
-  DEBUGCODE( cerr << endl  << "DsqrtBDsqrt" << endl );
-  DEBUGCODE( DsqrtBDsqrt.print() );
+  if (global_verbosity >= 200)
+  {
+    cerr << endl  << "DsqrtBDsqrt" << endl;
+    DsqrtBDsqrt.print();
+  }
 
   DsqrtBDsqrt.EigenVectorsValues_JCM(U, eigenvalues);
 
-  DEBUGCODE( cerr << endl  << "U" << endl );
-  DEBUGCODE( U.print() );
-  DEBUGCODE({ cerr << endl  << "eigenvalues" << endl; eigenvalues.print(); });
+  if (global_verbosity >= 200)
+  {
+    cerr << endl  << "U" << endl;
+    U.print();
+    cerr << endl  << "eigenvalues" << endl;
+    eigenvalues.print();
+  }
 
   if (! U.orthogonal())
   {
     cerr << "The matrix of eigenvectors is not orthogonal.\nPlease make sure that all relative rates and frequencies are positive numbers (>0)."
-    << endl;
+         << endl;
     exit(1);
   }
 
   U_inv = U;
   U_inv.transpose();
 
-  DEBUGCODE({ cerr << endl  << "U_inv" << endl; U_inv.print(); cerr << endl; });
-  DEBUGCODE({ staticSquareMatrix<N> U_e;
+  if (global_verbosity >= 200)
+  {
+    cerr << endl  << "U_inv" << endl;
+    U_inv.print();
+    cerr << endl;
+    staticSquareMatrix<N> U_e;
     U_e.setToProductOf(U, U_inv);
     cerr << endl << "U_e" << endl;
     U_e.print();
-  });
+  }
 
   T.setToProductOf(D_sqrt, U);
   T_inv.setToProductOf(U_inv, D_sqrt_inv);   // (D_sqrt*U^-1) = U^-1*D_sqrt^-1
 
-  DEBUGCODE({ cerr << endl  << "T" << endl; T.print(); });
-  DEBUGCODE({ cerr << endl  << "T_inv" << endl; T_inv.print(); });
-  DEBUGCODE({ staticSquareMatrix<N> T_e;
+  if (global_verbosity >= 200)
+  {
+    cerr << endl  << "T" << endl; T.print();
+    cerr << endl  << "T_inv" << endl; T_inv.print();
+    staticSquareMatrix<N> T_e;
     T_e.setToProductOf(T, T_inv);
     cerr << endl << "T_e" << endl;
     T_e.print();
-  });
+  }
 }
 
 
@@ -703,7 +725,7 @@ void molecular_model<N>::init_siterates(unsigned len, bool reinit)
     dummy                   = new double [ncat];
     siterates_in_categories = new double [ncat];
 
-    if (global_verbosity > 3)
+    if (global_verbosity >= 100)
       cerr << "Calling DiscreteGamma" << endl;
     DiscreteGamma(dummy, siterates_in_categories, shape, shape, ncat, 0);
   }
@@ -715,7 +737,7 @@ void molecular_model<N>::init_siterates(unsigned len, bool reinit)
     // We simply copy the array, so we do not have to change existing code.
     unsigned i;
 
-    if (global_verbosity > 3)
+    if (global_verbosity >= 100)
       cerr << "Initializing explicit rate categories." << endl;
 
     for (i=0; i<ncat; ++i)
@@ -828,7 +850,7 @@ void molecular_model<N>::init_siterates(unsigned len, bool reinit)
     }
   }
 
-  if (global_verbosity > 3)
+  if (global_verbosity >= 100)
   {
     cerr.setf(ios::fixed);
     cerr.precision(6);
@@ -841,7 +863,7 @@ void molecular_model<N>::init_siterates(unsigned len, bool reinit)
 
   if (siterates_in_categories)
   {
-    if (global_verbosity > 3)
+    if (global_verbosity >= 100)
     {
       cerr << "  rates_cats of Model: " << get_modelname() << ": ";
       print_array(siterates_in_categories, siterates_in_categories+ncat, cerr);
@@ -938,8 +960,11 @@ void molecular_model<N>::evolve(const faststring &parent_seq, faststring &new_se
       P.setToProductOf(tmp, T_inv);
     }
 
-    DEBUGCODE( cerr << endl  << "P" << " for branch length: " << branchlength << ", gamma rate: " << *siterates_pos << endl );
-    DEBUGCODE( P.print() );
+    if (global_verbosity >= 100)
+    {
+      cerr << endl  << "P for branch length: " << branchlength << ", gamma rate: " << *siterates_pos << endl;
+      P.print();
+    }
 
     // Lets roll the dice:
     ran = random_lf_co();
@@ -957,23 +982,27 @@ void molecular_model<N>::evolve(const faststring &parent_seq, faststring &new_se
     if (abs(1-prob_sum) > 1e-14) // Correct if difference to 1 is too large. A smaller difference than is tolerated.
     {
       double correction_factor = 1.0/prob_sum; // This is the correction factor
-#ifdef REPORT_PROBABILITY_DIFFERENCE
-      unsigned long pos = it - (unsigned char *) parent_seq.begin();
-      cerr << "WARNING: Probability sum != 1 for site: " << pos  << " 1+" << prob_sum-1 << endl;
-      cerr << "Correction factor: 1+" << correction_factor-1 << endl;
-
+      if (global_verbosity >= 100)
+      {
+        unsigned long pos = it - (unsigned char *) parent_seq.begin();
+        cerr << "MINOR WARNING: Probability sum != 1 for site: " << pos  << " 1+" << prob_sum-1 << endl;
+        cerr << "Correction needed. Correction factor: 1+" << correction_factor-1 << endl;
+      }
       prob_sum=0;
       for (int i=0; i<N; ++i)
         prob_sum += P(i,sym_index)*correction_factor;
 
-      cerr << "...Probability sum after correction: " << pos  << " 1+" << prob_sum-1 << endl;
-
-      if (abs(1-prob_sum) > 1e-14)
+      if (global_verbosity >= 100)
       {
         unsigned long pos = it - (unsigned char *) parent_seq.begin();
-        cerr << "WARNING: Probability_sum is still != 1 for site: " << pos  << " 1+" << prob_sum-1 << endl;
+        cerr << "...Probability sum after correction: " << pos  << " 1+" << prob_sum-1 << endl;
+        if (abs(1-prob_sum) > 1e-14)
+        {
+          unsigned long pos = it - (unsigned char *) parent_seq.begin();
+          cerr << "MAJOR  WARNING: Probability_sum is still != 1 for site: " << pos  << " 1+" << prob_sum-1 << endl;
+        }
       }
-#endif
+
       probability_sum=0;
       for (int i=0; i<N; ++i)
       {
@@ -1054,7 +1083,7 @@ void molecular_model<N>::print_site_rates_histogramm_data(ostream &os, faststrin
   double    *histrates;
   //  unsigned  numrates;
 
-  //    if (global_verbosity >= 50)
+  //    if (global_verbosity >= 200)
   //      os << "Computing histogram for ncat=" << ncat << " and model: " << modelname << endl;
 
   // Invariant sites are not represented well in this function.
@@ -1100,7 +1129,7 @@ void molecular_model<N>::print_site_rates_histogramm_data(ostream &os, faststrin
     delete [] histrates;
   }
 
-  //    if (global_verbosity >= 50)
+  //    if (global_verbosity >= 200)
   //      os << "First five site rates: " << siterates[0]
   //  	 << " "  << siterates[1]
   //  	 << " "  << siterates[2]
@@ -1426,7 +1455,7 @@ void molecular_model<N>::read_next_model(CFile& is) {
         pi[N-1] = 1 - sum;
         sum += pi[N-1];
 
-        if (global_verbosity > 8)
+        if (global_verbosity >= 100)
         {
           cerr << "For model " << modelname << " the last base frequency was not specified and has been determined to be: " << pi[N-1] << endl;
         }
@@ -1438,7 +1467,7 @@ void molecular_model<N>::read_next_model(CFile& is) {
         //	  throw readerror(is.line(), "Base frequencies do not add up to 1.");
       }
 
-      //       if (global_verbosity > 8)
+      //       if (global_verbosity > 200)
       //       {
       // 	cerr << "For model " << modelname << " the sum of specified base frequency is: " << sum << endl;
       //       }

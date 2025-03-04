@@ -1,8 +1,7 @@
 /***************************************************************************************************
 *  The PolyMoSim project is distributed under the following license:
 *  
-*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
-*  Bonn, Germany
+*  Copyright (c) 2006-2022, Christoph Mayer, Forschungsmuseum Alexander Koenig, Bonn, Germany
 *  All rights reserved.
 *  
 *  Redistribution and use in source and binary forms, with or without
@@ -391,9 +390,15 @@ void BasicTree::evolve_next_node(BasicNode* node) {
   //  faststring new_seq;
   double br_length;
 
-  if (node->get_parent() == NULL) {
-    DEBUGCODE( { cerr << "Wurzel: " << endl;   cerr << node->get_sequence() << endl << endl; } );
-  } else {
+  if (node->get_parent() == NULL)
+  {
+    if (global_verbosity >= 100)
+    {
+      cerr << "Wurzel: " << endl;   cerr << node->get_sequence() << endl << endl;
+    }
+  }
+  else
+  {
     faststring &parent_seq = node->get_parent()->get_sequence();
     faststring &new_seq    = node->get_sequence();
     
@@ -401,19 +406,22 @@ void BasicTree::evolve_next_node(BasicNode* node) {
     //    end_pos_new = node-> get_sequence().end();
     //    char * blub;
 
-    DEBUGCODE( cerr << "scalefactor:              "  << scalefactor << endl );
-    DEBUGCODE( cerr << "node->get_branchlength(): "  << node->get_branchlength() << endl );
+    if (global_verbosity >= 200)
+    {
+      cerr << "scalefactor:              "  << scalefactor << endl;
+      cerr << "node->get_branchlength(): "  << node->get_branchlength() << endl;
+    }
 
     br_length = node->get_branchlength()*scalefactor;
     node->get_model()->evolve(parent_seq, new_seq, br_length);
-    DEBUGCODE( if (0)
+
+    if (global_verbosity >= 200)
     { 
       cerr << "Evolve branch before node:" << endl;
       cerr << "Node name:  " << node->get_name() << endl;
       cerr << "Model name: " << node->get_model()->get_modelname() << endl;
+      cerr << "Node:         " << node->get_name() << endl; cerr << "Evolved seq.: " << new_seq << endl;
     }
-	       );
-    DEBUGCODE({ cerr << "Node:         " << node->get_name() << endl; cerr << "Evolved seq.: " << new_seq << endl; });
   }
 
   for(unsigned i = 0; i < node->get_num_children(); ++i) {

@@ -182,13 +182,13 @@ const basic_model* model_admin::get_model(faststring str) {
 
 void model_admin::init_models(double (*r_gamma)(double, double), double (*r_lfco)())
 {
-  if (global_verbosity > 3)
+  if (global_verbosity >= 4)
   {
     cerr << modelvector.size() << " models have been found in the model file, which we initialze now." << endl;
   }
   for(unsigned i = 0; i < modelvector.size(); ++i)
   {
-    if (global_verbosity > 3)
+    if (global_verbosity >= 4)
     {
       cerr << "Initializing model: " << modelvector[i]->get_modelname() << endl;
     }
@@ -202,7 +202,7 @@ void model_admin::reset_siterates()
 {
   for(unsigned i = 0; i < modelvector.size(); ++i)
   {
-    if (global_verbosity > 3)
+    if (global_verbosity >= 4)
     {
       cerr << "Resetting siterates for model: " << modelvector[i]->get_modelname() << endl;
     }
@@ -214,17 +214,17 @@ void model_admin::init_siterates(unsigned len, bool reinit)
 {
   // reinit is not yet implemented. The variable is mainly a placeholder for the idea to do that in the future.
 
-  if (global_verbosity > 3)
+  if (global_verbosity >= 4)
     cerr << "Call to function: init_siterates. Found " << modelvector.size() << " models to initialize." << endl;
 
   if (reinit) // should never be true in current implementation
   {
-    if (global_verbosity > 3)
+    if (global_verbosity >= 4)
       cerr << "init_siterates: reinit mode" << endl;
   }
   else // No reinit: We will also reset the siterates if they have been set before
   {
-    if (global_verbosity > 3)
+    if (global_verbosity >= 4)
       cerr << "init_siterates: first initialisation or complete reinit with reallocation of memory." << endl;
 
     //    reset_siterates();  // Currently this is called in the main function.
@@ -235,7 +235,7 @@ void model_admin::init_siterates(unsigned len, bool reinit)
   //  if (!reinit)
   {
     // Debug code: List all model and from where they inherit their siterates from:
-    if (global_verbosity > 3)
+    if (global_verbosity >= 4)
     {
       cerr << "Model names and the name of the model they inherit siterates from:" << endl;
       for(unsigned i = 0; i < modelvector.size(); ++i)
@@ -261,13 +261,13 @@ void model_admin::init_siterates(unsigned len, bool reinit)
       // Only of not we can initialize it now.
       if (modelvector[i]->get_modelname_siterates_are_inherited_from() == "")
       {
-	if (global_verbosity > 3)
+	if (global_verbosity >= 4)
 	  cerr << "Direct initialization of siterates of model: " << modelvector[i]->get_modelname() << endl;
 	modelvector[i]->init_siterates(len, reinit);
       }
       else
       {
-	if (global_verbosity > 3)
+	if (global_verbosity >= 4)
 	  cerr << "Initialization has been posponed due to inheritance of siterates for model: " << modelvector[i]->get_modelname() << endl;
       }
     }
@@ -356,7 +356,7 @@ void model_admin::init_siterates(unsigned len, bool reinit)
 	exit(0);
       }
     }
-    if (global_verbosity > 3)
+    if (global_verbosity >= 4)
       cerr << "Initialisation of site rates has been completed with success." << endl;
   }
 

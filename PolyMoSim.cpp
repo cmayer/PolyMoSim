@@ -96,7 +96,7 @@ void welcome(ofstream &of, const char *s="")
 
 void report_seed(FILE *of, const char *s="")
 {
-  if (global_verbosity > 0)
+  if (global_verbosity >= 1)
   {
     fprintf(of, "%sRandom number generator: %s\n",   s, randomNumberGeneratorNames[global_rg]);
     fprintf(of, "%sSeed of random generator: %u\n\n", s, global_seed_random_generator);
@@ -483,7 +483,7 @@ int main(int argc, char** argv)
   
   seedrandom(global_seed_random_generator);
   
-  if (global_verbosity > 1)
+  if (global_verbosity >= 2) // More-progress
   {
     cerr << "Reading model file." << endl;
   }
@@ -498,12 +498,12 @@ int main(int argc, char** argv)
     cerr << "Reason: " << x.getUnknwonKeyword() << endl;
     exit(1);
   }
-  if (global_verbosity > 1)
+  if (global_verbosity >= 2)
   {
     cerr << "Model file has been read successfully.\n" << endl;
   }
   
-  if (global_verbosity > 1)
+  if (global_verbosity >= 2)
   {
     cerr << "Reading tree file." << endl;
   }
@@ -527,24 +527,24 @@ int main(int argc, char** argv)
     exit(0);
   }
   
-  if (global_verbosity > 1)
+  if (global_verbosity >= 2)
   {
     cerr << "Tree file has been read successfully.\n" << endl;
   }
   
-  if (global_verbosity > 1)
+  if (global_verbosity >= 1)
   {
     cerr << "Initializing models." << endl;
   }
   
   model_master.init_models(random_gamma, random_lf_co);
   
-  if (global_verbosity > 1)
+  if (global_verbosity >= 1)
   {
     cerr << "Finished initializing models.\n" << endl;
   }
   
-  if (global_verbosity > 4)
+  if (global_verbosity >= 2)
   {
     cerr << endl;
     cerr << "Models that have been read from the file:" << endl;
@@ -597,9 +597,9 @@ int main(int argc, char** argv)
       {
         logfile << "Simulating partition: " << i+1 << endl;
       }
-      if (global_verbosity > 50)
+      if (global_verbosity >= 4 )
       {
-        cerr << "Simulating partition " << i+1 << endl;
+        cerr << "Simulating partition: " << i+1 << endl;
       }
       // Currently, this loop contains code that could be moved to the tree_master:
       //    The following code manages the conversion of the tree string to the
@@ -623,7 +623,10 @@ int main(int argc, char** argv)
       iss.clear();
       faststring tmp_str_ = *currTreeString;
       iss.str(tmp_str_.c_str());
-      DEBUGCODE(     cerr << "iss.str():                   " << iss.str() << endl);
+      if (global_verbosity >= 100)
+      {
+        cerr << "iss.str():                   " << iss.str() << endl;
+      }
       
       if (global_logging)
       {
@@ -639,7 +642,7 @@ int main(int argc, char** argv)
       {
         myPrint(logfile, "Start sequence: ", currStartsequence->c_str(), "\n");
       }
-      if (global_verbosity > 95)
+      if (global_verbosity >= 200)
       {
         cerr << "Start sequence: " << endl << *currStartsequence << endl;
       }
@@ -668,24 +671,24 @@ int main(int argc, char** argv)
       {
         currTree->set_read_model_status(true);
         currTree->read_tree(iss, tree_master.getScalingFactor(i));
-        if (global_verbosity > 4)
+        if (global_verbosity >= 4)
         {
           cerr << "Tree for this partition as in memory (before linking models): " << endl;
           currTree->output(cerr, 1);
           cerr << endl;
         }
         
-        if (global_verbosity > 3)
+        if (global_verbosity >= 3)
         {
           cerr << "Linking nodes of tree to models."  << endl;
         }
         currTree->link_models_to_tree(&model_master, startModelCurrTree);
-        if (global_verbosity > 3)
+        if (global_verbosity >= 3)
         {
           cerr << "Finished linking nodes of tree to models." << endl;
         }
         
-        if (global_verbosity > 3)
+        if (global_verbosity >= 4)
         {
           cerr << "Tree for this partition (after linking models):           ";
           currTree->output(cerr, 1);
@@ -714,7 +717,7 @@ int main(int argc, char** argv)
       model_master.init_siterates( currPartitionSize, reinit_siterates);
       reinit_siterates = true;  // After first initialisation we will always reinit siterates
       
-      //       if (global_verbosity > 25)
+      //       if (global_verbosity >= 100)
       //       {
       // 	//      model_master.print_relative_site_rates(cerr);
       // 	model_master.print_site_rates_histogramm_data(cerr);
@@ -734,8 +737,10 @@ int main(int argc, char** argv)
         model_master.print_relative_site_rates(os_siterates_data);
         os_siterates_data.close();
       }
-      
-      DEBUGCODE( cerr << "Tree/partition number i before evolve: " << i << endl );
+      if (global_verbosity >= 4)
+      {
+        cerr << "Tree/partition number i before evolve: " << i << endl;
+      }
       currTree->evolve_tree();
     } // End of inner loop - all partitions
     

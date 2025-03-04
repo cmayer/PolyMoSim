@@ -235,7 +235,13 @@ void init_param()
   global_log_file              = ""; // string("PolyMoSim_") + number2str((unsigned)time(NULL)) + ".log";
   global_logging               = false;
 
-  global_verbosity             = 1; // Reason: 0: no output, 1: only report seed, which we should report by default. 
+  global_verbosity             = 1; //   0: essential output
+                                    //   1: and basic information,
+                                    //   2: and model and tree information,
+                                    //   3: more progress
+                                    //   4: more progress and inheritance information
+                                    // 100: Debug code
+                                    // 200: More debug code
 }
 
 
@@ -333,7 +339,9 @@ int read_and_init_parameters(int argc, char** argv)
     cmd.add( global_model_file_Arg );
 
     ValueArg<unsigned> global_verbosity_file_Arg("", "verbosity",
-	"Adjust the level of additional information given to the user. Values from 0-5 are valid. Default 1. Set to 0 for less output.",
+      "Adjust the level of additional information given to the user. Values from 0-200 are valid. "
+      "Default 1. Verbosity levels 0: essential output only, 1: add basic information, 2: add model and tree information, "
+      "3: add more progress, 4: add progress details and inheritance information, 100: add debug outout, 200: add more debug outut.",
 	false, global_verbosity, "integer");
     cmd.add( global_verbosity_file_Arg );
 
