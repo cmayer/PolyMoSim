@@ -1,55 +1,3 @@
-/***************************************************************************************************
-*  The PolyMoSim project is distributed under the following license:
-*  
-*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
-*  Bonn, Germany
-*  All rights reserved.
-*  
-*  Redistribution and use in source and binary forms, with or without
-*  modification, are permitted provided that the following conditions are met:
-*  1. Redistributions of source code (complete or in parts) must retain
-*     the above copyright notice, this list of conditions and the following disclaimer.
-*  2. Redistributions in binary form must reproduce the above copyright
-*     notice, this list of conditions and the following disclaimer in the
-*     documentation and/or other materials provided with the distribution.
-*  3. All advertising materials mentioning features or any use of this software
-*     e.g. in publications must display the following acknowledgement:
-*     This product includes software developed by Christoph Mayer, Forschungsmuseum
-*     Alexander Koenig, Bonn, Germany.
-*  4. Neither the name of the organization nor the
-*     names of its contributors may be used to endorse or promote products
-*     derived from this software without specific prior written permission.
-*  
-*  THIS SOFTWARE IS PROVIDED BY CHRISTOPH MAYER ''AS IS'' AND ANY
-*  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-*  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHTHOLDER OR ITS ORGANISATION BE LIABLE FOR ANY
-*  DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-*  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-*  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-*  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-*  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-*  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*  
-*  IMPORTANT (needs to be included, if code is redistributed):
-*  Please not that this license is not compatible with the GNU Public License (GPL)
-*  due to paragraph 3 in the copyright. It is not allowed under any
-*  circumstances to use the code of this software in projects distributed under the GPL.
-*  Furthermore, it is not allowed to redistribute the code in projects which are
-*  distributed under a license which is incompatible with one of the 4 paragraphs above.
-*  
-*  This project makes use of code coming from other projects. What follows is a complete
-*  list of files which make use of external code. Please refer to the copyright within
-*  these files.
-*  
-*  Files in tclap foler:         Copyright (c) 2003 Michael E. Smoot
-*                                See copyright in tclap/COPYRIGHT file for details.	
-*  discrete_gamma.c:             Copyright 1993-2004 by Ziheng Yang.
-*                                See copyright in this file for details.
-*  CRandom.h:                    Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
-*                                See copyright in this file for details.
-***************************************************************************************************/
-
 #ifndef FASTSTRING3_H
 #define FASTSTRING3_H
 
@@ -174,12 +122,12 @@ class CharLookup
 };
 
 
-inline char char_toupper(char c)
+inline char toupper_char(char c)
 {
   return toupper_lookup[(unsigned char)c];
 }
 
-inline char char_lower(char c)
+inline char tolower_char(char c)
 {
   return tolower_lookup[(unsigned char)c];
 }
@@ -204,16 +152,6 @@ split_respect (Container &l, const faststring &s, char const * const ws = "\r\n\
 template <typename Container>
 typename Container::size_type
 split_strict (Container &l, const faststring &s, char const * const ws = " \t\n");
-
-inline char toupper_char(char c)
-{
-  return toupper_lookup[(int)c];
-}
-
-inline char tolower_char(char c)
-{
-  return tolower_lookup[(int)c];
-}
 
 namespace {
   inline bool is_in_symbol_list__(char c, const char* wstr="\r\n\t\v\f ")
@@ -884,10 +822,10 @@ public:
     size_type old_len = _len;
     size_type s_len   = s._len;
     size_type new_len = old_len + s_len;
-    
-    _len = new_len;
-    
+
     reserve(new_len);
+    _len = new_len;
+
     memcpy(_buf+old_len, s._buf, s_len);
     return *this;
   }
@@ -3595,6 +3533,10 @@ inline std::ostream &operator<<(std::ostream &out, const faststring  &str)
   return out;
 }
 
+
+/* This old version caused a warning in append:
+ warning: 'void* memcpy(void*, const void*, size_t)' specified size 18446744073709551611 exceeds maximum object size 9223372036854775807 [-Wstringop-overflow=]
+ memcpy(_buf+old_len, s._buf, s_len);
 inline faststring operator+(const faststring &a, const faststring &b)
 {
   faststring res;
@@ -3604,6 +3546,17 @@ inline faststring operator+(const faststring &a, const faststring &b)
   //  a += b;
   return res;
 }
+ */
+
+inline faststring operator+(const faststring &a, const faststring &b)
+{
+  faststring res(a);           // copy-construct from a
+  res.reserve(a.size() + b.size());  // pre-allocate final size
+  res.append(b);               // append only b
+  return res;
+}
+
+
 
 inline std::istream &getline(std::istream &is, faststring &str)
 {
