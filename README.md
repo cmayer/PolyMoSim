@@ -96,7 +96,12 @@ PolyMoSim-vx.y.z -m <string> -t <string> [--verbosity <integer>] [-o <string>] [
 |site_pattern_freq_relative_fill>] [--] [-v] [-h]  
 ```
 
-### Required command line parameters:   
+### Required command line arguments:
+
+| Option                     | Description               |
+| -------------------------- | ------------------------- |
+| `-m, --modelfile <string>` | Model file for simulation |
+| `-t, --treefile <string>`  | Tree file for simulation  |  
 
 ```-m <string>,  --modelfile <string>```
 (value required)  Model file for simulation.  
