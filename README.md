@@ -99,9 +99,11 @@ PolyMoSim-vx.y.z -m <string> -t <string> [--verbosity <integer>] [-o <string>] [
 ### Required command line arguments:
 
 ```-m <string>,  --modelfile <string>```
+
 (value required)  Model file for simulation.  
 
 ```-t <string>,  --treefile <string>```
+
 (value required)  Tree file for simulation.  
 
 ### Optional command line parameters:
