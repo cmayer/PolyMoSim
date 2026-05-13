@@ -54,7 +54,37 @@ A full list of command line parameters is given below.
 ### Examples:
 Example simulations are provided in the Examples folder. See the [Examples/README-Examples.md](Examples/README-Examples.md) for a list of examples and a brief explanation.
 
+### List of evolutionary models avaiable for simulates:
+
+Nucleotide and amino acid models have to be specified in the model file. Models that shall be used are specified in the tree file. There a model is specified for the whole tree. Models can be altered for each branch. Models that are changed on a branch will be used for the whole clade, unless another model is specified for a subclade.
+
+A good starting point is to look at the examples in the Example folder.
+
+Any number of nucleotide and amino acid substitution models can be specified in the model file.
+A model specification consists of a model name, the model type, and the model parameters.
+
+**Nucleotide models:**
+- For nucleotide models the following model types are known: JC, F81, K2P, F84, HKY, GTR.
+
+Depending on the model type, different model parameters can be specified: tstv, rrates, shape, ncat, propinv, base_frequencies, siterate-distribution. The siterate-distribution parameter allows specifying a site rate distribution function using the following operations and functions: "+", "-", "*", "/", "^", "#", "$", "Dist_Gauss", "Dist_Gamma", "Dist_Uniform", "Heavy", "Gamma", "Dist_Beta", "Dist_Cauchy", "Dist_Uniform_Interval". More documentation will be added. The mathematical expression is parsed and evaluated in math_expression_parser.h.
+
+**Amino Acid models:**
+JTT, LG, WAG_OLD, WAG, WAG_STAR, DAY, Qplant, Qpfam, Qmammal, Qinsect, Qbird, Qlg, Qyeast.
+User specified models are also possible. Here the relative rates and the amino acid frequencies have to be specified in the model file. An example is provided in the Example-3_aa-models folder.
+
+As for nucleotide models, the following model parameters can be specified: rrates, shape, ncat, propinv, base_frequencies, siterate-distribution. 
+
+Remark: Amino acid substitution matrices are hard coded in the mymodel.cpp file. This file also contains references to the models.
+
+**Mixture models:**
+Mixture models can be specified by using multiple partitions in the tree file.
+
+
+
+
+
 ### Full list of command line parameters:
+```
 PolyMoSim-vx.y.z  [--verbosity <integer>] -m <string> -t <string> [-o <string>] [-l <string>] [-n <unsigned>]
 [--print_siterate_data <string>]
 [--print_siterate_histogram <string>]
@@ -64,10 +94,10 @@ PolyMoSim-vx.y.z  [--verbosity <integer>] -m <string> -t <string> [-o <string>] 
 |site_pattern_freq_relative
 |site_pattern_freq_absolute_fill
 |site_pattern_freq_relative_fill>] [--] [-v] [-h]  
-
+```
 
 Where:   
---verbosity <integer>  
+```--verbosity <integer>```  
 (value required)  Adjust the level of additional information given to the user. Values from 0-5 are valid. Default 1. Set to 0 for less
 output.  
 
