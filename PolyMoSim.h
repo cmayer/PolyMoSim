@@ -1,7 +1,7 @@
 /***************************************************************************************************
 *  The PolyMoSim project is distributed under the following license:
 *  
-*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
+*  Copyright (c) 2006-2026, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
 *  Bonn, Germany
 *  All rights reserved.
 *  
@@ -50,12 +50,14 @@
 *                                See copyright in this file for details.
 ***************************************************************************************************/
 
+
+
 #ifndef ASTERIX_H
 #define ASTERIX_H
 
 //**************************************
 #define PROGNAME    "PolyMoSim"
-#define VERSION     "1.1.6-devel"
+#define VERSION     "1.1.7"
 #define EPS         0.00000001
 //**************************************
 // #define DEBUG

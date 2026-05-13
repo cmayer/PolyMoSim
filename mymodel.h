@@ -425,9 +425,8 @@ public:
 //*************************************************
 class aa_model : public molecular_model<20> {
 private:
-  enum         enummodeltype  { USER, JTT, LG, WAG_OLD, WAG, WAG_STAR, DAY};
-  enum         sym_enum   { aaA, aaR, aaN, aaD, aaC, aaQ, aaE, aaG, aaH, aaI,
-    aaL, aaK, aaM, aaF, aaP, aaS, aaT, aaW, aaY, aaV };
+  enum         enummodeltype  { USER, JTT, LG, WAG_OLD, WAG, WAG_STAR, DAY, Qplant, Qpfam, Qmammal, Qinsect, Qbird, Qlg, Qyeast};
+  enum         sym_enum   { aaA, aaR, aaN, aaD, aaC, aaQ, aaE, aaG, aaH, aaI, aaL, aaK, aaM, aaF, aaP, aaS, aaT, aaW, aaY, aaV };
 
   const static int              number_of_known_models = 3;
   const static char             modeltypenames[][9];

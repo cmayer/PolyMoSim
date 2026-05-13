@@ -82,7 +82,7 @@ void model_admin::create(const char *filename) {
     if (start.size() == 0 ||  start[0] == '#')
     {
       ignore_spaces(is);
-      is.getline(start);
+      is.getline(start); // Read next line
       start.shorten_to_first_occurrence_of('#');
       start.removeSpacesBack();
       continue;
