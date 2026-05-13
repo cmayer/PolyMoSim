@@ -85,7 +85,7 @@ Mixture models can be specified by using multiple partitions in the tree file.
 
 ### Full list of command line parameters:
 ```
-PolyMoSim-vx.y.z  [--verbosity <integer>] -m <string> -t <string> [-o <string>] [-l <string>] [-n <unsigned>]
+PolyMoSim-vx.y.z -m <string> -t <string> [--verbosity <integer>] [-o <string>] [-l <string>] [-n <unsigned>]
 [--print_siterate_data <string>]
 [--print_siterate_histogram <string>]
 [--print_ancestral_seq <string>] [--post <string>]
@@ -96,16 +96,19 @@ PolyMoSim-vx.y.z  [--verbosity <integer>] -m <string> -t <string> [-o <string>] 
 |site_pattern_freq_relative_fill>] [--] [-v] [-h]  
 ```
 
-Where:   
+Required command line parameters:   
+
+```-m <string>,  --modelfile <string>```
+(value required)  Model file for simulation.  
+
+```-t <string>,  --treefile <string>```
+(value required)  Tree file for simulation.  
+
+Optional command line parameters:
+
 ```--verbosity <integer>```  
 (value required)  Adjust the level of additional information given to the user. Values from 0-5 are valid. Default 1. Set to 0 for less
 output.  
-
-```-m <string>,  --modelfile <string>```
-(Required)  (value required)  Model file for simulation.  
-
-```-t <string>,  --treefile <string>```
-(Required)  (value required)  Tree file for simulation.  
 
 ```-o <string>,  --outfile <string>```
 (Value required)  Name of output file. If not specified, results are printed to standard output.  
