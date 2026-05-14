@@ -152,9 +152,9 @@ Controls the output format of sequence data. Default: `fasta`.
 | `site_pattern_freq_absolute_fill` | Site pattern frequencies (absolute counts, all patterns including unobserved). |
 | `site_pattern_freq_relative_fill` | Site pattern frequencies (relative counts, all patterns including unobserved). |
 
-> The `site_pattern` formats list site pattern frequencies instead of the alignment. The `*_fill` variants include all possible patterns; the non-fill variants list only patterns that occurred in the simulated dataset.
+> The `site_pattern_*` formats output the site pattern frequencies instead of the alignment. The `*_fill` variants include all possible patterns; the non-fill variants list only patterns that occurred in the simulated dataset.
 
-The `site_pattern_freq_relative_fill` is useful for machine learning training.
+The `site_pattern_freq_relative_fill` is useful for machine learning training based on site pattern frequencies.
 
 ### Ancestral & Site Rate Output
 
