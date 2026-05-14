@@ -172,7 +172,7 @@ Controls the output format of sequence data. Default: `fasta`.
 
 | Flag | Description |
 |------|-------------|
-<!--- | `--`, `--ignore_rest` | Ignores all remaining labeled arguments after this flag. | --->
+| `--`, `--ignore_rest` | Ignores all remaining labeled arguments after this flag. |
 | `-v`, `--version` | Display version information and exit. |
 | `-h`, `--help` | Display usage information and exit. |
 
