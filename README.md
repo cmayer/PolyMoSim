@@ -172,88 +172,10 @@ Controls the output format of sequence data. Default: `fasta`.
 
 | Flag | Description |
 |------|-------------|
-| `--`, `--ignore_rest` | Ignores all remaining labeled arguments after this flag. |
-| `-v`, `--version` | Displays version information and exits. |
-| `-h`, `--help` | Displays usage information and exits. |
+<!--- | `--`, `--ignore_rest` | Ignores all remaining labeled arguments after this flag. | --->
+| `-v`, `--version` | Display version information and exit. |
+| `-h`, `--help` | Display usage information and exit. |
 
-
-
-
-**====**
-**Alternative way to present the options:**
-**===**
-
-### Required command line arguments:
-
-```-m <string>,  --modelfile <string>```
-
-(value required)  Model file for simulation.  
-
-```-t <string>,  --treefile <string>```
-
-(value required)  Tree file for simulation.  
-
-### Optional command line parameters:
-
-```--verbosity <integer>```  
-(value required)  Adjust the level of additional information given to the user. Values from 0-5 are valid. Default 1. Set to 0 for less
-output.  
-
-```-o <string>,  --outfile <string>```
-(Value required)  Name of output file. If not specified, results are printed to standard output.  
-
-```-l <string>,  --log <string>```
-(Value required)  File to write log information to.  
-
-```-n <unsigned>,  --nreps <unsigned>```
-(Value required)  Number of independent data generated in simulation.
-Default: 1  
-
-```--print_siterate_data <string>```
-(Value required)  Print full site rates of all models to given file.
-Default: No siterate information is printed.  
-
-```--print_siterate_histogram <string>```
-(Value required)  Print site rates histogram for each model to given file. Default: No site rate information is printed.  
-
-```--print_ancestral_seq <string>```
-(Value required)  With this option and by providing a file name, the ancestral sequence is printed to this file. Default: ancestral
-sequence is not printed  
-
-```--post <string>```
-(Value required)  File included in output after each generated data
-set.  
-
-```--pre <string>```
-(Value required)  File included in output before each generated data
-set.  
-
-```-s <unsigned int>,  --seed <unsigned int>```
-(Value required)  The seed value for the random number generator.
-Default: time. Do not reply on the default seed if you start many analyses at the same time!
-
-```-f OutputFormat, --OutputFormat outputFormat,```
-where OutputFormat can be
-- nexus
-- phylip
-- phylip_no_spaces
-- fasta
-- site_pattern_freq_absolute
-- site_pattern_freq_relative
-- site_pattern_freq_absolute_fill
-- site_pattern_freq_relative_fill  
-(Value required)  Output format of sequence data. Default: fasta. The
-site_pattern formats list the site pattern frequencies instead of the alignment. The site_pattern*_fill formats list all patterns including those that do not exist in the file, the non
-fill formats only list the site patterns that occurred in the simulated data set.
-
-```--,  --ignore_rest```
-Ignores the rest of the labeled arguments following this flag.  
-
-```-v,  --version```
-Displays version information and exits.  
-
-```-h,  --help```
-Displays usage information and exits.  
 
 
 ## Frequently asked questions <a id="Frequently-aksed-questions"></a>
