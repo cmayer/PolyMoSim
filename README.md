@@ -83,7 +83,88 @@ Mixture models can be specified by using multiple partitions in the tree file.
 
 
 
-### Full list of command line parameters:
+
+# PolyMoSim Command Line Reference
+
+## Synopsis
+
+```
+PolyMoSim-vx.y.z -m <string> -t <string> [OPTIONS]
+```
+
+## Required Arguments
+
+| Flag | Description |
+|------|-------------|
+| `-m <string>`, `--modelfile <string>` | Model file for simulation. |
+| `-t <string>`, `--treefile <string>` | Tree file for simulation. |
+
+## Optional Arguments
+
+### Output & Logging
+
+| Flag | Description |
+|------|-------------|
+| `-o <string>`, `--outfile <string>` | Name of output file. If not specified, results are printed to standard output. |
+| `-l <string>`, `--log <string>` | File to write log information to. |
+| `--verbosity <integer>` | Level of additional information given to the user. Valid values: `0`–`5`. Default: `1`. Set to `0` for less output. |
+
+### Simulation Control
+
+| Flag | Description |
+|------|-------------|
+| `-n <unsigned>`, `--nreps <unsigned>` | Number of independent datasets generated in the simulation. Default: `1`. |
+| `-s <unsigned int>`, `--seed <unsigned int>` | Seed value for the random number generator. Default: current time. **Do not rely on the default seed if you start many analyses simultaneously.** |
+
+### Output Format
+
+```
+-f <format>, --OutputFormat <format>
+```
+
+Controls the output format of sequence data. Default: `fasta`.
+
+| Format | Description |
+|--------|-------------|
+| `nexus` | Nexus format. |
+| `phylip` | Phylip format. |
+| `phylip_no_spaces` | Phylip format without spaces. |
+| `fasta` | FASTA format *(default)*. |
+| `site_pattern_freq_absolute` | Site pattern frequencies (absolute counts, observed patterns only). |
+| `site_pattern_freq_relative` | Site pattern frequencies (relative counts, observed patterns only). |
+| `site_pattern_freq_absolute_fill` | Site pattern frequencies (absolute counts, all patterns including unobserved). |
+| `site_pattern_freq_relative_fill` | Site pattern frequencies (relative counts, all patterns including unobserved). |
+
+> The `site_pattern` formats list site pattern frequencies instead of the alignment. The `*_fill` variants include all possible patterns; the non-fill variants list only patterns that occurred in the simulated dataset.
+
+### Ancestral & Site Rate Output
+
+| Flag | Description |
+|------|-------------|
+| `--print_ancestral_seq <string>` | Print the ancestral sequence to the specified file. Default: not printed. |
+| `--print_siterate_data <string>` | Print full site rates for all models to the specified file. Default: not printed. |
+| `--print_siterate_histogram <string>` | Print a site rate histogram for each model to the specified file. Default: not printed. |
+
+### Dataset Wrapping
+
+| Flag | Description |
+|------|-------------|
+| `--pre <string>` | File whose contents are included in the output **before** each generated dataset. |
+| `--post <string>` | File whose contents are included in the output **after** each generated dataset. |
+
+### General
+
+| Flag | Description |
+|------|-------------|
+| `--`, `--ignore_rest` | Ignores all remaining labeled arguments after this flag. |
+| `-v`, `--version` | Displays version information and exits. |
+| `-h`, `--help` | Displays usage information and exits. |
+
+
+
+
+
+
 ```
 PolyMoSim-vx.y.z -m <string> -t <string> [--verbosity <integer>] [-o <string>] [-l <string>] [-n <unsigned>]
 [--print_siterate_data <string>]
