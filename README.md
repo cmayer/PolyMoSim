@@ -177,9 +177,9 @@ Controls the output format of sequence data. Default: `fasta`.
 
 
 
-
-
-
+**====**
+**Alternative way to present the options:**
+**===**
 
 ### Required command line arguments:
 
