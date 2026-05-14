@@ -45,9 +45,10 @@ or
 PolyMoSim-vx.y.z -m model-file.txt -t tree-file.txt 1> simulation-result.fas
 ```
 
-So PolyMoSim requires the model file and the tree file as two required parameters. 
+PolyMoSim has two required paramters: the model file and the tree file. 
 All other parameters are optional. Most of them have default values. Parameters you might want to have a look at are:
-output-file-name (-o), setting the seed for the random number generator (-s) which is important if you do multiple simulations, output format (-f).
+output-file-name (-o), setting the seed for the random number generator (-s) setting the random number seed,
+which is important if you do multiple simulations, and the output format (-f).
 A full list of command line parameters is given below.
 
 
@@ -123,7 +124,7 @@ PolyMoSim-vx.y.z -m <string> -t <string> [OPTIONS]
 |------|-------------|
 | `-o <string>`, `--outfile <string>` | Name of output file. If not specified, results are printed to standard output. |
 | `-l <string>`, `--log <string>` | File to write log information to. |
-| `--verbosity <integer>` | Level of additional information given to the user. Valid values: `0`–`5`. Default: `1`. Set to `0` for less output. |
+| `--verbosity <integer>` | Level of additional information given to the user. Valid values: `0`–`200`. Default: `1`. Set to `0` for less output. Values above >=100 are used for debugging. |
 
 ### Simulation Control
 
@@ -153,20 +154,22 @@ Controls the output format of sequence data. Default: `fasta`.
 
 > The `site_pattern` formats list site pattern frequencies instead of the alignment. The `*_fill` variants include all possible patterns; the non-fill variants list only patterns that occurred in the simulated dataset.
 
+The `site_pattern_freq_relative_fill` is useful for machine learning training.
+
 ### Ancestral & Site Rate Output
 
 | Flag | Description |
 |------|-------------|
 | `--print_ancestral_seq <string>` | Print the ancestral sequence to the specified file. Default: not printed. |
-| `--print_siterate_data <string>` | Print full site rates for all models to the specified file. Default: not printed. |
+| `--print_siterate_data <string>` | Print site rate list for all models to the specified file. Default: not printed. |
 | `--print_siterate_histogram <string>` | Print a site rate histogram for each model to the specified file. Default: not printed. |
 
 ### Dataset Wrapping
 
 | Flag | Description |
 |------|-------------|
-| `--pre <string>` | File whose contents are included in the output **before** each generated dataset. |
-| `--post <string>` | File whose contents are included in the output **after** each generated dataset. |
+| `--pre <string>` | Content of this file is copied into the output **before** each generated dataset. Useful in the nexus format. |
+| `--post <string>` | Content of this file is copied into the output **after** each generated dataset. Useful in the nexus format. |
 
 ### General
 
