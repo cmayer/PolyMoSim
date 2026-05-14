@@ -122,9 +122,9 @@ PolyMoSim-vx.y.z -m <string> -t <string> [OPTIONS]
 
 | Flag | Description |
 |------|-------------|
-| `-o <string>`, `--outfile <string>` | Name of output file. If not specified, results are printed to standard output. |
+| `-o <string>`, `--outfile <string>` | Name of output file the simulated sequence data is written to. Several different file formats can be chosen. If not specified, output is printed to console (standard output). |
 | `-l <string>`, `--log <string>` | File to write log information to. |
-| `--verbosity <integer>` | Level of additional information given to the user. Valid values: `0`–`200`. Default: `1`. Set to `0` for less output. Values above >=100 are used for debugging. |
+| `--verbosity <integer>` | Level of additional information given to the user. Valid values: `0`–`200`. Default: `1`. Set to `0` for less output. Values above >=100 are used for debugging. Steps for which output changes: 0,1,2,3,4,100,200|
 
 ### Simulation Control
 
@@ -139,7 +139,7 @@ PolyMoSim-vx.y.z -m <string> -t <string> [OPTIONS]
 -f <format>, --OutputFormat <format>
 ```
 
-Controls the output format of sequence data. Default: `fasta`.
+Controls the output format for the sequence data. Default: `fasta`.
 
 | Format | Description |
 |--------|-------------|
