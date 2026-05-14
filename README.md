@@ -86,7 +86,21 @@ Mixture models can be specified by using multiple partitions in the tree file.
 
 # PolyMoSim Command Line Reference
 
-## Synopsis
+## Long Synopsis
+
+```
+PolyMoSim-vx.y.z -m <string> -t <string> [--verbosity <integer>] [-o <string>] [-l <string>] [-n <unsigned>]
+[--print_siterate_data <string>]
+[--print_siterate_histogram <string>]
+[--print_ancestral_seq <string>] [--post <string>]
+[--pre <string>] [-s <unsigned int>] [-f <nexus|phylip
+|phylip_no_spaces|fasta|site_pattern_freq_absolute
+|site_pattern_freq_relative
+|site_pattern_freq_absolute_fill
+|site_pattern_freq_relative_fill>] [--] [-v] [-h]  
+```
+
+## Short Synopsis
 
 ```
 PolyMoSim-vx.y.z -m <string> -t <string> [OPTIONS]
@@ -165,17 +179,7 @@ Controls the output format of sequence data. Default: `fasta`.
 
 
 
-```
-PolyMoSim-vx.y.z -m <string> -t <string> [--verbosity <integer>] [-o <string>] [-l <string>] [-n <unsigned>]
-[--print_siterate_data <string>]
-[--print_siterate_histogram <string>]
-[--print_ancestral_seq <string>] [--post <string>]
-[--pre <string>] [-s <unsigned int>] [-f <nexus|phylip
-|phylip_no_spaces|fasta|site_pattern_freq_absolute
-|site_pattern_freq_relative
-|site_pattern_freq_absolute_fill
-|site_pattern_freq_relative_fill>] [--] [-v] [-h]  
-```
+
 
 ### Required command line arguments:
 
