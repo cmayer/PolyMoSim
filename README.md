@@ -89,7 +89,8 @@ Mixture models can be specified by using multiple partitions in the tree file.
 ## Long Synopsis
 
 ```
-PolyMoSim-vx.y.z -m <string> -t <string> [--verbosity <integer>] [-o <string>] [-l <string>] [-n <unsigned>]
+PolyMoSim-vx.y.z -m <string> -t <string>
+[-o <string>] [-l <string>] [-n <unsigned>]
 [--print_siterate_data <string>]
 [--print_siterate_histogram <string>]
 [--print_ancestral_seq <string>] [--post <string>]
@@ -97,7 +98,8 @@ PolyMoSim-vx.y.z -m <string> -t <string> [--verbosity <integer>] [-o <string>] [
 |phylip_no_spaces|fasta|site_pattern_freq_absolute
 |site_pattern_freq_relative
 |site_pattern_freq_absolute_fill
-|site_pattern_freq_relative_fill>] [--] [-v] [-h]  
+|site_pattern_freq_relative_fill>] [--verbosity <integer>]
+[--] [-v] [-h]  
 ```
 
 ## Short Synopsis
