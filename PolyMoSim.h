@@ -57,12 +57,13 @@
 
 //**************************************
 #define PROGNAME    "PolyMoSim"
-#define VERSION     "1.1.7"
+#define VERSION     "1.1.7-devel"
 #define EPS         0.00000001
 //**************************************
 // #define DEBUG
 //**************************************
 
+#include <cstdint>
 #include "CFile/CFile2_3.h"
 #include <cstdlib>
 #include <cstdio>
