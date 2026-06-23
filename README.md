@@ -75,8 +75,8 @@ A model specification consists of a model name, the model type, and the model pa
 Depending on the model type, different model parameters can be specified: tstv, rrates, shape, ncat, propinv, base_frequencies, siterate-distribution. The siterate-distribution parameter allows specifying a site rate distribution function using the following operations and functions: "+", "-", "*", "/", "^", "#", "$", "Dist_Gauss", "Dist_Gamma", "Dist_Uniform", "Heavy", "Gamma", "Dist_Beta", "Dist_Cauchy", "Dist_Uniform_Interval". More documentation will be added. The mathematical expression is parsed and evaluated in math_expression_parser.h.
 
 **Amino Acid models:**
-JTT, LG, WAG_OLD, WAG, WAG_STAR, DAY, Qplant, Qpfam, Qmammal, Qinsect, Qbird, Qlg, Qyeast.
-User specified models are also possible. Here the relative rates and the amino acid frequencies have to be specified in the model file. An example is provided in the Example-3_aa-models folder.
+JTT, LG, WAG_OLD, WAG, WAG_STAR, DAY, Qplant, Qpfam, Qpfam_GB, Qmammal, Qinsect, Qbird, Qlg, Qyeast.
+References for these models can be found in the code file models-aa.cpp. A user specified model is also possible. Here the relative rates and the amino acid frequencies have to be specified in the model file. An example is provided in the Example-3_aa-models folder.
 
 As for nucleotide models, the following model parameters can be specified: rrates, shape, ncat, propinv, base_frequencies, siterate-distribution. 
 
