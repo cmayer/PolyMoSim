@@ -7,7 +7,7 @@ Table of contents:
   * [System requirements:](#system-requirements)
 - [Quickstart](#quickstart)
 - [Documentation](#documentation)
-- [Frequently asked questions](#Frequently-aksed-questions)
+[//]: # - [Frequently asked questions](#Frequently-aksed-questions)
 
 ## About the PolyMoSim program <a id="about-the-PolyMoSim-package"></a>
 
@@ -186,5 +186,5 @@ The `site_pattern_freq_relative_fill` is useful for machine learning training ba
 
 
 
-## Frequently asked questions <a id="Frequently-aksed-questions"></a>
-No questions have been asked so far.
+[//]: # ## Frequently asked questions <a id="Frequently-aksed-questions"></a>
+[//]: # No questions have been asked so far.
