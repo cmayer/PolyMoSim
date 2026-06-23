@@ -55,7 +55,12 @@ A full list of command line parameters is given below.
 ### Examples:
 Example simulations are provided in the Examples folder. See the [Examples/README-Examples.md](Examples/README-Examples.md) for a list of examples and a brief explanation.
 
-### List of evolutionary models avaiable for simulates:
+### Specifying the models of sequence evolution - and list of available evolutionary models
+
+Evolutionary models have to be specified in the model file before they can be used in simulations.
+In simulations, different models can be specified at the root or at any internal node of a tree and independent for every partition of the dataset.
+Model usage is specified in the tree file. Independent models can be specified for each partiontion tree. Within each partition tree they have to be specified for the root and can be replaced at each internal node.
+A model specified for the root or an internal node will be used for all downstream branches unit a new model is specified.
 
 Nucleotide and amino acid models have to be specified in the model file. Models that shall be used are specified in the tree file. There a model is specified for the whole tree. Models can be altered for each branch. Models that are changed on a branch will be used for the whole clade, unless another model is specified for a subclade.
 

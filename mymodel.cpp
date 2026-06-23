@@ -1,7 +1,7 @@
 /***************************************************************************************************
 *  The PolyMoSim project is distributed under the following license:
 *  
-*  Copyright (c) 2006-2026, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
+*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
 *  Bonn, Germany
 *  All rights reserved.
 *  
@@ -124,10 +124,10 @@ const unsigned char nuc_model::symbol_to_index[256]       = {
 // Y	Tyr	Tyrosine        18   89
 // V	Val	Valine          19   86
 
-// { USER, JTT, LG, WAG_OLD, WAG, WAG_STAR, DAY, Qplant, Qpfam, Qmammal, Qinsect, Qbird, Qlg, Qyeast};
-const          char aa_model::modeltypenames[][9] = { "USER", "JTT", "LG", "WAG_OLD", "WAG", "WAG_STAR", "DAY", "Qplant", "Qpfam", "Qmammal", "Qinsect", "Qbird", "Qlg", "Qyeast"};
-const unsigned char aa_model::index_to_symbol[20] =
-{'A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V'};
+/////////////////////// { USER, JTT,  LG, WAG_OLD, WAG, WAG_STAR, DAY, Qplant, Qpfam, Qmammal, Qinsect, Qbird, Qlg, Qyeast};
+//                                                  {  JTT,   JTTDCMut,   LG,   WAG_OLD,   WAG,   WAG_STAR,   DAY,   DCMut,   VT,   PMB,   Blosum62,   Qplant,   Qpfam,   Qpfam_GB,   Qmammal,   Qinsect,   Qbird,   Qlg,   Qyeast,   USER};
+const          char aa_model::modeltypenames[][9] = { "JTT", "JTTDCMUT", "LG", "WAG_OLD", "WAG", "WAG_STAR", "DAY", "DCMUT", "VT", "PMB", "BLOSUM62", "QPLANT", "QPFAM", "QPFAM_GB", "QMAMMAL", "QINSECT", "QBIRD", "QLG", "QYEAST", "USER"};
+const unsigned char aa_model::index_to_symbol[20] = {'A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V'};
 const unsigned char aa_model::symbol_to_index[256] =
 { 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -157,6 +157,8 @@ const unsigned char aa_model::symbol_to_index[256] =
   255, 255, 255, 255, 255, 255  };
 
 
+/* Model were moved to the file models-aa.cpp */
+
 // BEGIN BUILD IN AA MODELS ******************
 
 //---------------------------------------------------
@@ -164,6 +166,21 @@ const unsigned char aa_model::symbol_to_index[256] =
 // D.T. Jones, W.R. Taylor, and J.M. Thornton
 // The rapid generation of mutation data matrices from protein sequences
 // CABIOS  vol. 8 no. 3 1992 pp. 275-282
+// --
+// Numbers here are from https://www.ebi.ac.uk/goldman-srv/dayhoff/jtt-dcmut.dat:
+// Kosiol, C., Goldman, N., 2005. Different Versions of the Dayhoff Rate Matrix. Molecular Biology and Evolution 22, 193–199. https://doi.org/10.1093/molbev/msi005
+// JTT rate matrix prepared using the DCMut method*
+//------------------------------------------------
+//
+// The first part above indicates the symmetric 'exchangeability' parameters s_ij,
+// where s_ij = s_ji.
+// The second part gives the amino acid equilibrium frequencies pi_i.
+// The net replacement rate from i to j is q_ij = pi_j*s_ij.
+//
+// This model is usually scaled so that the mean rate of change at
+// equilibrium, Sum_i Sum_j!=i pi_i*q_ij, equals 1.  You should check this
+// scaling before using the matrix above.  The PAML package will perform
+// this scaling.
 //---------------------------------------------------
 /*static double jttRelativeRates_1[] = {
  0.531678, 0.557967, 0.827445, 0.574478, 0.556725, 1.066681, 1.740159, 0.219970, 0.361684, 0.310007, 0.369437, 0.469395, 0.138293, 1.959599, 3.887095, 4.582565, 0.084329, 0.139492, 2.924161,
@@ -193,6 +210,8 @@ const unsigned char aa_model::symbol_to_index[256] =
  };
  */
 
+
+/*
 static double jttRelativeRates[] = {
   0.531678,
   0.557967, 0.451095,
@@ -307,6 +326,8 @@ static double wagstarFrequencies[20] = {
   0.0866279, 0.043972, 0.0390894, 0.0570451, 0.0193078, 0.0367281, 0.0580589, 0.0832518, 0.0244313, 0.048466, 0.086209, 0.0620286, 0.0195027, 0.0384319, 0.0457631, 0.0695179, 0.0610127, 0.0143859, 0.0352742, 0.0708956
 };
 
+*/
+
 //---------------------------------------------------
 // LG model of amino acid evolution:
 // Le, S. Q., and O. Gascuel. 2008. An improved general amino acid replacement matrix. Mol. Biol. Evol. 25:1307-1320.
@@ -338,6 +359,7 @@ static double wagstarFrequencies[20] = {
  };
  */
 
+/*
 static double lgRelativeRates[] = {
   0.425093,
   0.276818, 0.751878,
@@ -366,6 +388,7 @@ static double lgFrequencies[20] = {
 
 
 //---------------------------------------------------
+// Day model of amino acid evolution:
 // Kosiol, C., and Goldman, N. 2005. Different versions of the Dayhoff rate matrix. 
 // Molecular Biology and Evolution 22:193-199.
 //
@@ -397,6 +420,17 @@ static double dayFrequencies[20] = {
   0.087127, 0.040904, 0.040432, 0.046872, 0.033474, 0.038255, 0.049530, 0.088612, 0.033619, 0.036886, 0.085357, 0.080481, 0.014753, 0.039772, 0.050680, 0.069577, 0.058542, 0.010494, 0.029916, 0.064718
 };
 
+//---------------------------------------------------
+// Q.plant model of amino acid evolution:
+// Minh, B.Q., Dang, C.C., Vinh, L.S., Lanfear, R., 2021. QMaker: Fast and Accurate Method to
+// Estimate Empirical Models of Protein Evolution. Syst Biol 70, 1046–1060.
+// https://doi.org/10.1093/sysbio/syab010
+// With data from:
+// Ran J.H., Shen T.T., Wang M.M., Wang X.Q. 2018. Phylogenomics resolves the
+// deep phylogeny of seed plants and indicates partial convergent or homoplastic evolution between Gnetales and angiosperms. Proc. R. Soc. B 285(1881):1–9.
+
+//---------------------------------------------------
+
 static double QplantRelativeRates[] = {
   0.061995451,
   0.071787018, 0.324146307,
@@ -421,6 +455,15 @@ static double QplantRelativeRates[] = {
 
 double QplantFrequencies[20] = {0.074923000, 0.050500000, 0.038734000, 0.053195000, 0.011300000, 0.037499000, 0.068513000, 0.059627000, 0.021204000, 0.058991000, 0.102504000, 0.067306000, 0.022371000, 0.043798000, 0.037039000, 0.084451000, 0.047850000, 0.012322000, 0.030777000, 0.077097000};
 
+//---------------------------------------------------
+// Q.pfam of amino acid evolution:
+// Minh, B.Q., Dang, C.C., Vinh, L.S., Lanfear, R., 2021. QMaker: Fast and Accurate Method to
+// Estimate Empirical Models of Protein Evolution. Syst Biol 70, 1046–1060.
+// https://doi.org/10.1093/sysbio/syab010
+// With data from:
+// El-Gebali S., Mistry J., Bateman A., Eddy S.R., Luciani A., Potter S.C.,
+// Qureshi M., Richardson L.J., Salazar G.A., Smart A., Sonnhammer E.L.L., Hirsh L., Paladin L., Piovesan D., Tosatto S.C.E., Finn R.D. 2019. The Pfam protein families database in 2019. Nucleic Acids Res. 47(D1):D427-D432.
+//---------------------------------------------------
 static double QpfamRelativeRates[] = {
   0.531344742,
   0.266631781, 0.610524242,
@@ -445,6 +488,15 @@ static double QpfamRelativeRates[] = {
 
 double QpfamFrequencies[20] = {0.085788000, 0.057731000, 0.042028000, 0.056462000, 0.010447000, 0.039548000, 0.067799000, 0.064861000, 0.021040000, 0.055398000, 0.100413000, 0.059401000, 0.019898000, 0.042789000, 0.039579000, 0.069262000, 0.055498000, 0.014430000, 0.033233000, 0.064396000};
 
+//---------------------------------------------------
+// Q.mammal of amino acid evolution:
+// Minh, B.Q., Dang, C.C., Vinh, L.S., Lanfear, R., 2021. QMaker: Fast and Accurate Method to
+// Estimate Empirical Models of Protein Evolution. Syst Biol 70, 1046–1060.
+// https://doi.org/10.1093/sysbio/syab010
+// With data from:
+// Wu S.Y., Edwards S., Liu L. 2018. Genome-scale DNA sequence data and
+// the evolutionary history of placental mammals. Data Brief 18:1972–1975.
+//---------------------------------------------------
 static double QmammalRelativeRates[] = {
   0.164520503,
   0.133786660, 0.301753825,
@@ -469,6 +521,31 @@ static double QmammalRelativeRates[] = {
 
 double QmammalFrequencies[20] = {0.067997000, 0.055503000, 0.036288000, 0.046867000, 0.021435000, 0.050281000, 0.068935000, 0.055323000, 0.026410000, 0.041953000, 0.101191000, 0.060037000, 0.019662000, 0.036237000, 0.055146000, 0.096864000, 0.057136000, 0.011785000, 0.024730000, 0.066223000};
 
+//---------------------------------------------------
+// Q.insect of amino acid evolution:
+// Minh, B.Q., Dang, C.C., Vinh, L.S., Lanfear, R., 2021. QMaker: Fast and Accurate Method to
+// Estimate Empirical Models of Protein Evolution. Syst Biol 70, 1046–1060.
+// https://doi.org/10.1093/sysbio/syab010
+// With data from:
+// Misof B., Liu S., Meusemann K., Peters R.S., Donath A., Mayer C.,
+// Frandsen P.B., Ware J., Flouri T., Beutel R.G., Niehuis O., Petersen M.,
+// Izquierdo-Carrasco F., Wappler T., Rust J., Aberer A.J., Aspock U.,
+// Aspock H., Bartel D., Blanke A., Berger S., Bohm A., Buckley T.R.,
+// Calcott B., Chen J., Friedrich F., Fukui M., Fujita M., Greve C.,
+// Grobe P., Gu S., Huang Y., Jermiin L.S., Kawahara A.Y., Krogmann L.,
+// Kubiak M., Lanfear R., Letsch H., Li Y., Li Z., Li J., Lu H., Machida R.,
+// Mashimo Y., Kapli P., McKenna D.D., Meng G., Nakagaki Y., Navarrete-Heredia J.L.,
+// Ott M., Ou Y., Pass G., Podsiadlowski L., Pohl H., von Reumont B.M.,
+// Schutte K., Sekiya K., Shimizu S., Slipinski A., Stamatakis A.,
+// Song W., Su X., Szucsich N.U., Tan M., Tan X., Tang M., Tang J.,
+// Timelthaler G., Tomizuka S., Trautwein M., Tong X., Uchifune T.,
+// Walzl M.G., Wiegmann B.M., Wilbrandt J., Wipfler B., Wong T.K., Wu Q.,
+// Wu G., Xie Y., Yang S., Yang Q., Yeates D.K., Yoshizawa K., Zhang Q.,
+// Zhang R., Zhang W., Zhang Y., Zhao J., Zhou C., Zhou L., Ziesmann T.,
+// Zou S., Li Y., Xu X., Zhang Y., Yang H., Wang J., Wang J., Kjer K.M.,
+// Zhou X. 2014. Phylogenomics resolves the timing and pattern of insect
+// evolution. Science 346(6210):763–767.
+//---------------------------------------------------
 static double QinsectRelativeRates[] = {
   0.245103884,
   0.396680459, 0.602596590,
@@ -493,7 +570,20 @@ static double QinsectRelativeRates[] = {
 
 double QinsectFrequencies[20] = {0.063003000, 0.049585000, 0.047550000, 0.048622000, 0.015291000, 0.044058000, 0.072012000, 0.037810000, 0.022358000, 0.066563000, 0.107325000, 0.080621000, 0.023976000, 0.041578000, 0.028532000, 0.081767000, 0.055167000, 0.009698000, 0.032219000, 0.072265000};
 
-
+//---------------------------------------------------
+// Q.bird of amino acid evolution:
+// Minh, B.Q., Dang, C.C., Vinh, L.S., Lanfear, R., 2021. QMaker: Fast and Accurate Method to
+// Estimate Empirical Models of Protein Evolution. Syst Biol 70, 1046–1060.
+// https://doi.org/10.1093/sysbio/syab010
+// With data from:
+// Jarvis E.D., Mirarab S., Aberer A.J., Li B., Houde P., Li C., Ho S.Y.W.,
+// Faircloth B.C., Nabholz B., Howard J.T., Suh A., Weber C.C., da Fonseca R.R.,
+// Alfaro-Nunez A., Narula N., Liu L., Burt D., Ellegren H., Edwards S.V.,
+// Stamatakis A., Mindell D.P., Cracraft J., Braun E.L., Warnow T.,
+// Jun W., Gilbert M.T.P., Zhang G.J., The Avian Phylogenomics Consortium. 2015.
+// Phylogenomic analyses data of the avian phylogenomics project.
+// Gigascience 4(1):1–9.
+//---------------------------------------------------
 static double QbirdRelativeRates[] = {
   0.086772353,
   0.041489234, 0.145522693,
@@ -518,7 +608,12 @@ static double QbirdRelativeRates[] = {
 
 double QbirdFrequencies[20] = {0.066363000, 0.054021000, 0.037784000, 0.047511000, 0.022651000, 0.048841000, 0.071571000, 0.058368000, 0.025403000, 0.045108000, 0.100181000, 0.061361000, 0.021069000, 0.038230000, 0.053861000, 0.089298000, 0.053536000, 0.012313000, 0.027173000, 0.065359000};
 
-
+//---------------------------------------------------
+// Q.lg:
+// Minh, B.Q., Dang, C.C., Vinh, L.S., Lanfear, R., 2021. QMaker: Fast and Accurate Method to
+// Estimate Empirical Models of Protein Evolution. Syst Biol 70, 1046–1060.
+// https://doi.org/10.1093/sysbio/syab010
+//---------------------------------------------------
 static double QlgRelativeRates[] = {
   0.424057540,
   0.271250376, 0.764825201,
@@ -544,7 +639,19 @@ static double QlgRelativeRates[] = {
 double QlgFrequencies[20] = {0.080009000, 0.052947000, 0.041171000, 0.050146000, 0.015018000, 0.035929000, 0.061392000, 0.064793000, 0.021709000, 0.063895000, 0.106292000, 0.057047000, 0.023440000, 0.047712000, 0.039604000, 0.062980000, 0.052863000, 0.014987000, 0.037434000, 0.070634000};
 
 
-
+//---------------------------------------------------
+// Q.yeast of amino acid evolution:
+// Minh, B.Q., Dang, C.C., Vinh, L.S., Lanfear, R., 2021. QMaker: Fast and Accurate Method to
+// Estimate Empirical Models of Protein Evolution. Syst Biol 70, 1046–1060.
+// https://doi.org/10.1093/sysbio/syab010
+// With data from:
+// Shen X.X., Opulente D.A., Kominek J., Zhou X., Steenwyk J.L., Buh K.V.,
+// Haase M.A.B., Wisecaver J.H., Wang M., Doering D.T., Boudouris J.T.,
+// Schneider R.M., Langdon Q.K., Ohkuma M., Endoh R., Takashima M.,
+// Manabe R., Cadez N., Libkind D., Rosa C.A., DeVirgilio J., Hulfachor A.B.,
+// Groenewald M., Kurtzman C.P., Hittinger C.T., Rokas A. 2018. Tempo and mode
+// of genome evolution in the budding yeast subphylum. Cell 175(6):1533.
+//---------------------------------------------------
 static double QyeastRelativeRates[] = {
   0.289760345,
   0.342709634, 0.718300668,
@@ -568,6 +675,8 @@ static double QyeastRelativeRates[] = {
 };
 
 double QyeastFrequencies[20] = {0.059954000, 0.042032000, 0.052518000, 0.054641000, 0.008189000, 0.040467000, 0.070691000, 0.039935000, 0.018393000, 0.069555000, 0.109563000, 0.081967000, 0.018694000, 0.046979000, 0.031382000, 0.091102000, 0.055887000, 0.010241000, 0.033496000, 0.064313000};
+
+*/
 
 // END BUILD IN AA MODELS ******************
 
@@ -627,14 +736,18 @@ molecular_model<N>::molecular_model(const faststring &s, const molecular_model& 
   }
 }
 
-//Requires a completely specified relRates Matrix
+// Requires a completely specified relRates Matrix
+// A more efficient implementation would be possible, but it it only called one for each model specified in the model file.
 template <int N>
 void molecular_model<N>::normalize_rrates()
 {
   double x;
   staticSquareMatrix<N> A, pi_diag, absolute;
 
-  pi_diag.assign_diagonal(pi);  // Copy frequencies from vector to matrix so we can use matrix algebra here
+  // The following computation is not efficient. Computing the trace of this simple multiplication
+  // can be done much easier.
+
+  pi_diag.assign_diagonal(pi);  // Copy frequencies from vector to matrix so we can use matrix a/Daten/Bio-Daten/Studenten-Projekte/Abgeschlossen/Kevin_Ko_Hsiung/Links fuer aktuelle Beaarbeitung.md5lgebra here
   A.setToProductOf(pi_diag, relRates);  // A = pi * relRates; // A is a dummy variable
   absolute.setToProductOf(A, pi_diag);
   x = -absolute.trace();
@@ -821,25 +934,24 @@ void molecular_model<N>::complete_relRateMatrix()
 
 
   // Set diagonal
-  for (j=0; j<N; ++j)
+  for (i=0; i<N; ++i) // for all rows i
   {
     tmp = 0;
-    for (i=0; i<N; ++i)
+    for (j=0; j<N; ++j) // for all columns j
     {
       if (i != j)
       {
-        tmp += relRates(i,j) * pi[i];
+        tmp += relRates(i,j) * pi[j];  // I swapped the indices in the two loops to make it consistent. Result must be the same.
       }
     }
-    relRates(j,j) = -tmp/pi[j];
+    relRates(i,i) = -tmp/pi[i]; // Row sum is set to zero in R matrix.
   }
 
-//  if (3)
-//  {
-//    cerr << endl << "relRates after setting diagonal:" << endl;
-//    relRates.print();
-//  }
-
+  if (global_verbosity >= 100 || global_verbosity == 11)
+  {
+    cerr << endl << "DEBUG: relRates after setting diagonal:" << endl;
+    relRates.print();
+  }
 }
 
 
@@ -1190,7 +1302,7 @@ void molecular_model<N>::evolve(const faststring &parent_seq, faststring &new_se
 
     // We could print a warning, if the difference is larger than a particular threshold. Well an accuracy of 1e-10 is pretty good and we should not worry about this.
 /*
-      if (global_verbosity > 100 && abs(1.0-prob_sum) > 1e-14)
+      if (global_verbosity >= 100 && abs(1.0-prob_sum) > 1e-14)
       {
         unsigned long pos = it - (unsigned char *) parent_seq.begin();
         cerr << "MINOR WARNING: Probability sum != 1 for site: " << pos  << " 1+" << prob_sum-1 << endl;
@@ -2111,11 +2223,11 @@ void nuc_model::set_model_specific_parameters(CFile  *is,
   {
     if (is == NULL)
     {
-      throw setmodelerror("Unknown modeltype");
+      throw setmodelerror("Unknown modeltype" + input_modeltypename);
     }
     else
     {
-      throw readerror(is->line(), "Unknown modeltype");
+      throw readerror(is->line(), "Unknown modeltype: " + input_modeltypename);
     }
   }
 
@@ -2215,7 +2327,7 @@ void nuc_model::set_model_specific_parameters(CFile  *is,
 }
 
 
-int nuc_model::get_modeltype() const
+uint8_t nuc_model::get_modeltype() const
 {
   return modeltype;
 }
@@ -2279,7 +2391,7 @@ double nuc_model::get_PI_C() const {
 //***************************************************
 //** a_model
 //***************************************************
-int  aa_model::get_modeltype() const
+uint8_t  aa_model::get_modeltype() const
 {
   return modeltype;
 }
@@ -2307,32 +2419,41 @@ void aa_model::set_model_specific_parameters(CFile *is,
   }
 
 
-  for (i=USER; i <= DAY; ++i)
+  for (i=0; i <= USER; ++i)
   {
     if ( input_modeltypename == modeltypenames[i] )
       break;
   }
 
-  if (i > DAY)
-    throw readerror(is->line(), "Unknown modeltype");
+  if (global_verbosity > 100 || global_verbosity == 12)
+  {
+    cout << "DEBUG: For model " << input_modeltypename << " I found index " << i << "\n";
+  }
+
+  if (i > USER)
+    throw readerror(is->line(), "Unknown modeltype: "+ input_modeltypename);
   modeltype = i;
 
   if ( specified_tstv )
     throw readerror(is->line()-1, "In the model ending on this line: tstv cannot be specified in protein model.");
 
-  if ( modeltype > USER && specified_rrates )
+  if ( modeltype != USER && specified_rrates )
     throw readerror(is->line()-1, "In the model ending on this line: A relative rate matrix for protein models can only be specified in the USER model.");
 
-  if ( modeltype > USER && specified_base_frequencies )
+  if ( modeltype != USER && specified_base_frequencies )
     throw readerror(is->line()-1, "In the model ending on this line: Base frequencies for protein models can only be specified in the USER model.");
 
-  double *relR = NULL, *aaFreq=NULL;
-  bool   is_lower_triangular_matrix = true;
-  // There is a compiler warning that these can be used uninitialised. I think
-  // this is due to complex if, the compiler does not understand. But anyway.
-  // We want to be sure.
+  const double *relR = NULL, *aaFreq=NULL;
 
-  if (modeltype == JTT)
+//  bool   is_lower_triangular_matrix = true;
+  // There is a compiler warning that these can be used uninitialised if they are not initialised with NULL or similar.
+
+  //************
+  // Assign rates and frequencies to array pointers.
+  //************
+
+/* Old code:
+  if (modeltype == JTT || modeltype == JTTDCMut)
   {
     relR   = jttRelativeRates;
     aaFreq = jttFrequencies;
@@ -2358,13 +2479,11 @@ void aa_model::set_model_specific_parameters(CFile *is,
     relR   = lgRelativeRates;
     aaFreq = lgFrequencies;
   }
-  else if (modeltype == DAY)
+  else if (modeltype == DCMut)
   {
     relR   = dayRelativeRates;
     aaFreq = dayFrequencies;
   }
-
-
   else if (modeltype == Qplant)
   {
     relR   = QplantRelativeRates;
@@ -2405,6 +2524,24 @@ void aa_model::set_model_specific_parameters(CFile *is,
     faststring err = "No data is available for this model: " + input_modeltypename;
     throw readerror(is->line()-1, err.c_str() );
   }
+*/
+
+//
+
+  if (modeltype < USER)
+  {
+    relR   = aaModelList[modeltype].rates;
+    aaFreq = aaModelList[modeltype].freqs;
+  }
+  else if (modeltype == USER)
+  {
+
+  }
+  else
+  {
+    faststring err = "No data is available for this model: " + input_modeltypename;
+    throw readerror(is->line()-1, err.c_str() );
+  }
 
   if (modeltype == USER) // USER type
   {
@@ -2419,7 +2556,7 @@ void aa_model::set_model_specific_parameters(CFile *is,
     }
   }
 
-  if (modeltype != USER) // relR and aaFreq still need to be copied from the models specified.
+  if (modeltype < USER) // relR and aaFreq still need to be copied from the models specified. For a USER model this has already been done.
   {
     if (!aaFreq || !relR)
     {
@@ -2427,7 +2564,8 @@ void aa_model::set_model_specific_parameters(CFile *is,
       exit(0);
     }
 
-    if ( !is_lower_triangular_matrix ) // for the elements, row by row, of an upper triangular matrix
+//    if ( !is_lower_triangular_matrix ) // for the elements, row by row, of an upper triangular matrix
+    if ( aaModelList[modeltype].encoding ==  aa_model::MatrixEncoding::UpperTriangle)
     {
       k=0;
       for (i=0; i < 20; ++i) {           // for all rows i
@@ -2436,7 +2574,7 @@ void aa_model::set_model_specific_parameters(CFile *is,
         }
       }
     }
-    else  // For elements, row by row, from a lower triangular matrix, e.g. the PAML standard representation.
+    else if ( aaModelList[modeltype].encoding ==  aa_model::MatrixEncoding::LowerTriangle) // For elements, row by row, from a lower triangular matrix, e.g. the PAML standard representation.
     {     // Since the rate matrix is symmetric, the lower diagonal can be inserted into the upper diagonal.
       k=0;
       for (i=0; i < 20; ++i) {         // For all rows i (which become cols in relRates)

@@ -1,55 +1,3 @@
-/***************************************************************************************************
-*  The PolyMoSim project is distributed under the following license:
-*  
-*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
-*  Bonn, Germany
-*  All rights reserved.
-*  
-*  Redistribution and use in source and binary forms, with or without
-*  modification, are permitted provided that the following conditions are met:
-*  1. Redistributions of source code (complete or in parts) must retain
-*     the above copyright notice, this list of conditions and the following disclaimer.
-*  2. Redistributions in binary form must reproduce the above copyright
-*     notice, this list of conditions and the following disclaimer in the
-*     documentation and/or other materials provided with the distribution.
-*  3. All advertising materials mentioning features or any use of this software
-*     e.g. in publications must display the following acknowledgement:
-*     This product includes software developed by Christoph Mayer, Forschungsmuseum
-*     Alexander Koenig, Bonn, Germany.
-*  4. Neither the name of the organization nor the
-*     names of its contributors may be used to endorse or promote products
-*     derived from this software without specific prior written permission.
-*  
-*  THIS SOFTWARE IS PROVIDED BY CHRISTOPH MAYER ''AS IS'' AND ANY
-*  EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-*  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHTHOLDER OR ITS ORGANISATION BE LIABLE FOR ANY
-*  DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-*  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-*  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-*  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-*  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-*  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*  
-*  IMPORTANT (needs to be included, if code is redistributed):
-*  Please not that this license is not compatible with the GNU Public License (GPL)
-*  due to paragraph 3 in the copyright. It is not allowed under any
-*  circumstances to use the code of this software in projects distributed under the GPL.
-*  Furthermore, it is not allowed to redistribute the code in projects which are
-*  distributed under a license which is incompatible with one of the 4 paragraphs above.
-*  
-*  This project makes use of code coming from other projects. What follows is a complete
-*  list of files which make use of external code. Please refer to the copyright within
-*  these files.
-*  
-*  Files in tclap foler:         Copyright (c) 2003 Michael E. Smoot
-*                                See copyright in tclap/COPYRIGHT file for details.	
-*  discrete_gamma.c:             Copyright 1993-2004 by Ziheng Yang.
-*                                See copyright in this file for details.
-*  CRandom.h:                    Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura
-*                                See copyright in this file for details.
-***************************************************************************************************/
-
 #ifndef MymodelH
 #define MymodelH
 
@@ -239,8 +187,8 @@ public:
   faststring         get_modelname() const;
   ////          void           set_modelname(const faststring &s); // Dangeros with model_map
 
-  virtual int            get_modeltype() const=0;
-  virtual faststring         get_modeltypename() const=0;
+  virtual uint8_t        get_modeltype() const=0;
+  virtual faststring     get_modeltypename() const=0;
   virtual void           get_random_sequence(faststring&, unsigned) const;
   //  const    get_modeltypenames() const=0;
 
@@ -312,7 +260,7 @@ public:
 private:
   enum         sym_enum       {  nA, nC, nG, nT};
 
-  const static int              number_of_known_models = 6;
+  const static int              number_of_known_models = 6; // Not used.
   const static char             modeltypenames[][6];
   const static unsigned char    index_to_symbol[4];
   const static unsigned char    symbol_to_index[256];
@@ -399,8 +347,8 @@ public:
   }
 
 
-  virtual int           get_modeltype() const;
-  virtual faststring        get_modeltypename() const;
+  virtual uint8_t       get_modeltype() const;
+  virtual faststring    get_modeltypename() const;
   virtual void          print(std::ostream&, unsigned);
   virtual void          print(FILE *, unsigned);
 
@@ -419,13 +367,14 @@ public:
 
 };
 
-
+// OLD VERSION: Here just for reference.
 //*************************************************
 // aa_model
-//*************************************************
+//************************************************* VT PMB Blosum62
+/*
 class aa_model : public molecular_model<20> {
 private:
-  enum         enummodeltype  { USER, JTT, LG, WAG_OLD, WAG, WAG_STAR, DAY, Qplant, Qpfam, Qmammal, Qinsect, Qbird, Qlg, Qyeast};
+  enum         enummodeltype  { JTT, JTTDCMut, LG, WAG_OLD, WAG, WAG_STAR, DAY, DCMut, VT, PMB, Blosum62, Qplant, Qpfam, Qmammal, Qinsect, Qbird, Qlg, Qyeast, USER};
   enum         sym_enum   { aaA, aaR, aaN, aaD, aaC, aaQ, aaE, aaG, aaH, aaI, aaL, aaK, aaM, aaF, aaP, aaS, aaT, aaW, aaY, aaV };
 
   const static int              number_of_known_models = 3;
@@ -446,32 +395,98 @@ public:
   aa_model(const faststring &s):molecular_model<20>(s, Protein){};
   aa_model(const faststring &s, const aa_model &m):molecular_model<20>(s, m){};
 
-  virtual int           get_modeltype() const;
+  virtual uint8_t       get_modeltype() const;
+  virtual faststring    get_modeltypename() const;
+  virtual void          print(std::ostream&, unsigned);
+  virtual void          print(FILE *, unsigned);
+};
+*/
+
+
+class aa_model : public molecular_model<20> {
+private:
+  enum         enummodeltype  { JTT, JTTDCMut, LG, WAG_OLD, WAG, WAG_STAR, DAY, DCMut, VT, PMB, Blosum62, Qplant, Qpfam, Qpfam_GB, Qmammal, Qinsect, Qbird, Qlg, Qyeast, USER};
+  enum         sym_enum   { aaA, aaR, aaN, aaD, aaC, aaQ, aaE, aaG, aaH, aaI, aaL, aaK, aaM, aaF, aaP, aaS, aaT, aaW, aaY, aaV };
+
+//  const static int              number_of_known_models = 19; // Not used.
+  const static char             modeltypenames[][9];
+  const static unsigned char    index_to_symbol[20];
+  const static unsigned char    symbol_to_index[256];
+
+  virtual const unsigned char*  get_index_to_symbol() const { return index_to_symbol; }
+  virtual const unsigned char*  get_symbol_to_index() const { return symbol_to_index; }
+
+  virtual void                  set_model_specific_parameters(CFile *,
+                                                              faststring& input_modeltypename,
+                                                              double  input_tstv,
+                                                              bool    specified_tstv,
+                                                              bool    specified_rrates, bool specified_base_frequencies);
+
+public:
+  aa_model(const faststring &s):molecular_model<20>(s, Protein){};
+  aa_model(const faststring &s, const aa_model &m):molecular_model<20>(s, m){};
+
+  virtual uint8_t       get_modeltype() const;
   virtual faststring    get_modeltypename() const;
   virtual void          print(std::ostream&, unsigned);
   virtual void          print(FILE *, unsigned);
 
 
+  // Definiert die Speicherrichtung der Rohdaten im Array
+  enum class MatrixEncoding {
+    LowerTriangle, // Upper triangular matrix (without diagonal, 190 values)
+    UpperTriangle, // Lower triangular matrix (without diagonal, 190 values)
+    SquareMatrix     // Full matrix, 400 values
+  };
+
+  // Datenstruktur, die die Pointer und Metadaten bündelt
+  struct aaBaseModelData {
+    const char* name;         // Textueller Name des Modells                   // TODO: Consider using C++17: std::string_view name; Not used so far, since cluster compilers are often old.
+    const double* freqs;      // Pointer auf das Frequenz-Array (20 Elemente)  // TODO: Consider using C++20: std::span<const double,20> freqs; or const std::array<double,20>* or const std::array<double,20>&
+    const double* rates;      // Pointer auf das Raten-Array (190 Elemente)    // TODO: Consider using C++20: std::span<const double,190> rates;
+    MatrixEncoding encoding;  // Speicher-Orientierung der Raten
+  };
+
 
 };
+  // --- 1. Deklaration aller 19 Modell-Arrays ---
+  // Die eckigen Klammern [] signalisieren dem Compiler, dass es sich um Arrays handelt.
 
+extern const double JTT_freq[];       extern const double JTT_rates[];      //*
+extern const double JTTDCMut_freq[];  extern const double JTTDCMut_rates[]; //*
+extern const double LG_freq[];        extern const double LG_rates[];       //*
+extern const double WAG_OLD_freq[];   extern const double WAG_OLD_rates[];  //*
+extern const double WAG_freq[];       extern const double WAG_rates[];      //*
 
+extern const double WAG_STAR_freq[];  extern const double WAG_STAR_rates[]; //*
+extern const double DAY_freq[];       extern const double DAY_rates[];      //*
+extern const double DCMut_freq[];     extern const double DCMut_rates[];    //*
+extern const double VT_freq[];        extern const double VT_rates[];       //*
+extern const double PMB_freq[];       extern const double PMB_rates[];      //*
 
+extern const double Blosum62_freq[];  extern const double Blosum62_rates[]; //*
+extern const double Qplant_freq[];    extern const double Qplant_rates[];   //*
+extern const double Qpfam_freq[];     extern const double Qpfam_rates[];    //*
+extern const double Qpfam_GB_freq[];  extern const double Qpfam_GB_rates[]; //*
+extern const double Qmammal_freq[];   extern const double Qmammal_rates[];  //*
 
+extern const double Qinsect_freq[];   extern const double Qinsect_rates[];  //*
+extern const double Qbird_freq[];     extern const double Qbird_rates[];    //*
+extern const double Qlg_freq[];       extern const double Qlg_rates[];      //*
+extern const double Qyeast_freq[];    extern const double Qyeast_rates[];   //*
+
+// USER-Modell
+extern double USER_freq[];            extern double USER_rates[];
+
+// --- AA model lookup array --- // The type is specified in the aa_model class.
+extern const aa_model::aaBaseModelData aaModelList[];
 
 
 
 /* class mymodel */
 /* { */
-
-
-
 /*   void      set_model(const faststring&, enummodeltype, enumratetype, double, double, double, double, double, double, double, */
 /* 		      double, double, double, double, double, double); */
-
-
-
-
 /* }; */
 
 
