@@ -123,6 +123,8 @@ where OutputFormat can be
 (Value required)  Output format of sequence data. Default: fasta. The
 site_pattern formats list the site pattern frequencies instead of the alignment. The site_pattern*_fill formats list all patterns including those that do not exist in the file, the non
 fill formats only list the site patterns that occurred in the simulated data set.
+Site pattern frequencies are needed e.g. when training neural networks that require site pattern frequencies as input. See e.g. [DeepNNPhylogeny](https://github.com/cmayer/DeepNNPhylogeny)
+
 
 --,  --ignore_rest  
 Ignores the rest of the labeled arguments following this flag.  
@@ -132,7 +134,6 @@ Displays version information and exits.
 
 -h,  --help  
 Displays usage information and exits.  
-
 
 ## Frequently asked questions <a id="Frequently-aksed-questions"></a>
 No questions have been asked so far.
