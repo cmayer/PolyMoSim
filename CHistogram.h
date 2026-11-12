@@ -1,9 +1,11 @@
 /***************************************************************************************************
 *  The PolyMoSim project is distributed under the following license:
 *  
-*  Copyright (c) 2006-2025, Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change,
-*  Bonn, Germany
+*  Copyright (c) 2006-2025, Christoph Mayer
 *  All rights reserved.
+*  
+*  Author: Christoph Mayer
+*  Affiliation: Leibniz Institute for the Analysis of Biodiversity Change (LIB), Bonn, Germany
 *  
 *  Redistribution and use in source and binary forms, with or without
 *  modification, are permitted provided that the following conditions are met:
@@ -14,8 +16,7 @@
 *     documentation and/or other materials provided with the distribution.
 *  3. All advertising materials mentioning features or any use of this software
 *     e.g. in publications must display the following acknowledgement:
-*     This product includes software developed by Christoph Mayer, Forschungsmuseum
-*     Alexander Koenig, Bonn, Germany.
+*     This product includes software developed by Christoph Mayer.
 *  4. Neither the name of the organization nor the
 *     names of its contributors may be used to endorse or promote products
 *     derived from this software without specific prior written permission.
@@ -53,7 +54,7 @@
 #ifndef CHISTOGRAM_H
 #define CHISTOGRAM_H
 
-// This is the CHistogram class written by Christoph Mayer, Forschungsmuseum Alexander Koenig, Bonn, Germany.
+// This is the CHistogram class written by Christoph Mayer.
 // Discription:
 // This class allowes different binning schemes:
 // 1) User supplied number of bins together with lower and upper value.
