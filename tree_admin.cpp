@@ -32,6 +32,8 @@
 
 #include "tree_admin.h"     // error checking still inconsisten xxxxxxxxxxxxxxxxxxxxxxxx
 #include <iterator>
+#include <climits>
+#include <cstdlib>
 
 using namespace std;
 
@@ -92,7 +94,16 @@ void tree_admin::create(const char* filename) {
     }
     
     temp->scalingfactor = atof(token[0].c_str());  //evtl. mit token[0].ToDouble
-    temp->partitionSize = atoi(token[1].c_str());  //evtl. mit token[1].ToInt
+
+    // atoi would turn e.g. -5 into about 4.3e9 sites when stored as unsigned.
+    unsigned long size = 0;
+    if (token[1].isAnUnsigned())
+      size = strtoul(token[1].c_str(), NULL, 10);
+    if (size == 0 || size > UINT_MAX)
+    {
+      throw readerror(is.line(), "Bad partition size: \"" + token[1] + "\". The alignment length must be a positive integer.");
+    }
+    temp->partitionSize = (unsigned)size;
     temp->default_modelName = token[2];
     temp->default_modelName.ToLower();
     temp->treeString = token[3];

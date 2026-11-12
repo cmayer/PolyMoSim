@@ -34,6 +34,8 @@
 #include "CFile/CFile2_3.h"
 #include "discrete_gamma.hpp"
 #include <cassert>
+#include <climits>
+#include <cstdlib>
 #include "CHistogram.h"
 #include "CDiscretizedDistribution.h"
 #include "math_expression_parser.h"
@@ -1636,14 +1638,18 @@ void molecular_model<N>::read_next_model(CFile& is) {
         throw readerror(is.line(), "Ncat specified twice");
       if (number_of_tokens != 2)
         throw readerror(is.line(), "Bad ncat value");
-      tmp_ncat = splitted[1].ToInt();
+      // ToInt would turn e.g. -1 into about 4.3e9 categories when stored as unsigned.
+      unsigned long ul_ncat = 0;
+      if (splitted[1].isAnUnsigned())
+        ul_ncat = strtoul(splitted[1].c_str(), NULL, 10);
+      if (ul_ncat == 0 || ul_ncat > UINT_MAX)
+        throw readerror(is.line(), "Bad ncat value: Ncat must be a positive integer.");
+      tmp_ncat = (unsigned)ul_ncat;
       if (specified_cat_rates && tmp_ncat != ncat) // Check consistency:
       {
         throw readerror(is.line(), "The number of rates found in cat_rates does not match the number of rate categories specified by ncat.");
       }
       ncat = tmp_ncat;
-      if (ncat <= 0)
-        throw readerror(is.line(), "Bad ncat value: Ncat must be >0.");
       specified_ncat = true;
     }
     else if (splitted[0] == "cat-rates" || splitted[0] == "cat_rates" ) {
@@ -1744,6 +1750,13 @@ void molecular_model<N>::read_next_model(CFile& is) {
       //       {
       // 	cerr << "For model " << modelname << " the sum of specified base frequency is: " << sum << endl;
       //       }
+
+      // Frequencies <= 0 lead to NaNs in set_matrices, which are not detected there.
+      for (i=0; i < N; ++i)
+      {
+        if (pi[i] <= 0)
+          throw readerror(is.line(), "Bad basefreq value: All base frequencies must be > 0. If the last frequency is omitted, the specified frequencies must add up to less than 1.");
+      }
 
       specified_base_frequencies = true;
     }
@@ -1921,6 +1934,8 @@ void molecular_model<N>::set_model(faststring modelname_param,
     for (i=0; i < N; ++i)
     {
       pi[i]  = (*base_param)[i];
+      if (pi[i] <= 0)
+        throw setmodelerror("Bad basefreq value: All base frequencies must be > 0.");
     }
     specified_base_frequencies = true;
   }

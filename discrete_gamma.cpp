@@ -249,6 +249,13 @@ int DiscreteGamma (double freqK[], double rK[], double alpha, double beta, int K
    int i;
    double t, factor=alpha/beta*K, lnga1;       /* alfa/beta = mean lambda value, so this factor is the E(lambda)*K  */
 
+   /* With a single category the code below would read freqK[K-2] = freqK[-1]. */
+   if (K == 1) {
+      freqK[0] = 1;
+      rK[0]    = alpha/beta;
+      return (0);
+   }
+
    if (mode == 0) /* Find mean values in each interval and store them in rK[]  */  {
       lnga1=LnGamma(alpha+1);
       for (i=0; i<K-1; i++) /* cutting points, Eq. 9 */      /* 1.0/K, 2.0/K, ..., (K-1)/K */

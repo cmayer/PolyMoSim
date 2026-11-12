@@ -246,7 +246,12 @@ template <int N>
 
 inline void staticSquareMatrix<N>::assign(double x) {
 
-  std::memset(matrix, x, sizeof(matrix));
+  // memset would set every byte to (int)x, not every double to x.
+  for (int i=0; i<N; ++i)
+
+    for (int j=0; j<N; ++j)
+
+      matrix[i][j] = x;
 
 }
 
