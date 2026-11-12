@@ -1498,8 +1498,7 @@ public:
     _len = a._len;
     
     //    std::cerr << "_len: " << _len << std::endl;
-    
-    reserve(_len+1);
+    reserve(_len);
     memcpy(_buf, a._buf, _len);
     return *this;
   }

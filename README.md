@@ -7,7 +7,7 @@ Table of contents:
   * [System requirements:](#system-requirements)
 - [Quickstart](#quickstart)
 - [Documentation](#documentation)
-- [Frequently asked questions](#Frequently-aksed-questions)
+
 
 ## About the PolyMoSim program <a id="about-the-PolyMoSim-package"></a>
 
@@ -45,17 +45,58 @@ or
 PolyMoSim-vx.y.z -m model-file.txt -t tree-file.txt 1> simulation-result.fas
 ```
 
-So PolyMoSim requires the model file and the tree file as two required parameters. 
+PolyMoSim has two required paramters: the model file and the tree file. 
 All other parameters are optional. Most of them have default values. Parameters you might want to have a look at are:
-output-file-name (-o), setting the seed for the random number generator (-s) which is important if you do multiple simulations, output format (-f).
+output-file-name (-o), setting the seed for the random number generator (-s) setting the random number seed,
+which is important if you do multiple simulations, and the output format (-f).
 A full list of command line parameters is given below.
 
 
 ### Examples:
 Example simulations are provided in the Examples folder. See the [Examples/README-Examples.md](Examples/README-Examples.md) for a list of examples and a brief explanation.
 
-### Full list of command line parameters:
-PolyMoSim-vx.y.z  [--verbosity <integer>] -m <string> -t <string> [-o <string>] [-l <string>] [-n <unsigned>]
+### Specifying the models of sequence evolution - and list of available evolutionary models
+
+Evolutionary models have to be specified in the model file before they can be used in simulations.
+In simulations, different models can be specified at the root or at any internal node of a tree and independent for every partition of the dataset.
+Model usage is specified in the tree file. Independent models can be specified for each partiontion tree. Within each partition tree they have to be specified for the root and can be replaced at each internal node.
+A model specified for the root or an internal node will be used for all downstream branches unit a new model is specified.
+
+Nucleotide and amino acid models have to be specified in the model file. Models that shall be used are specified in the tree file. There a model is specified for the whole tree. Models can be altered for each branch. Models that are changed on a branch will be used for the whole clade, unless another model is specified for a subclade.
+
+A good starting point is to look at the examples in the Example folder.
+
+Any number of nucleotide and amino acid substitution models can be specified in the model file.
+A model specification consists of a model name, the model type, and the model parameters.
+
+**Nucleotide models:**
+- For nucleotide models the following model types are known: JC, F81, K2P, F84, HKY, GTR.
+
+Depending on the model type, different model parameters can be specified: tstv, rrates, shape, ncat, propinv, base_frequencies, siterate-distribution. The siterate-distribution parameter allows specifying a site rate distribution function using the following operations and functions: "+", "-", "*", "/", "^", "#", "$", "Dist_Gauss", "Dist_Gamma", "Dist_Uniform", "Heavy", "Gamma", "Dist_Beta", "Dist_Cauchy", "Dist_Uniform_Interval". More documentation will be added. The mathematical expression is parsed and evaluated in math_expression_parser.h.
+
+**Amino Acid models:**
+JTT, LG, WAG_OLD, WAG, WAG_STAR, DAY, Qplant, Qpfam, Qpfam_GB, Qmammal, Qinsect, Qbird, Qlg, Qyeast.
+References for these models can be found in the code file models-aa.cpp. A user specified model is also possible. Here the relative rates and the amino acid frequencies have to be specified in the model file. An example is provided in the Example-3_aa-models folder.
+
+As for nucleotide models, the following model parameters can be specified: rrates, shape, ncat, propinv, base_frequencies, siterate-distribution. 
+
+Remark: Amino acid substitution matrices are hard coded in the mymodel.cpp file. This file also contains references to the models.
+
+**Mixture models:**
+Mixture models can be specified by using multiple partitions in the tree file.
+
+
+
+
+
+
+# PolyMoSim Command Line Reference
+
+## Long Synopsis
+
+```
+PolyMoSim-vx.y.z -m <string> -t <string>
+[-o <string>] [-l <string>] [-n <unsigned>]
 [--print_siterate_data <string>]
 [--print_siterate_histogram <string>]
 [--print_ancestral_seq <string>] [--post <string>]
@@ -63,77 +104,86 @@ PolyMoSim-vx.y.z  [--verbosity <integer>] -m <string> -t <string> [-o <string>] 
 |phylip_no_spaces|fasta|site_pattern_freq_absolute
 |site_pattern_freq_relative
 |site_pattern_freq_absolute_fill
-|site_pattern_freq_relative_fill>] [--] [-v] [-h]  
+|site_pattern_freq_relative_fill>] [--verbosity <integer>]
+[--] [-v] [-h]  
+```
+
+## Short Synopsis
+
+```
+PolyMoSim-vx.y.z -m <string> -t <string> [OPTIONS]
+```
+
+## Required Arguments
+
+| Flag | Description |
+|------|-------------|
+| `-m <string>`, `--modelfile <string>` | Model file for simulation. |
+| `-t <string>`, `--treefile <string>` | Tree file for simulation. |
+
+## Optional Arguments
+
+### Output & Logging
+
+| Flag | Description |
+|------|-------------|
+| `-o <string>`, `--outfile <string>` | Name of output file the simulated sequence data is written to. Several different file formats can be chosen. If not specified, output is printed to console (standard output). |
+| `-l <string>`, `--log <string>` | File to write log information to. |
+| `--verbosity <integer>` | Level of additional information given to the user. Valid values: `0`–`200`. Default: `1`. Set to `0` for less output. Values above >=100 are used for debugging. Steps for which output changes: 0,1,2,3,4,100,200|
+
+### Simulation Control
+
+| Flag | Description |
+|------|-------------|
+| `-n <unsigned>`, `--nreps <unsigned>` | Number of independent datasets generated in the simulation. Default: `1`. |
+| `-s <unsigned int>`, `--seed <unsigned int>` | Seed value for the random number generator. Default: current time. **Do not rely on the default seed if you start many analyses simultaneously.** |
+
+### Output Format
+
+```
+-f <format>, --OutputFormat <format>
+```
+
+Controls the output format for the sequence data. Default: `fasta`.
+
+| Format | Description |
+|--------|-------------|
+| `nexus` | Nexus format. |
+| `phylip` | Phylip format. |
+| `phylip_no_spaces` | Phylip format without spaces. |
+| `fasta` | FASTA format *(default)*. |
+| `site_pattern_freq_absolute` | Site pattern frequencies (absolute counts, observed patterns only). |
+| `site_pattern_freq_relative` | Site pattern frequencies (relative counts, observed patterns only). |
+| `site_pattern_freq_absolute_fill` | Site pattern frequencies (absolute counts, all patterns including unobserved). |
+| `site_pattern_freq_relative_fill` | Site pattern frequencies (relative counts, all patterns including unobserved). |
 
 
-Where:   
---verbosity <integer>  
-(value required)  Adjust the level of additional information given to the user. Values from 0-5 are valid. Default 1. Set to 0 for less
-output.  
-
--m <string>,  --modelfile <string>  
-(Required)  (value required)  Model file for simulation.  
-
--t <string>,  --treefile <string>  
-(Required)  (value required)  Tree file for simulation.  
-
--o <string>,  --outfile <string>  
-(Value required)  Name of output file. If not specified, results are printed to standard output.  
-
--l <string>,  --log <string>  
-(Value required)  File to write log information to.  
-
--n <unsigned>,  --nreps <unsigned>  
-(Value required)  Number of independent data generated in simulation.
-Default: 1  
-
---print_siterate_data <string>  
-(Value required)  Print full site rates of all models to given file.
-Default: No siterate information is printed.  
-
---print_siterate_histogram <string>  
-(Value required)  Print site rates histogram for each model to given file. Default: No site rate information is printed.  
-
---print_ancestral_seq <string>  
-(Value required)  With this option and by providing a file name, the ancestral sequence is printed to this file. Default: ancestral
-sequence is not printed  
-
---post <string>  
-(Value required)  File included in output after each generated data
-set.  
-
---pre <string>  
-(Value required)  File included in output before each generated data
-set.  
-
--s <unsigned int>,  --seed <unsigned int>  
-(Value required)  The seed value for the random number generator.
-Default: time. Do not reply on the default seed if you start many analyses at the same time!
-
--f OutputFormat, --OutputFormat outputFormat,
-where OutputFormat can be
-- nexus
-- phylip
-- phylip_no_spaces
-- fasta
-- site_pattern_freq_absolute
-- site_pattern_freq_relative
-- site_pattern_freq_absolute_fill
-- site_pattern_freq_relative_fill  
 (Value required)  Output format of sequence data. Default: fasta. The
-site_pattern formats list the site pattern frequencies instead of the alignment. The site_pattern*_fill formats list all patterns including those that do not exist in the file, the non
-fill formats only list the site patterns that occurred in the simulated data set.
+site_pattern formats list the site pattern frequencies instead of the alignment. The site_pattern*_fill formats list all patterns including those that do not exist in the file, the non-fill formats only list the site patterns that occurred in the simulated data set.
 Site pattern frequencies are needed e.g. when training neural networks that require site pattern frequencies as input. See e.g. [DeepNNPhylogeny](https://github.com/cmayer/DeepNNPhylogeny)
 
+The `site_pattern_freq_relative_fill` is useful for machine learning training based on site pattern frequencies.
 
---,  --ignore_rest  
-Ignores the rest of the labeled arguments following this flag.  
+### Ancestral & Site Rate Output
 
--v,  --version  
-Displays version information and exits.  
+| Flag | Description |
+|------|-------------|
+| `--print_ancestral_seq <string>` | Print the ancestral sequence to the specified file. Default: not printed. |
+| `--print_siterate_data <string>` | Print site rate list for all models to the specified file. Default: not printed. |
+| `--print_siterate_histogram <string>` | Print a site rate histogram for each model to the specified file. Default: not printed. |
 
--h,  --help  
-Displays usage information and exits.  
+### Dataset Wrapping
 
-## Frequently asked questions <a id="Frequently-aksed-questions"></a>
-No questions have been asked so far.
+| Flag | Description |
+|------|-------------|
+| `--pre <string>` | Content of this file is copied into the output **before** each generated dataset. Useful in the nexus format. |
+| `--post <string>` | Content of this file is copied into the output **after** each generated dataset. Useful in the nexus format. |
+
+### General
+
+| Flag | Description |
+|------|-------------|
+| `--`, `--ignore_rest` | Ignores all remaining labeled arguments after this flag. |
+| `-v`, `--version` | Display version information and exit. |
+| `-h`, `--help` | Display usage information and exit. |
+
