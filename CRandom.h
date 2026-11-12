@@ -50,7 +50,6 @@
 //
 // Copyright for C++ class hierarchy:
 //    Copyright (C) 2004-2008, Christoph Mayer
-//    All rights reserved. 
 //
 //  As far as external code or published algorithms have been used,
 //    license terms and references are given here: 
