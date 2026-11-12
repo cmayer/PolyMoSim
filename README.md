@@ -158,8 +158,7 @@ Controls the output format for the sequence data. Default: `fasta`.
 | `site_pattern_freq_relative_fill` | Site pattern frequencies (relative counts, all patterns including unobserved). |
 
 
-(Value required)  Output format of sequence data. Default: fasta. The
-site_pattern formats list the site pattern frequencies instead of the alignment. The site_pattern*_fill formats list all patterns including those that do not exist in the file, the non-fill formats only list the site patterns that occurred in the simulated data set.
+The site_pattern formats list the site pattern frequencies instead of the alignment. The site_pattern*_fill formats list all patterns including those that do not exist in the file, the non-fill formats only list the site patterns that occurred in the simulated data set.
 Site pattern frequencies are needed e.g. when training neural networks that require site pattern frequencies as input. See e.g. [DeepNNPhylogeny](https://github.com/cmayer/DeepNNPhylogeny)
 
 The `site_pattern_freq_relative_fill` is useful for machine learning training based on site pattern frequencies.
