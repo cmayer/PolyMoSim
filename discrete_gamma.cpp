@@ -1,10 +1,24 @@
 /*********************************************************************************************************
- *  The code in this file has been taken from Ziheng Yang's PAML package. Version 3.14 (from 2005)
- *  http://abacus.gene.ucl.ac.uk/software/paml.html
- * 
- *  This source code has been slighly modified by the author of PolyMoSim: Christoph Mayer. 
+ *  This file is part of PolyMoSim.
  *
- *  The original copyright statement was:
+ *  The code in this file has been taken from Ziheng Yang's PAML package, version 3.14 (from 2005),
+ *  and has been slightly modified by the author of PolyMoSim: Christoph Mayer.
+ *  Copyright 1993-2004 by Ziheng Yang.
+ *
+ *  Since version 4.9c/4.9e (2016/2017) PAML is distributed under the GNU General Public License
+ *  version 3. The same routines are part of current PAML releases (src/tools.c; some functions
+ *  renamed there, e.g. QuantileNormal, QuantileChi2):
+ *  https://github.com/abacus-gene/paml
+ *  http://abacus.gene.ucl.ac.uk/software/paml.html
+ *
+ *  This file is distributed under the GNU General Public License version 3, as is PolyMoSim as a
+ *  whole (see the file LICENSE). This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ *  PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ *  SPDX-License-Identifier: GPL-3.0-only
+ *
+ *  For reference, the copyright statement of PAML 3.14 was:
  *  Copyright 1993-2004 by Ziheng Yang.
  *  The software package is provided "as is" without warranty of any kind. In no event shall the author or his
  *  employer be held responsible for any damage resulting from the use of this software, including but not

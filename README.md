@@ -7,7 +7,7 @@ Table of contents:
   * [System requirements:](#system-requirements)
 - [Quickstart](#quickstart)
 - [Documentation](#documentation)
-
+- [License](#license)
 
 ## About the PolyMoSim program <a id="about-the-PolyMoSim-package"></a>
 
@@ -186,3 +186,14 @@ The `site_pattern_freq_relative_fill` is useful for machine learning training ba
 | `-v`, `--version` | Display version information and exit. |
 | `-h`, `--help` | Display usage information and exit. |
 
+
+## License <a id="license"></a>
+Copyright (c) 2006-2025 Christoph Mayer  
+Author affiliation: Leibniz Institute for the Analysis of Biodiversity Change (LIB), Bonn, Germany
+
+PolyMoSim is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License version 3 as published by the Free Software Foundation (SPDX: `GPL-3.0-only`). See the [LICENSE](LICENSE) file for the full license text. PolyMoSim is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.
+
+PolyMoSim includes code from other projects:
+- `discrete_gamma.cpp`: routines from Ziheng Yang's [PAML](https://github.com/abacus-gene/paml) package, GNU GPL v3.
+- `CRandom.h`, `CRandom.cpp`: Mersenne Twister MT19937 by Makoto Matsumoto and Takuji Nishimura, BSD 3-clause license.
+- `tclap/`: Templatized C++ Command Line Parser by Michael E. Smoot, MIT license (see `tclap/COPYING`).
