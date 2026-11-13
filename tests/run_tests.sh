@@ -1,4 +1,5 @@
 #!/bin/sh
+# SPDX-License-Identifier: GPL-3.0-only
 # Tests for PolyMoSim.
 #
 # Usage:  sh tests/run_tests.sh [path/to/PolyMoSim]      (or: make test)

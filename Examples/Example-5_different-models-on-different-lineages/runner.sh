@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-only
 rm best-paup-MP-tree.tre
 rm best-paup-ML-tree.tre
 MultiMoSeqSim -m Modelfile5.txt -t tree5.txt -l log.log  -n 10 --post paup-block-ML_MP-analysis.txt   1>sim-sequences.nex
