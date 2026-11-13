@@ -192,8 +192,16 @@ The `site_pattern_freq_relative_fill` is useful for machine learning training ba
 
 
 ## License <a id="license"></a>
-Copyright (c) 2006-2025 Christoph Mayer  
-Author affiliation: Leibniz Institute for the Analysis of Biodiversity Change (LIB), Bonn, Germany
+Copyright (c) 2004-2026 Christoph Mayer and contributors
+
+Author: Dr. Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change (LIB), Bonn, Germany
+
+Contributors:
+- Stefan Richter (major early contributor, see History below)
+- Nikita Kulikov and Dr. Iker Irisarri suggested features for using PolyMoSim with [DeepNNPhylogeny](https://github.com/cmayer/DeepNNPhylogeny).
+- Dr. Anestis Gkanogiannis added the test suite, `make install`, continuous integration via GitHub Actions, and the Conda package.
+
+History: PolyMoSim was started in 2004 as a Diploma thesis project (Stefan Richter, supervised by Christoph Mayer). In particular he implemented the original nucleotide substitution models and sequence evolution.
 
 PolyMoSim is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License version 3 as published by the Free Software Foundation (SPDX: `GPL-3.0-only`). See the [LICENSE](LICENSE) file for the full license text. PolyMoSim is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.
 
