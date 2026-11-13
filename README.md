@@ -17,8 +17,12 @@ It has been designed to test phylogenetic tree reconstruction programs and to tr
 
 ## Compiling and installing PolyMoSim <a id="compiling-and-installing"></a>
 - Download the project or clone the project locally.
-- On the command line go to the project folder and type "make".
-- Make sure that you copy the PolyMoSim-vx.y.z program to a folder that is listed in your $PATH variable so that your system can always find it, copy it to the folder you want to use it from or specify the full path to the program.
+- On the command line go to the project folder and type "make". This builds the program PolyMoSim.
+- Type "make test" to run the tests in the tests folder.
+- Type "make install" to copy PolyMoSim to /usr/local/bin, or "make install PREFIX=$HOME/.local" to copy it to $HOME/.local/bin.
+  Alternatively, copy the PolyMoSim program to a folder that is listed in your $PATH variable so that your system can always find it, copy it to the folder you want to use it from or specify the full path to the program.
+- The compiler and its options can be set with CXX, CXXFLAGS and LDFLAGS, e.g. "make CXX=clang++".
+- "PolyMoSim --version" prints the version.
 
 ### System requirements:  <a id="system-requirements"></a>
 PolyMoSim can be compiled on all platforms, which provide a C++ compiler.
@@ -38,11 +42,11 @@ See the [README-tree-files.md](README-tree-files.md) for more details.
 **Quickstart:**
 The simplest way to start PolyMoSim is as follows:
 ```
-PolyMoSim-vx.y.z -m model-file.txt -t tree-file.txt --outfile simulation-result.fas
+PolyMoSim -m model-file.txt -t tree-file.txt --outfile simulation-result.fas
 ```
 or
 ```
-PolyMoSim-vx.y.z -m model-file.txt -t tree-file.txt 1> simulation-result.fas
+PolyMoSim -m model-file.txt -t tree-file.txt 1> simulation-result.fas
 ```
 
 PolyMoSim has two required paramters: the model file and the tree file. 
@@ -95,7 +99,7 @@ Mixture models can be specified by using multiple partitions in the tree file.
 ## Long Synopsis
 
 ```
-PolyMoSim-vx.y.z -m <string> -t <string>
+PolyMoSim -m <string> -t <string>
 [-o <string>] [-l <string>] [-n <unsigned>]
 [--print_siterate_data <string>]
 [--print_siterate_histogram <string>]
@@ -111,7 +115,7 @@ PolyMoSim-vx.y.z -m <string> -t <string>
 ## Short Synopsis
 
 ```
-PolyMoSim-vx.y.z -m <string> -t <string> [OPTIONS]
+PolyMoSim -m <string> -t <string> [OPTIONS]
 ```
 
 ## Required Arguments

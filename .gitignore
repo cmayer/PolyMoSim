@@ -1,0 +1,4 @@
+# Build products
+*.o
+/PolyMoSim
+/PolyMoSim-v*

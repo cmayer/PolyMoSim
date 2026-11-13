@@ -1,0 +1,106 @@
+# Amino acid models used by run_tests.sh: all fixed rate models, without and with
+# rate heterogeneity (gamma shape and proportion of invariant sites).
+
+begin aa-model
+name: Model_JTT
+modeltype: JTT
+end model
+
+begin aa-model
+name: Model_LG
+modeltype: LG
+end model
+
+begin aa-model
+name: Model_WAG_OLD
+modeltype: WAG_OLD
+end model
+
+begin aa-model
+name: Model_WAG
+modeltype: WAG
+end model
+
+begin aa-model
+name: Model_WAG_STAR
+modeltype: WAG_STAR
+end model
+
+begin aa-model
+name: Model_DAY
+modeltype: DAY
+end model
+
+begin aa-model
+name: Model_Qplant
+modeltype: Qplant
+end model
+
+begin aa-model
+name: Model_Qpfam
+modeltype: Qpfam
+end model
+
+begin aa-model
+name: Model_Qmammal
+modeltype: Qmammal
+end model
+
+begin aa-model
+name: Model_Qinsect
+modeltype: Qinsect
+end model
+
+begin aa-model
+name: Model_Qbird
+modeltype: Qbird
+end model
+
+begin aa-model
+name: Model_Qlg
+modeltype: Qlg
+end model
+
+begin aa-model
+name: Model_Qyeast
+modeltype: Qyeast
+end model
+
+begin aa-model
+name: Model_VT
+modeltype: VT
+end model
+
+begin aa-model
+name: Model_PMB
+modeltype: PMB
+end model
+
+begin aa-model
+name: Model_JTTDCMut
+modeltype: JTTDCMut
+end model
+
+begin aa-model
+name: Model_DCMut
+modeltype: DCMut
+end model
+
+begin aa-model
+name: Model_Blosum62
+modeltype: Blosum62
+end model
+
+begin aa-model
+name: Model_LG_gamma_inv
+modeltype: LG
+shape: 0.5
+pinv: 0.2
+end model
+
+begin aa-model
+name: Model_WAG_gamma_inv
+modeltype: WAG
+shape: 0.5
+pinv: 0.2
+end model

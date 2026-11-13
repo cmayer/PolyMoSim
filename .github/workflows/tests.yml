@@ -1,0 +1,29 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Build
+        run: make -j4
+
+      - name: Tests
+        run: make test
+
+      - name: Install
+        run: |
+          make install PREFIX="$RUNNER_TEMP/polymosim"
+          "$RUNNER_TEMP/polymosim/bin/PolyMoSim" --version

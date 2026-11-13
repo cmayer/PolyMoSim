@@ -1,0 +1,23 @@
+# Nucleotide models used by run_tests.sh.
+begin model
+name: Model_JC
+modeltype: JC
+end model
+
+begin model
+name: Model_HKY
+modeltype: HKY
+tstv: 3
+basefreq: 0.2  0.3  0.2  0.3
+shape: 0.5
+pinv: 0.3
+end model
+
+begin model
+name: Model_GTR
+modeltype: GTR
+rrates: 2 10 3 1 11 1
+basefreq: 0.2  0.3  0.2  0.3
+shape: 0.5
+pinv: 0.3
+end model
