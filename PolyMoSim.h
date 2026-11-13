@@ -1,7 +1,8 @@
 /***************************************************************************************************
 *  This file is part of PolyMoSim.
 *  
-*  Copyright (c) 2004-2026, Christoph Mayer and contributors (see README.md)
+*  Copyright (c) 2004-2026, Christoph Mayer
+*  Contributors: see README.md
 *  
 *  Author: Dr. Christoph Mayer
 *  Affiliation: Leibniz Institute for the Analysis of Biodiversity Change (LIB), Bonn, Germany
@@ -74,7 +75,7 @@ const char welcome_str[] =
             "\n\n"
             "      Welcome to " PROGNAME ", version " VERSION ",\n"
             "      a program to simulate the evolution of nucleotide and amino acid sequences.\n"
-            "      Copyright (C) 2004-2026 Christoph Mayer and contributors.\n"
+            "      Copyright (C) 2004-2026 Christoph Mayer.\n"
             "      This program is free software, distributed under the GNU General Public\n"
             "      License version 3. It comes with ABSOLUTELY NO WARRANTY.\n"
 /*             "      This program is distributed directly by the author in\n" */

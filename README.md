@@ -192,7 +192,7 @@ The `site_pattern_freq_relative_fill` is useful for machine learning training ba
 
 
 ## License <a id="license"></a>
-Copyright (c) 2004-2026 Christoph Mayer and contributors
+Copyright (c) 2004-2026 Christoph Mayer
 
 Author: Dr. Christoph Mayer, Leibniz Institute for the Analysis of Biodiversity Change (LIB), Bonn, Germany
 
