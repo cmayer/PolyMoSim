@@ -249,7 +249,8 @@ int DiscreteGamma (double freqK[], double rK[], double alpha, double beta, int K
    int i;
    double t, factor=alpha/beta*K, lnga1;       /* alfa/beta = mean lambda value, so this factor is the E(lambda)*K  */
 
-   /* With a single category the code below would read freqK[K-2] = freqK[-1]. */
+   // With a single category the code below would read freqK[K-2] = freqK[-1].
+   // This was a problem in the code coming from the paml package and has been fixed here.
    if (K == 1) {
       freqK[0] = 1;
       rK[0]    = alpha/beta;
