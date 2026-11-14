@@ -1,9 +1,14 @@
 #!/bin/sh
+# SPDX-License-Identifier: GPL-3.0-only
 # Tests for PolyMoSim.
 #
 # Usage:  sh tests/run_tests.sh [path/to/PolyMoSim]      (or: make test)
 #
 # The simulations use fixed seeds, so the output has to be identical to the reference files.
+
+# awk must read numbers with a decimal point. In e.g. a German locale mawk reads 0.5 as 0.
+LC_ALL=C
+export LC_ALL
 
 BIN=${1:-./PolyMoSim}
 TESTS=$(cd "$(dirname "$0")" && pwd)

@@ -1,9 +1,10 @@
 /***************************************************************************************************
 *  This file is part of PolyMoSim.
 *  
-*  Copyright (c) 2006-2025, Christoph Mayer
+*  Copyright (c) 2004-2026, Christoph Mayer
+*  Contributors: see README.md
 *  
-*  Author: Christoph Mayer
+*  Author: Dr. Christoph Mayer
 *  Affiliation: Leibniz Institute for the Analysis of Biodiversity Change (LIB), Bonn, Germany
 *  
 *  PolyMoSim is free software: you can redistribute it and/or modify it under the terms of

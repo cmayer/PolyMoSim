@@ -1,4 +1,5 @@
 # Makefile for PolyMoSim
+# SPDX-License-Identifier: GPL-3.0-only
 #
 #   make               Build the program PolyMoSim
 #   make install       Copy PolyMoSim to $(DESTDIR)$(PREFIX)/bin (default: /usr/local/bin)
